@@ -4,7 +4,7 @@ import { AREA, AREAS, type Statement } from "@country/statements";
 import { useLang, tx } from "../i18n";
 import { PANELS } from "@country/panels";
 import type { Answer, Weights as W } from "../lib/scoring";
-import { Avatar, LangSwitch } from "./bits";
+import { LangSwitch } from "./bits";
 
 const pollText = (lang: string, p: string) =>
   lang === "fr" ? p.replace("under", "moins de").replace("up to", "jusqu'à").replace(/(\d)\.(\d)/g, "$1,$2").replace(/%$/, " %") : p;
@@ -17,36 +17,47 @@ export function Intro({ onStart, onResume, savedCount, onCandidate, onExtra }: {
   onExtra: (id: string) => void;
 }) {
   const { lang, t } = useLang();
+  const field = CANDIDATES.filter((c) => !c.withdrawn);
   return (
-    <div>
-      <div className="topbar"><span className="eyebrow">{t.eyebrow}</span><LangSwitch /></div>
-      <h1>{t.title}</h1>
-      <p className="lede">{t.subtitle}</p>
-      <div className="callout">{t.betaBanner}</div>
-      <p>{t.introLead}</p>
-      <p className="small muted">{t.introDates} {t.introTime} {t.introPrivacy}</p>
-      <div className="btn-row">
-        <button className="btn" onClick={onStart}>{savedCount ? t.startOver : t.start}</button>
-        {onResume && <button className="btn btn-ghost" onClick={onResume}>{t.resume(savedCount)}</button>}
+    <div className="intro">
+      <div className="topbar"><span className="kicker">{t.eyebrow}</span><LangSwitch /></div>
+      <header className="masthead">
+        <h1 className="poster-title">{t.title}</h1>
+        <p className="lede">{t.subtitle}</p>
+      </header>
+      <div className="intro-cols">
+        <div>
+          <p className="intro-lead">{t.introLead}</p>
+          <p className="small muted">{t.introDates} {t.introTime} {t.introPrivacy}</p>
+        </div>
+        <div className="intro-go">
+          <button className="btn" onClick={onStart}>{savedCount ? t.startOver : t.start}</button>
+          {onResume && <button className="btn btn-ghost" onClick={onResume}>{t.resume(savedCount)}</button>}
+        </div>
       </div>
 
-      <h2 className="section">{t.candidatesHeading}</h2>
-      <p className="small muted">{t.candidatesNote}</p>
-      <ul className="cand-list">
-        {CANDIDATES.filter((c) => !c.withdrawn).map((c) => (
-          <li key={c.code}>
-            <button className="cand" onClick={() => onCandidate(c.code)}>
-              <Avatar code={c.code} />
-              <span className="cand-text">
-                <span className="cand-name">{c.name}</span>
-                <span className="small muted">{c.party} · {tx(lang, c.bloc)}</span>
-              </span>
-              {c.poll && <span className="mono tiny muted" title={c.pollFrom}>{pollText(lang, c.poll)}{c.pollFrom && "*"}</span>}
-            </button>
-          </li>
-        ))}
-      </ul>
-      <p className="tiny muted">{t.pollsFrom(POLL_SOURCE.label)} * {CANDIDATES.filter((c) => c.pollFrom).map((c) => `${c.short}: ${c.pollFrom}`).join("; ")}.</p>
+      <section className="hoardings" aria-labelledby="field-h">
+        <h2 id="field-h" className="section">{t.candidatesHeading}</h2>
+        <p className="small muted">{t.candidatesNote}</p>
+        <ol className="panels">
+          {field.map((c, i) => (
+            <li key={c.code} className="panel">
+              <span className="panel-plate" aria-hidden="true">{i + 1}</span>
+              <button className="poster" style={{ ["--c" as string]: c.color }} onClick={() => onCandidate(c.code)}>
+                <span className="poster-name">
+                  <span className="poster-first">{c.name.replace(c.short, "").trim()}</span>
+                  <span className="poster-last">{c.short}</span>
+                </span>
+                <span className="poster-party">{c.party}</span>
+                {c.poll && <span className="poster-poll" title={c.pollFrom}>{pollText(lang, c.poll)}{c.pollFrom && "*"}</span>}
+              </button>
+            </li>
+          ))}
+        </ol>
+        <p className="tiny muted">{t.pollsFrom(POLL_SOURCE.label)} * {CANDIDATES.filter((c) => c.pollFrom).map((c) => `${c.short}: ${c.pollFrom}`).join("; ")}.</p>
+      </section>
+
+      <p className="beta-note small">{t.betaBanner}</p>
 
       <div className="ctx-links">
         {PANELS.extraPanels.map((x) => (
@@ -54,6 +65,23 @@ export function Intro({ onStart, onResume, savedCount, onCandidate, onExtra }: {
         ))}
       </div>
     </div>
+  );
+}
+
+/** Progress as a polling-station tally: strokes in fives, the fifth across the four. */
+function Tally({ done, total }: { done: number; total: number }) {
+  const groups = Math.ceil(total / 5);
+  const W = 30, H = 22;
+  return (
+    <svg className="tally" viewBox={`0 0 ${groups * W} ${H}`} aria-hidden="true" preserveAspectRatio="xMinYMid meet">
+      {Array.from({ length: total }, (_, i) => {
+        const g = Math.floor(i / 5), k = i % 5, x0 = g * W + 3;
+        const on = i < done;
+        return k < 4
+          ? <line key={i} x1={x0 + k * 5} y1={3} x2={x0 + k * 5} y2={H - 3} className={on ? "on" : ""} />
+          : <line key={i} x1={x0 - 2} y1={H - 5} x2={x0 + 18} y2={5} className={on ? "on" : ""} />;
+      })}
+    </svg>
   );
 }
 
@@ -81,17 +109,16 @@ export function Question({ s, index, total, value, onAnswer, onBack }: {
   return (
     <div>
       <div className="topbar">
-        <span className="eyebrow">{tx(lang, AREA[s.area])}</span>
-        <span className="mono tiny muted">{index + 1} / {total}</span>
+        <span className="kicker">{tx(lang, AREA[s.area])}</span>
+        <span className="count">{index + 1}<span className="muted"> / {total}</span></span>
       </div>
       <div className="progress" role="progressbar" aria-valuenow={index + 1} aria-valuemin={1} aria-valuemax={total} aria-label={t.progressLabel}>
-        <div style={{ width: `${(index / total) * 100}%` }} />
+        <Tally done={index} total={total} />
       </div>
-      <div className="statement">
-        <span className="ident" aria-hidden="true">{s.id}</span>
+      <div className="ballot">
         <p lang={lang}>{s[lang]}</p>
       </div>
-      <div className="stack" role="group" aria-label={t.yourResponse}>
+      <div className="scale" role="group" aria-label={t.yourResponse}>
         {t.scale.map((label, i) => {
           const v = (i - 2) as Answer;
           return (
@@ -100,12 +127,12 @@ export function Question({ s, index, total, value, onAnswer, onBack }: {
             </button>
           );
         })}
-        <div className="btn-row" style={{ marginTop: 4 }}>
+      </div>
+      <div className="btn-row skip-row">
           <button className="answer answer-skip" aria-pressed={value === null} onClick={() => onAnswer(null)}>
             <span className="key" aria-hidden="true">0</span>{t.skip}
           </button>
           {index > 0 && <button className="btn-ghost" style={{ flex: "0 0 96px" }} onClick={onBack}>{t.back}</button>}
-        </div>
       </div>
       <p className="small muted" style={{ marginTop: 14 }}>{t.keysHint}</p>
     </div>
@@ -118,7 +145,7 @@ export function Weights({ weights, setWeights, onDone }: { weights: W; setWeight
   const { lang, t } = useLang();
   return (
     <div>
-      <div className="topbar"><span className="eyebrow">{t.title}</span><LangSwitch /></div>
+      <div className="topbar"><span className="kicker">{t.title}</span><LangSwitch /></div>
       <h2>{t.weightsHeading}</h2>
       <p className="small muted" style={{ marginTop: 6 }}>{t.weightsLead}</p>
       <div className="weights">

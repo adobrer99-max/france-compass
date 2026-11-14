@@ -16,7 +16,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/fonts");
 
 const QUERY =
-  "family=Archivo:wght@400;600;700" +
+  "family=Archivo:wdth,wght@62..125,400..900" +
   "&family=IBM+Plex+Mono:wght@400;600;700" +
   "&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600" +
   "&display=swap";
@@ -36,7 +36,7 @@ const css = execFileSync("curl", [
 // requested weight. Declaring a weight range serves one file instead of three.
 // IBM Plex Mono is static, so each weight is a separate file.
 const PLAN = {
-  Archivo:          { slug: "archivo",      variable: true,  subsets: ["latin", "latin-ext"], stretch: "100%" },
+  Archivo:          { slug: "archivo",      variable: true,  subsets: ["latin", "latin-ext"], stretch: "62% 125%" },
   "IBM Plex Mono":  { slug: "plex-mono",    variable: false, subsets: ["latin", "latin-ext"] },
   // The serif only ever sets statement text, which is ASCII plus latin-range
   // punctuation, so latin-ext would be 100KB that never renders.

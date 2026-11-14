@@ -28,7 +28,7 @@ export function Grid({ result }: { result: Result }) {
       aria-label={t.chartYou(Math.round(result.user.econ.value), Math.round(result.user.open.value))}>
       <line x1={PAD} y1={H / 2} x2={W - PAD} y2={H / 2} stroke="var(--rule)" />
       <line x1={W / 2} y1={PAD} x2={W / 2} y2={H - PAD} stroke="var(--rule)" />
-      <g fontSize="8" fill="var(--muted)" fontFamily="var(--mono)" letterSpacing="0.08em">
+      <g fontSize="8" fill="var(--muted)" fontFamily="var(--mono)" letterSpacing="0.04em">
         <text x={3} y={H / 2 + 3}>{left.toUpperCase()}</text>
         <text x={W - 3} y={H / 2 + 3} textAnchor="end">{right.toUpperCase()}</text>
         <text x={W / 2} y={12} textAnchor="middle">{closed.toUpperCase()}</text>

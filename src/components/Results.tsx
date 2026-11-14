@@ -25,9 +25,31 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
 
   return (
     <div>
-      <div className="topbar"><span className="eyebrow">{t.title}</span><LangSwitch /></div>
+      <div className="topbar"><span className="kicker">{t.title}</span><LangSwitch /></div>
       <h1>{t.resultsHeading}</h1>
       <p className="small muted" style={{ marginTop: 6 }}>{t.resultsAnswered(result.answered, result.skipped)}</p>
+      {result.ranked[0] && (() => {
+        const m = result.ranked[0], c = BY_CODE[m.code];
+        return (
+          <div className="lead-board">
+            <div className="panel">
+              <span className="panel-plate" aria-hidden="true">1</span>
+              <button className="poster" style={{ ["--c" as string]: c.color }} onClick={() => onCandidate(m.code)}>
+                <span className="poster-name">
+                  <span className="poster-first">{c.name.replace(c.short, "").trim()}</span>
+                  <span className="poster-last">{c.short}</span>
+                </span>
+                <span className="poster-party">{c.party}</span>
+              </button>
+            </div>
+            <div>
+              <p className="lead-label">{t.closestToYou}</p>
+              <p className="lead-pct">{pct(lang, m.weighted)}</p>
+              <p className="small muted">{t.basedOn(m.compared)}</p>
+            </div>
+          </div>
+        );
+      })()}
 
       <h2 className="section">{t.matchHeading}</h2>
       <p className="small muted">{t.matchExplain}</p>

@@ -37,7 +37,7 @@ export function CandidatePanel({ code, onStatement }: { code: CandidateCode; onS
       <h3 className="section-sm">{t.candidateCodes}</h3>
       {AREAS.map((a) => (
         <div key={a.id} className="profile-block">
-          <div className="eyebrow">{tx(lang, a)}</div>
+          <div className="kicker">{tx(lang, a)}</div>
           {STATEMENTS.filter((s) => s.area === a.id).map((s) => (
             <div key={s.id} className="profile-line">
               <CodeChip p={positionOf(code, s.id)} weak={CODES[code]?.[s.id]?.weak} />
@@ -59,7 +59,7 @@ export function StatementPanel({ id, onCandidate }: { id: number; onCandidate: (
   const groups = (["A", "N", "D", "-"] as const).map((p) => ({ p, list: ACTIVE.filter((c) => positionOf(c, id) === p) }));
   return (
     <div>
-      <div className="eyebrow">{tx(lang, AREA[s.area])}</div>
+      <div className="kicker">{tx(lang, AREA[s.area])}</div>
       <p className="statement-big" lang={lang}>{s[lang]}</p>
       {(COUNTRY.langs as readonly Lang[]).filter((l) => l !== lang).map((l) => <p key={l} className="tiny muted" lang={l}>{s[l]}</p>)}
       <p className="small muted">
