@@ -174,7 +174,7 @@ export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: L
   ctx.fillStyle = ENVELOPE;
   ctx.font = `600 15px ${MONO}`;
   ctx.textAlign = "right";
-  ctx.fillText("adamdobrer.ca/projects/france-compass", W - 76, H - 52);
+  ctx.fillText("Adam Dobrer ©", W - 76, H - 52);
   ctx.textAlign = "left";
 }
 
