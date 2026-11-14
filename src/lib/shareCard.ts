@@ -1,3 +1,4 @@
+import { partyLabel } from "../country";
 /* ============================================================
    Share card, carried over from the Israel compass: assume every
    result is screenshotted and posted without the page around it,
@@ -86,7 +87,7 @@ export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: L
     ctx.fillText(c.name, 140, y + 36);
     ctx.fillStyle = MUTED;
     ctx.font = `400 16px ${SANS}`;
-    ctx.fillText(`${c.party} · ${t.basedOn(m.compared)}`, 140, y + 60);
+    ctx.fillText(`${partyLabel(c, lang)} · ${t.basedOn(m.compared)}`, 140, y + 60);
     ctx.fillStyle = INK;
     ctx.font = `700 32px ${MONO}`;
     ctx.textAlign = "right";

@@ -65,7 +65,7 @@ export const CODES: Codes = {
     [1, "D", MW22, "Co-signed the majority motion without a minimum wage"],
     [2, "D", WT25, "Meloni: a wealth tax will 'never see the light' with the right in government"],
     [5, "D", CIT24, "'Not on our agenda'"],
-    [6, "A", ALB23, "The Meloni government's protocol", ],
+    [6, "A", ALB23, "The Meloni government's protocol"],
     [7, "A", UKR26A, "Government decree extending military aid for 2026"],
     [9, "A", CL26W, "Government asked to use the EU escape clause for defence and energy"],
     [10, "D", PAL25, "Recognition only once hostages are freed and Hamas is out of Gaza's government"],
