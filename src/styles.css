@@ -539,3 +539,7 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .nav button { padding: 8px 0; min-height: 24px; }
 
 .share-card { width: 100%; height: auto; border: 1px solid var(--rule); margin: 10px 0 12px; display: block; }
+
+/* placeholder codes: party votes or older platforms, to be sharpened */
+.code-weak { outline: 1.5px dashed currentColor; outline-offset: 1px; opacity: .8; }
+.weak-tag { font-style: italic; }

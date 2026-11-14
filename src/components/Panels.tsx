@@ -12,7 +12,7 @@ function SourceLine({ code, id }: { code: CandidateCode; id: number }) {
   return (
     <span className="tiny muted">
       {t.source}: <a href={c.src} target="_blank" rel="noopener">{c.label}</a>, {c.date}
-      {c.provisional && <> · {t.provisional}</>}
+      {c.weak ? <> · <span className="weak-tag">{t.placeholder}</span></> : c.provisional && <> · {t.provisional}</>}
       {c.note && <> · {c.note}</>}
     </span>
   );
@@ -39,7 +39,7 @@ export function CandidatePanel({ code, onStatement }: { code: CandidateCode; onS
           <div className="eyebrow">{tx(lang, a)}</div>
           {STATEMENTS.filter((s) => s.area === a.id).map((s) => (
             <div key={s.id} className="profile-line">
-              <CodeChip p={positionOf(code, s.id)} />
+              <CodeChip p={positionOf(code, s.id)} weak={CODES[code]?.[s.id]?.weak} />
               <div>
                 <button className="linkish" onClick={() => onStatement(s.id)}>{s.id}. {s[lang]}</button>
                 <div><SourceLine code={code} id={s.id} /></div>
@@ -111,9 +111,9 @@ export function ComparePanel({ a, b, result, onPick, onStatement }: {
           <tbody>
             {rows.map(({ s, pa, pb }) => (
               <tr key={s.id}>
-                <td><CodeChip p={pa} /></td>
+                <td><CodeChip p={pa} weak={CODES[a]?.[s.id]?.weak} /></td>
                 <td><button className="linkish" onClick={() => onStatement(s.id)}>{s.id}. {s[lang]}</button></td>
-                <td><CodeChip p={pb} /></td>
+                <td><CodeChip p={pb} weak={CODES[b]?.[s.id]?.weak} /></td>
               </tr>
             ))}
           </tbody>
@@ -129,6 +129,7 @@ export function MethodPanel({ onStatement, onCandidate }: { onStatement: (id: nu
     <div>
       {t.methodBody.map((p, i) => <p key={i} className="small">{p}</p>)}
       <h3 className="section-sm">{t.matrixHeading}</h3>
+      <p className="tiny muted"><CodeChip p="A" weak /> {t.matrixWeak}</p>
       <p className="tiny muted">{t.sourcesNote}</p>
       <div className="scroller">
         <table className="matrix">
@@ -146,7 +147,7 @@ export function MethodPanel({ onStatement, onCandidate }: { onStatement: (id: nu
                 <th scope="row"><button className="linkish" onClick={() => onStatement(s.id)} title={s[lang]}>{s.id}</button></th>
                 {ACTIVE.map((c) => {
                   const k = CODES[c]?.[s.id];
-                  return <td key={c}><CodeChip p={positionOf(c, s.id)} title={k ? `${t.positions[k.p]}: ${k.label}, ${k.date}` : undefined} /></td>;
+                  return <td key={c}><CodeChip p={positionOf(c, s.id)} weak={k?.weak} title={k ? `${t.positions[k.p]}${k.weak ? ` (${t.placeholder})` : ""}: ${k.label}, ${k.date}` : undefined} /></td>;
                 })}
               </tr>
             ))}

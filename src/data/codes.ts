@@ -31,19 +31,41 @@ export interface Code {
   /** ISO date of the source */
   date: string;
   provisional?: boolean;
+  /** placeholder: a party vote, an older platform or a single remark, not the 2027 programme. Counts, but is flagged, until sharpened. */
+  weak?: boolean;
   note?: string;
 }
 
 export type Codes = Partial<Record<CandidateCode, Partial<Record<number, Code>>>>;
 
 /* ---- Sources for the first pass (November 2026) ---- */
-type S = Pick<Code, "src" | "label" | "date">;
+type S = Pick<Code, "src" | "label" | "date" | "weak">;
 const IF: S = { src: "https://www.ifrap.org/comparateurs/presidentielles-2027", label: "Fondation iFRAP, 2027 programme comparator (consulted 13 Nov 2026)", date: "2026-11-13" };
 const IM22: S = { src: "https://www.institutmontaigne.org/presidentielle-2022/marine-le-pen/synthese/", label: "Institut Montaigne, Le Pen 2022 programme", date: "2022-04-01" };
 const RN24: S = { src: "https://lcp.fr/actualites/legislatives-2024-pouvoir-d-achat-immigration-ecole-jordan-bardella-devoile-le-programme", label: "LCP, RN 2024 legislative programme", date: "2024-06-24" };
 const INST22: S = { src: "https://www.publicsenat.fr/actualites/politique/la-reforme-des-institutions-au-coeur-du-duel-macron-le-pen-202480", label: "Public Sénat, Le Pen's institutional reforms", date: "2022-04-13" };
 const UKR24: S = { src: "https://voanews.com/a/french-far-right-leader-bardella-backs-ukraine-but-would-not-send-long-range-missiles/7661784.html", label: "VOA, Bardella on Ukraine", date: "2024-06-19" };
 const FDV: S = { src: "https://lcp.fr/actualites/aide-a-mourir-qui-a-vote-quoi-a-l-assemblee-nationale-431842", label: "LCP, Assembly vote on assisted dying (party's deputies)", date: "2026-02-25" };
+
+/* ---- Second pass (November 2026): placeholders, flagged `weak` until sharpened ----
+   Party votes stand in for the candidate's own position only where the candidate
+   leads that party or group; older platforms and single remarks are marked as such. */
+const UKRV: S = { src: "https://datan.fr/votes/legislature-16/vote_3461", label: "Assembly vote on the France–Ukraine security accord (party's deputies)", date: "2024-03-12", weak: true };
+const MERV: S = { src: "https://datan.fr/votes/legislature-17/vote_456", label: "Assembly vote opposing the EU–Mercosur deal as it stands (party's deputies)", date: "2024-11-26", weak: true };
+const ZUCV: S = { src: "https://datan.fr/votes/legislature-17/vote_3300", label: "Assembly vote on the Zucman tax, 2026 budget (party's deputies)", date: "2025-10-31", weak: true };
+const VSAV: S = { src: "https://datan.fr/votes/legislature-16/vote_1274", label: "Assembly vote on algorithmic video surveillance for the 2024 Olympics (party's deputies)", date: "2023-03-23", weak: true };
+const PROP25: S = { src: "https://lcp.fr/actualites/proportionnelle-aux-legislatives-francois-bayrou-consulte-les-avis-divergent-sur-le", label: "LCP, parties' positions on proportional representation", date: "2025-04-30", weak: true };
+const ISR24: S = { src: "https://www.publicsenat.fr/actualites/international/propos-de-macron-sur-larret-des-ventes-darmes-a-israel-la-droite-deplore-le-timing-la-gauche-salue-la-responsabilite-du-president", label: "Public Sénat, reactions to Macron's call to stop arms deliveries for Gaza", date: "2024-10-07", weak: true };
+const CAR24: S = { src: "https://www.tomsguide.fr/fin-des-voitures-thermiques-la-droite-veut-revenir-sur-linterdiction-de-2035/", label: "Tom's Guide, Bardella on the 2035 combustion-car ban", date: "2024-07-03", weak: true };
+const ATM25: S = { src: "https://lcp.fr/actualites/delinquance-des-mineurs-la-proposition-de-loi-de-gabriel-attal-pour-restaurer-l-autorite", label: "LCP, Attal's bill on juvenile offenders", date: "2025-02-13" };
+const ATI25: S = { src: "https://www.publicsenat.fr/actualites/politique/gabriel-attal-propose-dinterdire-le-voile-pour-les-moins-de-15-ans-et-souhaite-une-nouvelle-loi-separatisme", label: "Public Sénat, Attal's proposals after the Muslim Brotherhood report", date: "2025-05-21", weak: true };
+const ATU23: S = { src: "https://www.linfodurable.fr/uniforme-lecole-une-experimentation-de-grande-ampleur-annoncee-sous-peu-dit-attal-42599", label: "L'Info durable, Attal on school uniforms", date: "2023-12-06", weak: true };
+const PHE26: S = { src: "https://fr.euronews.com/2026/10/09/presidentielle-2027-edouard-philippe-mise-sur-le-travail-et-la-reduction-des-depenses-publ", label: "Euronews, Philippe's programme", date: "2026-10-09" };
+const PHV26: S = { src: "https://votons-2027.fr/candidats/philippe/programme", label: "Votons 2027 summary of edouardphilippe.fr", date: "2026-11-14", weak: true };
+const PCF22: S = { src: "https://www.publicsenat.fr/actualites/politique/presidentielle-fabien-roussel-presente-180-propositions-pour-une-france-des-jours", label: "Public Sénat, Roussel's 2022 programme", date: "2022-01-24", weak: true };
+const RUF25: S = { src: "https://datan.fr/votes/legislature-17/vote_2107", label: "Assembly vote on the right to assisted dying, first reading (Ruffin's own vote)", date: "2025-05-27" };
+const RUF23: S = { src: "https://en.wikipedia.org/wiki/Fran%C3%A7ois_Ruffin", label: "Wikipedia: backed the 2023 petition for a citizens' initiative referendum", date: "2023-05-01", weak: true };
+const XB21: S = { src: "https://en.wikipedia.org/wiki/Xavier_Bertrand", label: "Wikipedia summary of Bertrand's 2021–22 platform", date: "2021-12-01", weak: true };
 
 /** [statement, position, source, note?] */
 type Row = [number, "A" | "N" | "D", S, string?];
@@ -81,6 +103,9 @@ export const CODES: Codes = {
     [45, "A", IF, "Primary and middle school"],
     [46, "A", IF, "Legal ban on the Islamic headscarf in public"],
     [48, "A", IM22],
+    // second pass
+    [22, "A", VSAV, "Voted for algorithmic video surveillance; not facial recognition as such"],
+    [33, "A", CAR24, "Bardella wants the 2035 ban reversed"],
   ]),
   LFI: rows([
     [1, "A", IF, "Restore the ISF with a climate component"],
@@ -110,6 +135,9 @@ export const CODES: Codes = {
     [45, "D", IF, "End the uniform experiment"],
     [47, "N", IF, "Repeal the Carle law, penalise segregating private schools"],
     [48, "D", IF, "Elect the heads of public broadcasters"],
+    // second pass
+    [26, "N", UKRV, "Voted against the 2024 security accord with Ukraine"],
+    [30, "A", MERV, "Voted against the government's motion because it opposes the deal outright, not just 'as it stands'"],
   ]),
   HOR: rows([
     [3, "A", IF, "Cut production taxes by €50bn a year"],
@@ -127,6 +155,15 @@ export const CODES: Codes = {
     [31, "A", IF],
     [35, "A", IF, "No over-transposition of EU farm rules"],
     [43, "N", FDV, "Horizons deputies split, 14 for and 18 against"],
+    // second pass
+    [1, "D", ZUCV],
+    [2, "A", PHE26, "Spending cuts to carry the budget effort; no deficit figure"],
+    [9, "A", PHE26, "Cut maximum benefit period from 18 to 12 months for under-50s"],
+    [10, "N", PHV26, "Firms free to set working time; no employer contributions beyond the 37th hour"],
+    [26, "A", UKRV],
+    [30, "A", MERV],
+    [38, "D", PROP25, "Defends the current system unless local and national mandates can be combined again"],
+    [45, "N", PHV26, "School heads could impose uniforms; not a national rule"],
   ]),
   PP: rows([
     [1, "A", IF, "Zucman tax: 2% minimum on fortunes over €100m"],
@@ -145,6 +182,10 @@ export const CODES: Codes = {
     [41, "A", IF, "Replace it with a constructive censure motion"],
     [43, "A", FDV, "Party record: 60 of 69 PS deputies voted for"],
     [47, "N", IF, "Bring private schools into the school map"],
+    // second pass
+    [22, "D", VSAV, "Party record: PS deputies voted against"],
+    [29, "A", ISR24, "Party record: PS senator Hélène Conway-Mouret"],
+    [30, "A", MERV, "Party record: PS deputies"],
   ]),
   LR: rows([
     [3, "A", IF, "Cut production taxes by €15bn"],
@@ -165,6 +206,12 @@ export const CODES: Codes = {
     [35, "A", IF, "Ban over-transposition, scrap the precautionary principle"],
     [39, "A", IF, "Halve the signature threshold"],
     [43, "D", FDV, "Party record: 42 of 49 Droite républicaine deputies voted against"],
+    // second pass
+    [1, "D", ZUCV],
+    [26, "A", UKRV, "49 for, 11 abstentions"],
+    [29, "D", ISR24, "Party record: LR senators Karoutchi and Perrin"],
+    [30, "A", MERV],
+    [38, "D", PROP25, "Retailleau opposed"],
   ]),
   NE: rows([
     [1, "D", IF, "Abolish the IFI"],
@@ -196,6 +243,15 @@ export const CODES: Codes = {
     [31, "A", IF, "One EPR a year"],
     [36, "D", IF, "Net zero by 2050"],
     [43, "A", FDV, "Party record: 64 of 92 EPR deputies voted for"],
+    // second pass
+    [1, "D", ZUCV, "Party record: EPR deputies"],
+    [21, "A", ATM25, "Attal's own bill: narrows the 'excuse of minority' for repeat offenders over 16"],
+    [22, "A", VSAV, "Party record: Renaissance deputies"],
+    [24, "A", ATI25, "A new offence of 'communautarisme'; ban the veil for under-15s in public"],
+    [26, "A", UKRV, "Party record: Renaissance deputies"],
+    [29, "N", ISR24, "Macron called for a halt to arms used in Gaza; Yaël Braun-Pivet opposed 'disarming Israel'"],
+    [38, "N", PROP25, "Party record: Renaissance sceptical, 'not a priority'"],
+    [45, "N", ATU23, "As education minister: 'not yet convinced', backed a large trial"],
   ]),
   ECO: rows([
     [1, "A", IF],
@@ -217,6 +273,9 @@ export const CODES: Codes = {
     [41, "A", IF],
     [43, "A", FDV, "Party record: 35 of 38 ecologist deputies voted for"],
     [47, "N", IF, "Cut public funding of private schools to 50%"],
+    // second pass
+    [29, "A", ISR24, "Party record: ecologist senator Akli Mellouli"],
+    [38, "A", PROP25, "Regional proportional representation"],
   ]),
   REC: rows([
     [1, "D", IF],
@@ -246,6 +305,14 @@ export const CODES: Codes = {
     [29, "A", IF, "Sanctions on the Israeli government"],
     [31, "A", IF],
     [43, "A", FDV, "Party record: 11 of 17 GDR deputies voted for"],
+    // second pass
+    [3, "D", PCF22, "2022: a new corporate tax, higher for firms that offshore or cut jobs"],
+    [7, "A", PCF22, "2022: retirement at 60"],
+    [10, "D", PCF22, "2022: move to a 32-hour week"],
+    [22, "D", VSAV, "Party record: GDR deputies"],
+    [26, "D", UKRV, "Party record: GDR deputies voted against the 2024 security accord"],
+    [30, "A", MERV, "Party record: GDR deputies"],
+    [39, "A", PCF22, "2022: referendums triggered by a million citizens"],
   ]),
   DLF: rows([
     [1, "A", IF, "On very large fortunes, excluding the main home"],
@@ -267,6 +334,17 @@ export const CODES: Codes = {
   ]),
   DEB: rows([
     [8, "A", IF, "Extra quarters for exposed jobs"],
+    // second pass
+    [39, "A", RUF23],
+    [43, "A", RUF25, "Voted for at first reading"],
+  ]),
+  XB: rows([
+    // second pass: no 2027 programme yet; his 2021–22 platform as placeholder
+    [3, "A", XB21, "2021: halve production taxes"],
+    [7, "D", XB21, "2021: push the retirement age back two years"],
+    [9, "A", XB21, "2021: tighter conditions for unemployment benefits"],
+    [13, "A", XB21, "2021: immigration quotas"],
+    [27, "A", XB21, "2021: argued for leaving NATO's integrated command"],
   ]),
 };
 

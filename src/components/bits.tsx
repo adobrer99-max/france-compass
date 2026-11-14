@@ -17,11 +17,11 @@ export function Avatar({ code, size = 36 }: { code: CandidateCode; size?: number
   );
 }
 
-export function CodeChip({ p, title }: { p: Position; title?: string }) {
+export function CodeChip({ p, title, weak }: { p: Position; title?: string; weak?: boolean }) {
   const { t } = useLang();
   const short = p === "-" ? "–" : p === "A" ? "+" : p === "D" ? "−" : "~";
   return (
-    <span className={`code code-${p === "-" ? "none" : p}`} title={title ?? t.positions[p]} aria-label={t.positions[p]}>
+    <span className={`code code-${p === "-" ? "none" : p}${weak ? " code-weak" : ""}`} title={title ?? t.positions[p]} aria-label={t.positions[p]}>
       {short}
     </span>
   );
