@@ -4,9 +4,9 @@
    and axis positions from the raw answers.
    ============================================================ */
 
-import { ACTIVE, BY_CODE, type CandidateCode } from "../data/candidates";
-import { CODES, positionOf, type Codes, type Position } from "../data/codes";
-import { AREAS, STATEMENTS, type AreaId, type Axis } from "../data/statements";
+import { ACTIVE, BY_CODE, type CandidateCode } from "@country/candidates";
+import { CODES, positionOf, type Codes, type Position } from "@country/codes";
+import { AREAS, STATEMENTS, type AreaId, type Axis } from "@country/statements";
 
 /** −2 … +2, or null for "no opinion": a skip, left out of every calculation. */
 export type Answer = -2 | -1 | 0 | 1 | 2 | null;

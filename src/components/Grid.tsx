@@ -1,5 +1,5 @@
-import { ACTIVE, BY_CODE } from "../data/candidates";
-import { AXES } from "../data/statements";
+import { ACTIVE, BY_CODE } from "@country/candidates";
+import { AXES } from "@country/statements";
 import { useLang } from "../i18n";
 import { AXIS_CONFIDENCE_FLOOR, COVERAGE_FLOOR, gridDistance, type Result } from "../lib/scoring";
 

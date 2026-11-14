@@ -1,7 +1,8 @@
-import { ACTIVE, BY_CODE, CANDIDATES, type CandidateCode } from "../data/candidates";
-import { CHANGES, CODES, positionOf } from "../data/codes";
-import { AREA, AREAS, AXES, BY_ID, STATEMENTS } from "../data/statements";
-import { pct, tx, useLang } from "../i18n";
+import { ACTIVE, BY_CODE, CANDIDATES, type CandidateCode } from "@country/candidates";
+import { CHANGES, CODES, positionOf } from "@country/codes";
+import { AREA, AREAS, AXES, BY_ID, STATEMENTS } from "@country/statements";
+import { pct, tx, useLang, type Lang } from "../i18n";
+import { COUNTRY } from "@country/config";
 import { splits, type Result } from "../lib/scoring";
 import { Avatar, CodeChip } from "./bits";
 
@@ -60,7 +61,7 @@ export function StatementPanel({ id, onCandidate }: { id: number; onCandidate: (
     <div>
       <div className="eyebrow">{tx(lang, AREA[s.area])}</div>
       <p className="statement-big" lang={lang}>{s[lang]}</p>
-      <p className="tiny muted" lang={lang === "en" ? "fr" : "en"}>{s[lang === "en" ? "fr" : "en"]}</p>
+      {(COUNTRY.langs as readonly Lang[]).filter((l) => l !== lang).map((l) => <p key={l} className="tiny muted" lang={l}>{s[l]}</p>)}
       <p className="small muted">
         {s.axis ? t.statementAxis(AXES[s.axis].name[lang], AXES[s.axis][lang][s.sign > 0 ? 1 : 0]) : t.statementNoAxis}
       </p>

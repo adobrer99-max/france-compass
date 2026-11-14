@@ -1,7 +1,8 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { BY_CODE, initials, type CandidateCode } from "../data/candidates";
-import type { Position } from "../data/codes";
-import { useLang } from "../i18n";
+import { BY_CODE, initials, type CandidateCode } from "@country/candidates";
+import type { Position } from "@country/codes";
+import { STRINGS, useLang, type Lang } from "../i18n";
+import { COUNTRY } from "@country/config";
 
 /** Initials on the candidate's colour, standing in until photos with permission are in. */
 export function Avatar({ code, size = 36 }: { code: CandidateCode; size?: number }) {
@@ -54,11 +55,14 @@ export function Sheet({ title, onClose, children }: { title: string; onClose: ()
   );
 }
 
+/** Cycles through the country's languages; the label is in the language it switches to. */
 export function LangSwitch() {
-  const { lang, t, setLang } = useLang();
+  const { lang, setLang } = useLang();
+  const langs = COUNTRY.langs as readonly Lang[];
+  const next = langs[(langs.indexOf(lang) + 1) % langs.length];
   return (
-    <button className="chip lang" onClick={() => setLang(lang === "en" ? "fr" : "en")} lang={lang === "en" ? "fr" : "en"}>
-      {t.langSwitch}
+    <button className="chip lang" onClick={() => setLang(next)} lang={next}>
+      {STRINGS[next].langSwitch}
     </button>
   );
 }

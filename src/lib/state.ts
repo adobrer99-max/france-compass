@@ -1,9 +1,11 @@
 /* Saved progress and shareable addresses. Storage can be blocked, so every
    read and write is wrapped; the app works without it. */
 
-import type { CandidateCode } from "../data/candidates";
-import { BY_CODE } from "../data/candidates";
-import { BY_ID } from "../data/statements";
+import type { CandidateCode } from "@country/candidates";
+import { BY_CODE } from "@country/candidates";
+import { BY_ID } from "@country/statements";
+import { COUNTRY } from "@country/config";
+import { PANELS } from "@country/panels";
 import { DEFAULT_WEIGHTS, type Answers, type Weights } from "./scoring";
 
 export type Stage = "intro" | "quiz" | "weights" | "results";
@@ -15,7 +17,7 @@ export interface Session {
   stage: Stage;
 }
 
-const KEY = "fc-session-v1";
+const KEY = `${COUNTRY.storagePrefix}-session-v1`;
 
 export const fresh = (): Session => ({ index: 0, answers: {}, weights: { ...DEFAULT_WEIGHTS }, stage: "intro" });
 
@@ -38,15 +40,17 @@ export function clear() {
   try { localStorage.removeItem(KEY); } catch { /* storage blocked */ }
 }
 
-/** Panels with an address of their own: ?candidate=RN, ?statement=12, ?compare=RN,LFI, ?method, ?firewall, ?history */
+/** Panels with an address of their own: ?candidate=RN, ?statement=12, ?compare=RN,LFI, ?method,
+ *  plus the country's extra panels at ?<id> (France: ?firewall, ?history). */
 export type Panel =
   | null
   | { kind: "candidate"; code: CandidateCode }
   | { kind: "statement"; id: number }
   | { kind: "compare"; a: CandidateCode; b: CandidateCode }
   | { kind: "method" }
-  | { kind: "firewall" }
-  | { kind: "history" };
+  | { kind: "extra"; id: string };
+
+const EXTRA_IDS: string[] = PANELS.extraPanels.map((x) => x.id);
 
 const isCode = (x: string | null): x is CandidateCode => !!x && x in BY_CODE;
 
@@ -59,20 +63,19 @@ export function readPanel(search: string): Panel {
   const [a, b] = (q.get("compare") ?? "").split(",");
   if (isCode(a) && isCode(b)) return { kind: "compare", a, b };
   if (q.has("method")) return { kind: "method" };
-  if (q.has("firewall")) return { kind: "firewall" };
-  if (q.has("history")) return { kind: "history" };
+  const extra = EXTRA_IDS.find((id) => q.has(id));
+  if (extra) return { kind: "extra", id: extra };
   return null;
 }
 
 export function writePanel(p: Panel) {
   const q = new URLSearchParams(window.location.search);
-  ["candidate", "statement", "compare", "method", "firewall", "history"].forEach((k) => q.delete(k));
+  ["candidate", "statement", "compare", "method", ...EXTRA_IDS].forEach((k) => q.delete(k));
   if (p?.kind === "candidate") q.set("candidate", p.code);
   if (p?.kind === "statement") q.set("statement", String(p.id));
   if (p?.kind === "compare") q.set("compare", `${p.a},${p.b}`);
   if (p?.kind === "method") q.set("method", "");
-  if (p?.kind === "firewall") q.set("firewall", "");
-  if (p?.kind === "history") q.set("history", "");
+  if (p?.kind === "extra") q.set(p.id, "");
   const s = q.toString().replace(/=(&|$)/g, "$1");
   try { history.replaceState(null, "", s ? `?${s}` : window.location.pathname); } catch { /* sandboxed */ }
 }
@@ -81,5 +84,5 @@ export function writeLang(lang: string) {
   const q = new URLSearchParams(window.location.search);
   q.set("lang", lang);
   try { history.replaceState(null, "", `?${q.toString().replace(/=(&|$)/g, "$1")}`); } catch { /* sandboxed */ }
-  try { localStorage.setItem("fc-lang", lang); } catch { /* storage blocked */ }
+  try { localStorage.setItem(`${COUNTRY.storagePrefix}-lang`, lang); } catch { /* storage blocked */ }
 }

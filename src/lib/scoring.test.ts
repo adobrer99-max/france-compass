@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { ACTIVE, CANDIDATES, LIKELY_RUNOFF } from "../data/candidates";
-import { CODES, type Codes } from "../data/codes";
-import { AREAS, STATEMENTS } from "../data/statements";
+import { ACTIVE, CANDIDATES, LIKELY_RUNOFF } from "@country/candidates";
+import { CODES, type Codes } from "@country/codes";
+import { AREAS, STATEMENTS } from "@country/statements";
 import { STRINGS } from "../i18n";
 import { agreementPoints, candidateAxes, DEFAULT_WEIGHTS, matchFor, score, splits, userAxes, type Answers } from "./scoring";
 

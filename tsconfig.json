@@ -14,7 +14,9 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": { "@country/*": ["src/countries/fr/*"] }
   },
   "include": ["src", "scripts", "vite.config.ts"]
 }

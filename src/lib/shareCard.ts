@@ -5,9 +5,9 @@
    language.
    ============================================================ */
 
-import { BY_CODE, initials, type CandidateCode } from "../data/candidates";
-import { AXES } from "../data/statements";
-import { STRINGS, type Lang } from "../i18n";
+import { BY_CODE, initials, type CandidateCode } from "@country/candidates";
+import { AXES } from "@country/statements";
+import { pct, STRINGS, type Lang } from "../i18n";
 import type { Result } from "./scoring";
 
 const W = 1200;
@@ -32,7 +32,6 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, max: number): string[
   return lines;
 }
 
-const pct = (lang: Lang, n: number) => (lang === "fr" ? `${Math.round(n)}\u202F%` : `${Math.round(n)}%`);
 
 export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: Lang, runoff: [CandidateCode, CandidateCode]): void {
   const ctx = canvas.getContext("2d");
