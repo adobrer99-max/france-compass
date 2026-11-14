@@ -1,15 +1,20 @@
 import { useCallback, useEffect } from "react";
-import { CANDIDATES } from "../data/candidates";
+import { CANDIDATES, POLL_SOURCE } from "../data/candidates";
 import { AREA, AREAS, type Statement } from "../data/statements";
 import { useLang, tx } from "../i18n";
 import type { Answer, Weights as W } from "../lib/scoring";
 import { Avatar, LangSwitch } from "./bits";
 
-export function Intro({ onStart, onResume, savedCount, onCandidate }: {
+const pollText = (lang: string, p: string) =>
+  lang === "fr" ? p.replace("under", "moins de").replace("up to", "jusqu'à").replace(/(\d)\.(\d)/g, "$1,$2").replace(/%$/, " %") : p;
+
+export function Intro({ onStart, onResume, savedCount, onCandidate, onFirewall, onHistory }: {
   onStart: () => void;
   onResume?: () => void;
   savedCount: number;
   onCandidate: (code: (typeof CANDIDATES)[number]["code"]) => void;
+  onFirewall: () => void;
+  onHistory: () => void;
 }) {
   const { lang, t } = useLang();
   return (
@@ -36,11 +41,17 @@ export function Intro({ onStart, onResume, savedCount, onCandidate }: {
                 <span className="cand-name">{c.name}</span>
                 <span className="small muted">{c.party} · {tx(lang, c.bloc)}</span>
               </span>
-              {c.poll && <span className="mono tiny muted">{c.poll}</span>}
+              {c.poll && <span className="mono tiny muted" title={c.pollFrom}>{pollText(lang, c.poll)}{c.pollFrom && "*"}</span>}
             </button>
           </li>
         ))}
       </ul>
+      <p className="tiny muted">{t.pollsFrom(POLL_SOURCE.label)} * {CANDIDATES.filter((c) => c.pollFrom).map((c) => `${c.short}: ${c.pollFrom}`).join("; ")}.</p>
+
+      <div className="ctx-links">
+        <button className="ctx-card" onClick={onFirewall}><strong>{t.firewallHeading}</strong><span className="small muted">{t.firewallLink}</span></button>
+        <button className="ctx-card" onClick={onHistory}><strong>{t.historyHeading}</strong><span className="small muted">{t.historyLink}</span></button>
+      </div>
     </div>
   );
 }

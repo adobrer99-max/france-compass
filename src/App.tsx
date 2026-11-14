@@ -8,6 +8,7 @@ import { Sheet } from "./components/bits";
 import { Intro, Question, Weights } from "./components/Steps";
 import { Results } from "./components/Results";
 import { CandidatePanel, ComparePanel, MethodPanel, StatementPanel } from "./components/Panels";
+import { FirewallPanel, HistoryPanel } from "./components/Context";
 
 export default function App() {
   const [lang, setLangState] = useState<Lang>(initialLang);
@@ -47,16 +48,19 @@ export default function App() {
   const openStatement = (id: number) => setPanel({ kind: "statement", id });
   const openCompare = (a: CandidateCode, b: CandidateCode) => setPanel({ kind: "compare", a, b });
   const openMethod = () => setPanel({ kind: "method" });
+  const openFirewall = () => setPanel({ kind: "firewall" });
+  const openHistory = () => setPanel({ kind: "history" });
 
   const title = !panel ? "" : panel.kind === "candidate" ? BY_CODE[panel.code].name
-    : panel.kind === "statement" ? `${t.allStatements} · ${panel.id}` : panel.kind === "compare" ? t.compareHeading : t.methodHeading;
+    : panel.kind === "statement" ? `${t.allStatements} · ${panel.id}` : panel.kind === "compare" ? t.compareHeading
+    : panel.kind === "firewall" ? t.firewallHeading : panel.kind === "history" ? t.historyHeading : t.methodHeading;
 
   return (
     <LangContext.Provider value={{ lang, t, setLang }}>
       <main className={`shell${stage === "results" ? " results" : ""}`}>
         {stage === "intro" && (
           <Intro onStart={start} onResume={savedCount ? resume : undefined} savedCount={savedCount}
-            onCandidate={openCandidate} />
+            onCandidate={openCandidate} onFirewall={openFirewall} onHistory={openHistory} />
         )}
         {stage === "quiz" && (
           <Question s={STATEMENTS[session.index]} index={session.index} total={STATEMENTS.length}
@@ -68,11 +72,13 @@ export default function App() {
         )}
         {stage === "results" && (
           <Results result={result} answers={session.answers} onCandidate={openCandidate} onStatement={openStatement}
-            onCompare={openCompare} onMethod={openMethod} onRestart={start} />
+            onCompare={openCompare} onMethod={openMethod} onRestart={start} onFirewall={openFirewall} onHistory={openHistory} />
         )}
         <nav className="nav" aria-label={t.method}>
           <button onClick={openMethod}>{t.method}</button>
           <button onClick={() => openCompare(...LIKELY_RUNOFF)}>{t.compare}</button>
+          <button onClick={openFirewall}>{t.firewallNav}</button>
+          <button onClick={openHistory}>{t.historyNav}</button>
         </nav>
         <p className="tiny muted footer">{t.footer}</p>
       </main>
@@ -85,6 +91,8 @@ export default function App() {
             <ComparePanel a={panel.a} b={panel.b} result={stage === "results" ? result : null} onPick={openCompare} onStatement={openStatement} />
           )}
           {panel.kind === "method" && <MethodPanel onStatement={openStatement} onCandidate={openCandidate} />}
+          {panel.kind === "firewall" && <FirewallPanel onCandidate={openCandidate} />}
+          {panel.kind === "history" && <HistoryPanel />}
         </Sheet>
       )}
     </LangContext.Provider>

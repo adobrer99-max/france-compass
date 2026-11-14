@@ -38,13 +38,15 @@ export function clear() {
   try { localStorage.removeItem(KEY); } catch { /* storage blocked */ }
 }
 
-/** Panels with an address of their own: ?candidate=RN, ?statement=12, ?compare=RN,HOR, ?method */
+/** Panels with an address of their own: ?candidate=RN, ?statement=12, ?compare=RN,LFI, ?method, ?firewall, ?history */
 export type Panel =
   | null
   | { kind: "candidate"; code: CandidateCode }
   | { kind: "statement"; id: number }
   | { kind: "compare"; a: CandidateCode; b: CandidateCode }
-  | { kind: "method" };
+  | { kind: "method" }
+  | { kind: "firewall" }
+  | { kind: "history" };
 
 const isCode = (x: string | null): x is CandidateCode => !!x && x in BY_CODE;
 
@@ -57,16 +59,20 @@ export function readPanel(search: string): Panel {
   const [a, b] = (q.get("compare") ?? "").split(",");
   if (isCode(a) && isCode(b)) return { kind: "compare", a, b };
   if (q.has("method")) return { kind: "method" };
+  if (q.has("firewall")) return { kind: "firewall" };
+  if (q.has("history")) return { kind: "history" };
   return null;
 }
 
 export function writePanel(p: Panel) {
   const q = new URLSearchParams(window.location.search);
-  ["candidate", "statement", "compare", "method"].forEach((k) => q.delete(k));
+  ["candidate", "statement", "compare", "method", "firewall", "history"].forEach((k) => q.delete(k));
   if (p?.kind === "candidate") q.set("candidate", p.code);
   if (p?.kind === "statement") q.set("statement", String(p.id));
   if (p?.kind === "compare") q.set("compare", `${p.a},${p.b}`);
   if (p?.kind === "method") q.set("method", "");
+  if (p?.kind === "firewall") q.set("firewall", "");
+  if (p?.kind === "history") q.set("history", "");
   const s = q.toString().replace(/=(&|$)/g, "$1");
   try { history.replaceState(null, "", s ? `?${s}` : window.location.pathname); } catch { /* sandboxed */ }
 }

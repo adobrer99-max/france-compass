@@ -6,7 +6,7 @@ import { bestWorst, COVERAGE_FLOOR, opposites, type Answers, type Result } from 
 import { Avatar, LangSwitch, MatchBar } from "./bits";
 import { Grid, GridText } from "./Grid";
 
-export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart }: {
+export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart, onFirewall, onHistory }: {
   result: Result;
   answers: Answers;
   onCandidate: (c: CandidateCode) => void;
@@ -14,6 +14,8 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
   onCompare: (a: CandidateCode, b: CandidateCode) => void;
   onMethod: () => void;
   onRestart: () => void;
+  onFirewall: () => void;
+  onHistory: () => void;
 }) {
   const { lang, t } = useLang();
   const [open, setOpen] = useState<CandidateCode | null>(null);
@@ -76,7 +78,7 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
       <Grid result={result} />
       <GridText result={result} />
 
-      <Runoff result={result} onCompare={onCompare} />
+      <Runoff result={result} onCompare={onCompare} onFirewall={onFirewall} onHistory={onHistory} />
 
       <div className="btn-row" style={{ marginTop: 28 }}>
         <button className="btn btn-ghost" onClick={onMethod}>{t.method}</button>
@@ -86,7 +88,7 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
   );
 }
 
-function Runoff({ result, onCompare }: { result: Result; onCompare: (a: CandidateCode, b: CandidateCode) => void }) {
+function Runoff({ result, onCompare, onFirewall, onHistory }: { result: Result; onCompare: (a: CandidateCode, b: CandidateCode) => void; onFirewall: () => void; onHistory: () => void }) {
   const { lang, t } = useLang();
   const [pair, setPair] = useState<[CandidateCode, CandidateCode]>(LIKELY_RUNOFF);
   const [a, b] = pair.map((c) => result.all[c]);
@@ -112,6 +114,13 @@ function Runoff({ result, onCompare }: { result: Result; onCompare: (a: Candidat
         <strong>{!ok ? t.notCoded : Math.abs(diff) < 3 ? t.tie : t.closerTo(BY_CODE[diff > 0 ? pair[0] : pair[1]].name)}</strong>
       </p>
       <button className="linkish small" onClick={() => onCompare(pair[0], pair[1])}>{t.compare} →</button>
+      {pair.includes("RN") && (
+        <div className="small runoff-ctx">
+          <p className="muted" style={{ margin: "10px 0 4px" }}>{t.runoffRNNote}</p>
+          <button className="linkish" onClick={onFirewall}>{t.firewallLink} →</button><br />
+          <button className="linkish" onClick={onHistory}>{t.historyLink} →</button>
+        </div>
+      )}
     </section>
   );
 }
