@@ -1,5 +1,7 @@
 # Countries
 
+Live: `fr` (France Chooses, 2027 presidential), `it` (Italy Chooses, 2027 general election).
+
 One compass engine, one folder per country. A build serves one country:
 
 ```bash
@@ -8,9 +10,9 @@ COUNTRY=de npm test        # runs the country contract (contract.test.ts) plus t
 COUNTRY=de npm run build   # → dist/
 ```
 
-`@country/…` imports resolve to `src/countries/$COUNTRY/` (vite.config.ts). The editor and
-`npm run typecheck` see France through `tsconfig.json`; to typecheck another country,
-point the `@country/*` path at its folder.
+`@country/…` imports resolve to `src/countries/$COUNTRY/` (vite.config.ts). Each country has a
+`tsconfig.<id>.json` that points `@country/*` at its folder and includes only that country, and
+`COUNTRY=<id> npm run typecheck` uses it. Tests in the country's folder run only for that country.
 
 ## What a country folder holds
 
@@ -24,6 +26,12 @@ point the `@country/*` path at its folder.
 | `panels.tsx` | `PANELS` | Extra panels only this country has (France: firewall, past elections), each at `?<id>`, and an optional note under the runoff card. Can be empty. |
 | `meta.json` | | `lang`, `title`, `description` for the page head. |
 
+`config.ts` also sets `subject` ("candidate" or "party", which switches the interface wording)
+and `headToHead` (whether the runoff card shows). `panels.tsx` can add `ResultsExtra`, a card
+on the results page (Italy: the alliance tool). Strings every country must provide: `title`,
+`subtitle`, `eyebrow`, `introLead`, `introDates`, `betaBanner`, `candidatesNote`, `chartExplain`,
+`methodBody`, `cardSub`, `cardCaveat`, `shareText`, `pollsFrom`.
+
 ## Adding a country
 
 1. Copy `fr/` to the new id (`de/`, `it/`…) and replace the data. Start from the
@@ -33,7 +41,7 @@ point the `@country/*` path at its folder.
 3. Code positions with the same rules: the current programme first, then statements,
    votes, older platforms (as `weak` placeholders). Never fill a gap from party family.
 4. `COUNTRY=<id> npm test` must pass, including the contract.
-5. Add the id to the CI matrix in `.github/workflows/ci.yml`.
+5. Add `tsconfig.<id>.json` and the id to the CI matrix in `.github/workflows/ci.yml`.
 
 The scoring (direction-only agreement points, topic weights, the coverage floor) and the
 two-axis chart are shared and stay the same everywhere, so results are comparable across

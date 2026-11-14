@@ -2,12 +2,18 @@ import { useCallback, useEffect } from "react";
 import { CANDIDATES, POLL_SOURCE } from "@country/candidates";
 import { AREA, AREAS, STATEMENTS, type Statement } from "@country/statements";
 import { useLang, tx } from "../i18n";
-import { PANELS } from "@country/panels";
+import { PANELS } from "../country";
 import type { Answer, Weights as W } from "../lib/scoring";
 import { LangSwitch } from "./bits";
 
-const pollText = (lang: string, p: string) =>
-  lang === "fr" ? p.replace("under", "moins de").replace("up to", "jusqu'à").replace(/(\d)\.(\d)/g, "$1,$2").replace(/%$/, " %") : p;
+/** Poll strings are written in English; localise words, decimal commas and the space before %. */
+const pollText = (lang: string, p: string) => {
+  if (lang === "en") return p;
+  let s = p.replace(/(\d)\.(\d)/g, "$1,$2");
+  if (lang === "fr") s = s.replace("under", "moins de").replace("up to", "jusqu'à");
+  if (lang === "fr" || lang === "de") s = s.replace(/%$/, " %");
+  return s;
+};
 
 export function Intro({ onStart, onResume, savedCount, onCandidate, onExtra }: {
   onStart: () => void;
@@ -54,7 +60,7 @@ export function Intro({ onStart, onResume, savedCount, onCandidate, onExtra }: {
             </li>
           ))}
         </ol>
-        <p className="tiny muted">{t.pollsFrom(POLL_SOURCE.label)} * {CANDIDATES.filter((c) => c.pollFrom).map((c) => `${c.short}: ${c.pollFrom}`).join("; ")}.</p>
+        <p className="tiny muted">{t.pollsFrom(POLL_SOURCE.label)}{CANDIDATES.some((c) => c.pollFrom) && <> * {CANDIDATES.filter((c) => c.pollFrom).map((c) => `${c.short}: ${c.pollFrom}`).join("; ")}.</>}</p>
       </section>
 
       <p className="beta-note small">{t.betaBanner}</p>

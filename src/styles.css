@@ -733,3 +733,14 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .lead-label { font-weight: 700; margin-bottom: 6px; }
 @media (max-width: 420px) { .lead-board { grid-template-columns: 120px 1fr; gap: 14px; } }
 .match-pct { font-family: var(--cond); font-stretch: 75%; font-weight: 800; font-size: 22px; }
+
+/* Italy: the alliance tool */
+.alliances { margin-top: 28px; }
+.al-row { margin-top: 16px; }
+.al-head { display: flex; justify-content: space-between; align-items: baseline; }
+.al-total { font-family: var(--cond); font-stretch: 75%; font-weight: 800; font-size: 24px; font-variant-numeric: tabular-nums; }
+.al-bar { position: relative; display: flex; height: 22px; background: var(--well); margin-top: 4px; }
+.al-bar span { display: block; height: 100%; box-shadow: inset -1px 0 0 rgba(255, 255, 255, .6); }
+.al-line { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--ink); }
+.al-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.al-chips .chip { border-width: 2px; color: var(--ink); font-weight: 600; }

@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { existsSync, readFileSync } from "node:fs";
@@ -20,4 +21,6 @@ export default defineConfig({
     { name: "country-meta", transformIndexHtml: (html) => html.replace(/%(\w+)%/g, (m, k) => meta[k] ?? m) },
   ],
   build: { outDir: process.env.OUT_DIR ?? "dist", sourcemap: false },
+  // the shared contract, plus the active country's own tests
+  test: { include: ["src/countries/*.test.ts", "src/lib/**/*.test.ts", `src/countries/${country}/**/*.test.ts`] },
 });

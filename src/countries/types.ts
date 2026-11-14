@@ -41,11 +41,17 @@ export interface CountryConfig {
   siteUrl: string;
   /** downloaded share-card file name, per language */
   shareFile: Record<string, string>;
+  /** what voters choose between: people (France) or party lists (Italy, German states); sets the interface wording */
+  subject: "candidate" | "party";
+  /** show the head-to-head card (France: the likely runoff) */
+  headToHead: boolean;
 }
 
 /** Kept apart from the config so the language setup never imports components. */
 export interface CountryPanels<Code extends string = string> {
   extraPanels: ExtraPanel<Code>[];
+  /** an extra card on the results page, after the chart (Italy: the alliance tool) */
+  ResultsExtra?: (p: { result: import("../lib/scoring").Result }) => ReactNode;
   /** an extra line under the runoff card for some pairs, with links to extra panels */
   runoffNote?: (pair: [Code, Code]) => { text: (t: Strings) => string; panels: string[] } | null;
 }

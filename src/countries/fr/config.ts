@@ -7,4 +7,6 @@ export const COUNTRY = {
   defaultLang: "en",
   siteUrl: "https://adamdobrer.ca/projects/france-compass/",
   shareFile: { en: "france-chooses.png", fr: "la-france-choisit.png" },
+  subject: "candidate",
+  headToHead: true,
 } as const satisfies CountryConfig;
