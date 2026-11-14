@@ -44,16 +44,16 @@ export const CANDIDATES: Candidate[] = [
   },
   { code: "LFI", name: "Jean-Luc Mélenchon", short: "Mélenchon", party: "La France insoumise", bloc: { en: "Radical left", fr: "Gauche radicale" }, color: "#c8102e", poll: "17.5–18%" },
   { code: "HOR", name: "Édouard Philippe", short: "Philippe", party: "Horizons", bloc: { en: "Centre right", fr: "Centre droit" }, color: "#2f6db5", poll: "9.5–15%" },
-  { code: "PP", name: "Raphaël Glucksmann", short: "Glucksmann", party: "Place publique / Parti socialiste", bloc: { en: "Centre left", fr: "Centre gauche" }, color: "#d6337a", poll: "10–13%" },
+  { code: "PP", name: "Raphaël Glucksmann", short: "Glucksmann", party: "Place publique / Parti socialiste", bloc: { en: "Centre left", fr: "Centre gauche" }, color: "#c42a6d", poll: "10–13%" },
   { code: "LR", name: "Bruno Retailleau", short: "Retailleau", party: "Les Républicains", bloc: { en: "Right", fr: "Droite" }, color: "#1560bd", poll: "under 10%" },
   { code: "NE", name: "David Lisnard", short: "Lisnard", party: "Nouvelle Énergie", bloc: { en: "Libertarian right", fr: "Droite libérale" }, color: "#6a4fb3", poll: "up to 9%" },
-  { code: "REN", name: "Gabriel Attal", short: "Attal", party: "Renaissance", bloc: { en: "Centre", fr: "Centre" }, color: "#b08900", poll: "6%", pollFrom: "Ipsos, 3–9.09.2026" },
-  { code: "ECO", name: "Marine Tondelier", short: "Tondelier", party: "Les Écologistes", bloc: { en: "Green left", fr: "Gauche écologiste" }, color: "#1e8a4c", poll: "3–3.5%" },
+  { code: "REN", name: "Gabriel Attal", short: "Attal", party: "Renaissance", bloc: { en: "Centre", fr: "Centre" }, color: "#8a6a00", poll: "6%", pollFrom: "Ipsos, 3–9.09.2026" },
+  { code: "ECO", name: "Marine Tondelier", short: "Tondelier", party: "Les Écologistes", bloc: { en: "Green left", fr: "Gauche écologiste" }, color: "#1a7a43", poll: "3–3.5%" },
   { code: "REC", name: "Éric Zemmour", short: "Zemmour", party: "Reconquête", bloc: { en: "Far right", fr: "Extrême droite" }, color: "#3b3b46", poll: "4%", pollFrom: "Ipsos, 3–9.09.2026" },
   { code: "PCF", name: "Fabien Roussel", short: "Roussel", party: "Parti communiste français", bloc: { en: "Left", fr: "Gauche" }, color: "#9b1b1b", poll: "1.5–2%" },
   { code: "DLF", name: "Nicolas Dupont-Aignan", short: "Dupont-Aignan", party: "Debout la France", bloc: { en: "Sovereigntist right", fr: "Droite souverainiste" }, color: "#2b7a99", poll: "~2%", pollFrom: "Ifop, 22–24.06.2026" },
-  { code: "DEB", name: "François Ruffin", short: "Ruffin", party: "Debout !", bloc: { en: "Left", fr: "Gauche" }, color: "#d9622b" },
-  { code: "XB", name: "Xavier Bertrand", short: "Bertrand", party: "Independent (ex-LR)", bloc: { en: "Right", fr: "Droite" }, color: "#4d8fc4" },
+  { code: "DEB", name: "François Ruffin", short: "Ruffin", party: "Debout !", bloc: { en: "Left", fr: "Gauche" }, color: "#b4501f" },
+  { code: "XB", name: "Xavier Bertrand", short: "Bertrand", party: "Independent (ex-LR)", bloc: { en: "Right", fr: "Droite" }, color: "#2f6fa3" },
 ];
 
 export const BY_CODE = Object.fromEntries(CANDIDATES.map((c) => [c.code, c])) as Record<CandidateCode, Candidate>;
