@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { ACTIVE, CANDIDATES, LIKELY_RUNOFF } from "@country/candidates";
-import { CODES, type Codes } from "@country/codes";
-import { AREAS, STATEMENTS } from "@country/statements";
-import { STRINGS } from "../i18n";
-import { agreementPoints, candidateAxes, DEFAULT_WEIGHTS, matchFor, score, splits, userAxes, type Answers } from "./scoring";
+import { ACTIVE, CANDIDATES, LIKELY_RUNOFF } from "./candidates";
+import { CODES, type Codes } from "./codes";
+import { AREAS, STATEMENTS } from "./statements";
+import { STRINGS } from "../../i18n";
+import { agreementPoints, candidateAxes, DEFAULT_WEIGHTS, matchFor, score, splits, userAxes, type Answers } from "../../lib/scoring";
 
 describe("statement bank", () => {
   it("has 53 statements numbered 1–53 in order", () => {

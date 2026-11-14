@@ -8,7 +8,7 @@ import { Sheet } from "./components/bits";
 import { Intro, Question, Weights } from "./components/Steps";
 import { Results } from "./components/Results";
 import { CandidatePanel, ComparePanel, MethodPanel, StatementPanel } from "./components/Panels";
-import { PANELS } from "@country/panels";
+import { PANELS } from "./country";
 
 export default function App() {
   const [lang, setLangState] = useState<Lang>(initialLang);

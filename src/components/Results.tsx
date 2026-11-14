@@ -7,7 +7,7 @@ import { Avatar, LangSwitch, MatchBar } from "./bits";
 import { Grid, GridText } from "./Grid";
 import { downloadCanvas, drawShareCard, shareCanvas } from "../lib/shareCard";
 import { COUNTRY } from "@country/config";
-import { PANELS } from "@country/panels";
+import { PANELS } from "../country";
 
 export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart, onExtra }: {
   result: Result;
@@ -22,6 +22,7 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
   const { lang, t } = useLang();
   const [open, setOpen] = useState<CandidateCode | null>(null);
   const none = result.ranked.length === 0;
+  const Extra = PANELS.ResultsExtra;
 
   return (
     <div>
@@ -102,7 +103,8 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
       <Grid result={result} />
       <GridText result={result} />
 
-      <Runoff result={result} onCompare={onCompare} onExtra={onExtra} />
+      {COUNTRY.headToHead && <Runoff result={result} onCompare={onCompare} onExtra={onExtra} />}
+      {Extra && <Extra result={result} />}
 
       <ShareCard result={result} />
 
@@ -162,7 +164,7 @@ function ShareCard({ result }: { result: Result }) {
     // Draw once the web fonts are in, so the image uses them.
     (document.fonts?.ready ?? Promise.resolve()).then(() => {
       if (!live || !ref.current) return;
-      drawShareCard(ref.current, result, lang, LIKELY_RUNOFF);
+      drawShareCard(ref.current, result, lang, COUNTRY.headToHead ? LIKELY_RUNOFF : null);
       setReady(true);
     });
     return () => { live = false; };

@@ -5,7 +5,7 @@ import type { CandidateCode } from "@country/candidates";
 import { BY_CODE } from "@country/candidates";
 import { BY_ID } from "@country/statements";
 import { COUNTRY } from "@country/config";
-import { PANELS } from "@country/panels";
+import { PANELS } from "../country";
 import { DEFAULT_WEIGHTS, type Answers, type Weights } from "./scoring";
 
 export type Stage = "intro" | "quiz" | "weights" | "results";

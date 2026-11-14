@@ -33,7 +33,7 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, max: number): string[
 }
 
 
-export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: Lang, runoff: [CandidateCode, CandidateCode]): void {
+export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: Lang, runoff: [CandidateCode, CandidateCode] | null): void {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
   const t = STRINGS[lang];
@@ -150,14 +150,14 @@ export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: L
   ctx.textAlign = "left";
 
   // --- runoff line ---
-  const [a, b] = runoff.map((c) => result.all[c]);
-  const ok = a.coverage > 0 && b.coverage > 0 && result.ranked.some((r) => r.code === a.code) && result.ranked.some((r) => r.code === b.code);
+  const [a, b] = (runoff ?? []).map((c) => result.all[c]);
+  const ok = !!runoff && a.coverage > 0 && b.coverage > 0 && result.ranked.some((r) => r.code === a.code) && result.ranked.some((r) => r.code === b.code);
   if (ok) {
     const d = a.weighted - b.weighted;
-    const line = Math.abs(d) < 3 ? t.tie : t.closerTo(BY_CODE[d > 0 ? runoff[0] : runoff[1]].name);
+    const line = Math.abs(d) < 3 ? t.tie : t.closerTo(BY_CODE[d > 0 ? runoff![0] : runoff![1]].name);
     ctx.fillStyle = INK;
     ctx.font = `600 18px ${SANS}`;
-    wrap(ctx, `${t.cardRunoff(BY_CODE[runoff[0]].short, BY_CODE[runoff[1]].short)} ${line}`, 640).slice(0, 2)
+    wrap(ctx, `${t.cardRunoff(BY_CODE[runoff![0]].short, BY_CODE[runoff![1]].short)} ${line}`, 640).slice(0, 2)
       .forEach((l, i) => ctx.fillText(l, 56, 456 + i * 24));
   }
 

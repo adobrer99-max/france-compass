@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        country: [fr]
+        country: [fr, it]
     env:
       COUNTRY: ${{ matrix.country }}
     steps:
