@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ACTIVE, BY_CODE, LIKELY_RUNOFF, type CandidateCode } from "../data/candidates";
 import { AREA } from "../data/statements";
 import { pct, tx, useLang } from "../i18n";
 import { bestWorst, COVERAGE_FLOOR, opposites, type Answers, type Result } from "../lib/scoring";
 import { Avatar, LangSwitch, MatchBar } from "./bits";
 import { Grid, GridText } from "./Grid";
+import { downloadCanvas, drawShareCard, shareCanvas } from "../lib/shareCard";
 
 export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart, onFirewall, onHistory }: {
   result: Result;
@@ -80,6 +81,8 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
 
       <Runoff result={result} onCompare={onCompare} onFirewall={onFirewall} onHistory={onHistory} />
 
+      <ShareCard result={result} />
+
       <div className="btn-row" style={{ marginTop: 28 }}>
         <button className="btn btn-ghost" onClick={onMethod}>{t.method}</button>
         <button className="btn btn-ghost" onClick={onRestart}>{t.restart}</button>
@@ -121,6 +124,34 @@ function Runoff({ result, onCompare, onFirewall, onHistory }: { result: Result; 
           <button className="linkish" onClick={onHistory}>{t.historyLink} →</button>
         </div>
       )}
+    </section>
+  );
+}
+
+function ShareCard({ result }: { result: Result }) {
+  const { lang, t } = useLang();
+  const ref = useRef<HTMLCanvasElement>(null);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    let live = true;
+    // Draw once the web fonts are in, so the image uses them.
+    (document.fonts?.ready ?? Promise.resolve()).then(() => {
+      if (!live || !ref.current) return;
+      drawShareCard(ref.current, result, lang, LIKELY_RUNOFF);
+      setReady(true);
+    });
+    return () => { live = false; };
+  }, [result, lang]);
+  const name = lang === "fr" ? "la-france-choisit.png" : "france-chooses.png";
+  return (
+    <section className="share">
+      <h2 className="section">{t.shareHeading}</h2>
+      <p className="small muted">{t.shareLead}</p>
+      <canvas ref={ref} className="share-card" width={1200} height={630} aria-label={t.shareHeading} />
+      <div className="btn-row">
+        <button className="btn" disabled={!ready} onClick={() => ref.current && shareCanvas(ref.current, name, `${t.shareText} https://adamdobrer.ca/projects/france-compass/`)}>{t.shareBtn}</button>
+        <button className="btn btn-ghost" disabled={!ready} onClick={() => ref.current && downloadCanvas(ref.current, name)}>{t.downloadBtn}</button>
+      </div>
     </section>
   );
 }
