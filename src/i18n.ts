@@ -41,6 +41,7 @@ const en = {
   seeResults: "See my results",
 
   resultsHeading: "Your results",
+  closestToYou: "Closest to you",
   resultsAnswered: (a: number, s: number) => `${a} answered, ${s} skipped.`,
   matchHeading: "Your match with each candidate",
   matchExplain: "The share of statements where you're on the same side, counting the topics you weighted. Only statements a candidate has a position on count.",
@@ -126,6 +127,7 @@ const fr: CoreStrings = {
   seeResults: "Voir mes résultats",
 
   resultsHeading: "Vos résultats",
+  closestToYou: "Le plus proche de vous",
   resultsAnswered: (a, s) => `${a} réponses, ${s} passées.`,
   matchHeading: "Votre proximité avec chaque candidat",
   matchExplain: "La part des affirmations sur lesquelles vous êtes du même côté, en tenant compte des thèmes que vous avez pondérés. Seules comptent les affirmations sur lesquelles le candidat a une position.",

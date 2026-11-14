@@ -15,7 +15,7 @@ its own origin.
 
 | Family | Files | Notes |
 |---|---|---|
-| Archivo | `archivo-var-*` | Variable. One file per subset serves 400–700. |
+| Archivo | `archivo-var-*` | Variable, weight 100–900 and width 62–125% (the condensed poster names). Width-axis files from @fontsource-variable/archivo 5.2.8. |
 | Source Serif 4 | `source-serif-var-latin` | Variable, latin only — it sets statement text, which is ASCII plus latin-range punctuation. |
 | IBM Plex Mono | `plex-mono-{400,600,700}-*` | Static; one file per weight. |
 

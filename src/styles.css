@@ -1,18 +1,24 @@
 :root {
-  --ink: #131a2b;
-  --paper: #f1f2ed;
-  --slip: #fbfbf7;
-  --envelope: #1e4b8f;
-  --rule: #c9cbc4;
-  --muted: #5a6070;
-  --well: #dfe1db;
+  /* Polling day: pavement, galvanised hoardings, white ballot paper, envelope blue. */
+  --ink: #1a2236;
+  --paper: #e3e4df;          /* pavement */
+  --slip: #f7f7f4;
+  --ballot: #ffffff;
+  --zinc: #a4abad;
+  --zinc-dark: #6b7477;
+  --zinc-light: #c9cecf;
+  --envelope: #24477a;
+  --rule: #c4c6c0;
+  --muted: #555c69;
+  --well: #d3d5cf;
   --good: #1f7a4c;
   --warn: #8a6d14;
   --bad: #a8322a;
 
+  --cond: "Archivo", "Arial Narrow", system-ui, sans-serif; /* used at font-stretch 70% */
   --sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --mono: "Archivo", system-ui, sans-serif; /* figures and chart labels: Archivo with tabular numerals */
 }
 
 * { box-sizing: border-box; }
@@ -36,8 +42,9 @@ body {
 
 .wide { max-width: 940px; }
 
-h1, h2, h3 { font-family: var(--sans); letter-spacing: -0.015em; margin: 0; }
-h1 { font-size: clamp(28px, 7vw, 36px); line-height: 1.08; font-weight: 700; }
+h1, h2, h3 { font-family: var(--sans); letter-spacing: -0.01em; margin: 0; }
+h2 { font-stretch: 80%; font-weight: 800; }
+h1 { font-size: clamp(36px, 9vw, 52px); line-height: .95; font-weight: 900; font-stretch: 72%; }
 h2 { font-size: 24px; font-weight: 700; }
 h3 { font-size: 15px; font-weight: 700; }
 
@@ -46,18 +53,17 @@ p:last-child { margin-bottom: 0; }
 
 a { color: var(--envelope); }
 
-.mono { font-family: var(--mono); }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .serif { font-family: var(--serif); }
 .muted { color: var(--muted); }
 .small { font-size: 12px; line-height: 1.5; }
 .tiny { font-size: 11px; line-height: 1.5; }
 
-.eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.kicker {
+  font-size: 13px;
+  font-weight: 600;
   color: var(--envelope);
+  font-variant-numeric: tabular-nums;
 }
 
 .card {
@@ -543,3 +549,187 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 /* placeholder codes: party votes or older platforms, to be sharpened */
 .code-weak { outline: 1.5px dashed currentColor; outline-offset: 1px; opacity: .8; }
 .weak-tag { font-style: italic; }
+
+/* =============================================================
+   Polling day. The intro is the row of numbered hoardings outside
+   every school and town hall; each statement is a ballot slip;
+   progress is the count, tallied in fives.
+   ============================================================= */
+
+.shell:has(.intro) { max-width: 1040px; }
+.intro > :not(.hoardings):not(.masthead) { max-width: 640px; }
+
+.masthead { margin: 18px 0 22px; }
+.poster-title {
+  font-family: var(--cond);
+  font-stretch: 68%;
+  font-weight: 900;
+  font-size: clamp(64px, 15vw, 156px);
+  line-height: .86;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  max-width: 9ch;
+}
+.masthead .lede { font-size: clamp(18px, 2.4vw, 22px); margin: 14px 0 0; color: var(--ink); }
+
+.intro-cols { display: grid; gap: 18px; }
+.intro-lead { font-size: 17px; line-height: 1.55; }
+@media (min-width: 820px) {
+  .intro > .intro-cols { max-width: none; grid-template-columns: minmax(0, 560px) 260px; justify-content: space-between; align-items: end; }
+}
+.intro-go { display: grid; gap: 8px; align-content: end; }
+
+/* the hoardings */
+.hoardings {
+  margin: 44px -20px 0;
+  padding: 26px 20px 30px;
+  background: #d6d8d3;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.hoardings .section { margin-top: 0; }
+.panels {
+  list-style: none;
+  margin: 18px 0 32px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 26px 12px;
+}
+@media (min-width: 900px) { .panels { grid-template-columns: repeat(7, 1fr); } }
+.panel {
+  position: relative;
+  background: var(--zinc);
+  padding: 22px 8px 8px;
+  border: 1px solid var(--zinc-dark);
+  box-shadow: inset 0 1px 0 var(--zinc-light), inset 0 -2px 0 rgba(0, 0, 0, .12);
+}
+/* the two legs it stands on */
+.panel::before, .panel::after {
+  content: "";
+  position: absolute;
+  bottom: -16px;
+  width: 6px;
+  height: 15px;
+  background: var(--zinc-dark);
+}
+.panel::before { left: 18%; }
+.panel::after { right: 18%; }
+.panel-plate {
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 26px;
+  padding: 0 6px;
+  height: 16px;
+  display: grid;
+  place-items: center;
+  background: var(--ballot);
+  border: 1px solid var(--zinc-dark);
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--ink);
+}
+.poster {
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  padding: 12px 10px 10px;
+  border: 0;
+  background: var(--c);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  /* a pasted bill: slightly lighter at the top where the glue sits */
+  background-image: linear-gradient(rgba(255, 255, 255, .10), rgba(255, 255, 255, 0) 30%);
+  transition: transform .15s ease;
+  container-type: inline-size;
+}
+@media (hover: hover) { .poster:hover { transform: translateY(-2px); } }
+.poster:focus-visible { outline: 3px solid var(--ballot); outline-offset: 2px; }
+.poster-name {
+  align-self: end;
+  display: grid;
+  font-family: var(--cond);
+  text-transform: uppercase;
+}
+.poster-first { font-stretch: 80%; font-weight: 700; font-size: max(11px, 10cqi); line-height: 1.1; }
+/* sized to the poster so the longest surname (Dupont-Aignan, Glucksmann) fits whole */
+.poster-last { font-stretch: 62%; font-weight: 900; font-size: 21cqi; line-height: .9; hyphens: none; overflow-wrap: normal; }
+.poster-party { font-size: 11px; line-height: 1.3; margin-top: 6px; opacity: .92; }
+.poster-poll {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, .45);
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 560px) {
+  .panels { grid-template-columns: repeat(3, 1fr); gap: 22px 7px; }
+  .panel { padding: 18px 5px 5px; }
+  .poster { aspect-ratio: 4 / 5; padding: 8px 6px 7px; }
+  .poster-party { display: none; }
+  .poster-poll { margin-top: 5px; padding-top: 4px; font-size: 10px; }
+  .panel::before, .panel::after { width: 4px; }
+}
+
+.beta-note { margin-top: 26px; padding-left: 12px; border-left: 3px solid var(--zinc); color: var(--muted); }
+
+/* the count */
+.count { font-weight: 800; font-size: 15px; font-variant-numeric: tabular-nums; }
+.progress { height: auto; background: none; margin: 4px 0 22px; }
+.tally { display: block; width: 100%; height: 22px; }
+.tally line { stroke: var(--well); stroke-width: 2.2; stroke-linecap: round; }
+.tally line.on { stroke: var(--ink); }
+
+/* the ballot slip */
+.ballot {
+  background: var(--ballot);
+  border: 1px solid #b9bbb5;
+  padding: 34px 28px;
+  margin-bottom: 20px;
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  box-shadow: 3px 3px 0 #cfd1cb;
+}
+.ballot p {
+  font-family: var(--serif);
+  font-size: clamp(21px, 4.6vw, 25px);
+  line-height: 1.35;
+  margin: 0;
+  max-width: 30ch;
+  text-wrap: balance;
+}
+
+.scale { display: grid; gap: 7px; }
+@media (min-width: 640px) {
+  .scale { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .scale .answer { flex-direction: column; align-items: flex-start; justify-content: space-between; min-height: 84px; font-size: 14px; line-height: 1.25; }
+}
+.skip-row { margin-top: 8px; }
+.answer { background: var(--slip); }
+@media (hover: hover) { .answer:hover { border-color: var(--envelope); } }
+.answer .key { font-family: var(--sans); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* small poster tiles stand in for round avatars elsewhere */
+.avatar { border-radius: 1px; font-stretch: 75%; font-weight: 800; }
+
+.btn { font-weight: 700; letter-spacing: 0; }
+.sheet { border-top: 6px solid var(--zinc); }
+.sheet-head h2 { font-stretch: 80%; font-weight: 800; font-size: 22px; }
+
+/* results: the closest match goes up on a hoarding of its own */
+.lead-board { display: grid; grid-template-columns: 150px 1fr; gap: 22px; align-items: end; margin: 22px 0 8px; }
+.lead-board .panel { margin-bottom: 16px; }
+.lead-pct { font-family: var(--cond); font-stretch: 68%; font-weight: 900; font-size: clamp(64px, 14vw, 104px); line-height: .85; font-variant-numeric: tabular-nums; }
+.lead-label { font-weight: 700; margin-bottom: 6px; }
+@media (max-width: 420px) { .lead-board { grid-template-columns: 120px 1fr; gap: 14px; } }
+.match-pct { font-family: var(--cond); font-stretch: 75%; font-weight: 800; font-size: 22px; }
