@@ -16,8 +16,11 @@ export type Weights = Record<AreaId, number>;
 
 export const DEFAULT_WEIGHTS = Object.fromEntries(AREAS.map((a) => [a.id, 1])) as Weights;
 
-/** Below this share of coded statements a candidate is left out of the ranking. */
-export const COVERAGE_FLOOR = 0.7;
+/**
+ * Below this share of coded statements a candidate is left out of the ranking.
+ * A quarter during the beta, while programmes are still coming out; 70% at launch, as in the Israel compass.
+ */
+export const COVERAGE_FLOOR = 0.25;
 /** Below this share of an axis's statements, a coordinate is drawn hollow. */
 export const AXIS_CONFIDENCE_FLOOR = 0.5;
 
