@@ -8,6 +8,11 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        country: [fr]
+    env:
+      COUNTRY: ${{ matrix.country }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5

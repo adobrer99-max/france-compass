@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { BY_CODE, LIKELY_RUNOFF, type CandidateCode } from "./data/candidates";
-import { STATEMENTS } from "./data/statements";
+import { BY_CODE, LIKELY_RUNOFF, type CandidateCode } from "@country/candidates";
+import { STATEMENTS } from "@country/statements";
 import { LangContext, STRINGS, initialLang, type Lang } from "./i18n";
 import { score, type Answer } from "./lib/scoring";
 import { clear, fresh, load, readPanel, save, writeLang, writePanel, type Panel, type Session, type Stage } from "./lib/state";
@@ -8,7 +8,7 @@ import { Sheet } from "./components/bits";
 import { Intro, Question, Weights } from "./components/Steps";
 import { Results } from "./components/Results";
 import { CandidatePanel, ComparePanel, MethodPanel, StatementPanel } from "./components/Panels";
-import { FirewallPanel, HistoryPanel } from "./components/Context";
+import { PANELS } from "@country/panels";
 
 export default function App() {
   const [lang, setLangState] = useState<Lang>(initialLang);
@@ -48,19 +48,19 @@ export default function App() {
   const openStatement = (id: number) => setPanel({ kind: "statement", id });
   const openCompare = (a: CandidateCode, b: CandidateCode) => setPanel({ kind: "compare", a, b });
   const openMethod = () => setPanel({ kind: "method" });
-  const openFirewall = () => setPanel({ kind: "firewall" });
-  const openHistory = () => setPanel({ kind: "history" });
+  const openExtra = (id: string) => setPanel({ kind: "extra", id });
+  const extra = panel?.kind === "extra" ? PANELS.extraPanels.find((x) => x.id === panel.id) : undefined;
 
   const title = !panel ? "" : panel.kind === "candidate" ? BY_CODE[panel.code].name
     : panel.kind === "statement" ? `${t.allStatements} · ${panel.id}` : panel.kind === "compare" ? t.compareHeading
-    : panel.kind === "firewall" ? t.firewallHeading : panel.kind === "history" ? t.historyHeading : t.methodHeading;
+    : extra ? extra.heading(t) : t.methodHeading;
 
   return (
     <LangContext.Provider value={{ lang, t, setLang }}>
       <main className={`shell${stage === "results" ? " results" : ""}`}>
         {stage === "intro" && (
           <Intro onStart={start} onResume={savedCount ? resume : undefined} savedCount={savedCount}
-            onCandidate={openCandidate} onFirewall={openFirewall} onHistory={openHistory} />
+            onCandidate={openCandidate} onExtra={openExtra} />
         )}
         {stage === "quiz" && (
           <Question s={STATEMENTS[session.index]} index={session.index} total={STATEMENTS.length}
@@ -72,13 +72,12 @@ export default function App() {
         )}
         {stage === "results" && (
           <Results result={result} answers={session.answers} onCandidate={openCandidate} onStatement={openStatement}
-            onCompare={openCompare} onMethod={openMethod} onRestart={start} onFirewall={openFirewall} onHistory={openHistory} />
+            onCompare={openCompare} onMethod={openMethod} onRestart={start} onExtra={openExtra} />
         )}
         <nav className="nav" aria-label={t.method}>
           <button onClick={openMethod}>{t.method}</button>
           <button onClick={() => openCompare(...LIKELY_RUNOFF)}>{t.compare}</button>
-          <button onClick={openFirewall}>{t.firewallNav}</button>
-          <button onClick={openHistory}>{t.historyNav}</button>
+          {PANELS.extraPanels.map((x) => <button key={x.id} onClick={() => openExtra(x.id)}>{x.nav(t)}</button>)}
         </nav>
         <p className="tiny muted footer">{t.footer}</p>
       </main>
@@ -91,8 +90,7 @@ export default function App() {
             <ComparePanel a={panel.a} b={panel.b} result={stage === "results" ? result : null} onPick={openCompare} onStatement={openStatement} />
           )}
           {panel.kind === "method" && <MethodPanel onStatement={openStatement} onCandidate={openCandidate} />}
-          {panel.kind === "firewall" && <FirewallPanel onCandidate={openCandidate} />}
-          {panel.kind === "history" && <HistoryPanel />}
+          {extra?.render({ onCandidate: openCandidate })}
         </Sheet>
       )}
     </LangContext.Provider>

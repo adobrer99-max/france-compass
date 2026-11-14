@@ -1,25 +1,25 @@
 import { useCallback, useEffect } from "react";
-import { CANDIDATES, POLL_SOURCE } from "../data/candidates";
-import { AREA, AREAS, type Statement } from "../data/statements";
+import { CANDIDATES, POLL_SOURCE } from "@country/candidates";
+import { AREA, AREAS, type Statement } from "@country/statements";
 import { useLang, tx } from "../i18n";
+import { PANELS } from "@country/panels";
 import type { Answer, Weights as W } from "../lib/scoring";
 import { Avatar, LangSwitch } from "./bits";
 
 const pollText = (lang: string, p: string) =>
   lang === "fr" ? p.replace("under", "moins de").replace("up to", "jusqu'à").replace(/(\d)\.(\d)/g, "$1,$2").replace(/%$/, " %") : p;
 
-export function Intro({ onStart, onResume, savedCount, onCandidate, onFirewall, onHistory }: {
+export function Intro({ onStart, onResume, savedCount, onCandidate, onExtra }: {
   onStart: () => void;
   onResume?: () => void;
   savedCount: number;
   onCandidate: (code: (typeof CANDIDATES)[number]["code"]) => void;
-  onFirewall: () => void;
-  onHistory: () => void;
+  onExtra: (id: string) => void;
 }) {
   const { lang, t } = useLang();
   return (
     <div>
-      <div className="topbar"><span className="eyebrow">{lang === "en" ? "France 2027" : "Présidentielle 2027"}</span><LangSwitch /></div>
+      <div className="topbar"><span className="eyebrow">{t.eyebrow}</span><LangSwitch /></div>
       <h1>{t.title}</h1>
       <p className="lede">{t.subtitle}</p>
       <div className="callout">{t.betaBanner}</div>
@@ -49,8 +49,9 @@ export function Intro({ onStart, onResume, savedCount, onCandidate, onFirewall, 
       <p className="tiny muted">{t.pollsFrom(POLL_SOURCE.label)} * {CANDIDATES.filter((c) => c.pollFrom).map((c) => `${c.short}: ${c.pollFrom}`).join("; ")}.</p>
 
       <div className="ctx-links">
-        <button className="ctx-card" onClick={onFirewall}><strong>{t.firewallHeading}</strong><span className="small muted">{t.firewallLink}</span></button>
-        <button className="ctx-card" onClick={onHistory}><strong>{t.historyHeading}</strong><span className="small muted">{t.historyLink}</span></button>
+        {PANELS.extraPanels.map((x) => (
+          <button key={x.id} className="ctx-card" onClick={() => onExtra(x.id)}><strong>{x.heading(t)}</strong><span className="small muted">{x.blurb(t)}</span></button>
+        ))}
       </div>
     </div>
   );

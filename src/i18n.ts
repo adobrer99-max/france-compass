@@ -1,27 +1,27 @@
 /* ============================================================
-   English and French, side by side. Every string the app shows
-   lives here, so the colleague in France can copy-check one file.
+   Interface strings every country shares, by language. Each country
+   adds its own (names, dates, method, extra panels) in
+   src/countries/<id>/strings.ts; the two are merged into `t`.
+   A new language needs a block here and in the country's strings.
    ============================================================ */
 
 import { createContext, useContext } from "react";
+import { COUNTRY } from "@country/config";
+import { COUNTRY_STRINGS, type CountryStrings } from "@country/strings";
 
-export type Lang = "en" | "fr";
+/** The languages this build runs in: the active country's. */
+export type Lang = (typeof COUNTRY.langs)[number];
 
 const en = {
-  title: "France Chooses",
-  subtitle: "A compass for the 2027 French presidential election",
-  langName: "Français",
-  langSwitch: "Lire en français",
-  introLead: "Answer 53 statements on the issues that divide the candidates, say which topics matter most to you, and see which candidates you're closest to.",
-  introDates: "First round Sunday 18 April 2027, runoff Sunday 2 May.",
+  /** this language's own name, and the switch label shown to readers of other languages */
+  langName: "English",
+  langSwitch: "Read in English",
   introPrivacy: "Your answers stay in your browser. Nothing is sent anywhere.",
   introTime: "About 10 minutes.",
   start: "Start",
   resume: (n: number) => `Pick up where you left off (${n} answered)`,
   startOver: "Start over",
-  betaBanner: "Beta: candidate positions are provisional, from programmes published so far. Some are placeholders taken from party votes or older platforms, marked as such. Many are still blank, and a colleague in France is checking them.",
   candidatesHeading: "The candidates",
-  candidatesNote: "The likely field. The official list comes from the Constitutional Council in mid-March 2027, and every official candidate will be included.",
   pollLabel: "Poll",
   method: "How it works",
   compare: "Compare two candidates",
@@ -49,7 +49,6 @@ const en = {
   bestWorst: (name: string, best: string, bp: number, worst: string, wp: number) => `You agree with ${name} most on ${best.toLowerCase()} (${bp}%), least on ${worst.toLowerCase()} (${wp}%).`,
   basedOn: (n: number) => `based on ${n} statements`,
   chartHeading: "Where you sit",
-  chartExplain: "Left to right on the economy (statements 1–12), and open to closed on Europe, immigration and identity (13–18 and 25–30, except 29).",
   you: "YOU",
   chartText: "Text version of the chart",
   chartYou: (x: number, y: number) => `You sit at ${x} on the economic left–right axis and ${y} on the open–closed axis, both from −100 to +100.`,
@@ -82,13 +81,6 @@ const en = {
   statementNoAxis: "Not on the chart. It counts toward your match only.",
 
   methodHeading: "How it works",
-  methodBody: [
-    "There are 53 statements in nine topics. Each is a single claim in plain words, and each was chosen because the main candidates disagree on it.",
-    "Each candidate gets one code per statement: agrees, disagrees, neutral or mixed, or no position on record. Every code links to a dated source: first the candidate's 2027 programme, then what they've said since declaring, then their party's 2024 legislative platform and its votes in the National Assembly. Gaps are never filled in from party family.",
-    "Your match with a candidate is the share of statements where you're on the same side: 2 points for the same side, 1 if one of you is neutral, 0 for opposite sides. Only direction counts, not strength. Statements you skip, or that a candidate has no position on, are left out. Candidates with fewer than a quarter of statements coded aren't ranked (during the beta, while programmes are still coming out; at launch the bar rises to 70%).",
-    "The chart uses the raw answers, without your topic weights, on two axes: economic left–right, and open–closed on Europe, immigration and identity.",
-    "Each campaign is sent its codes and given a week to reply. Every change after that is logged below with its reason. A colleague in France checks every code and the French text.",
-  ],
   matrixHeading: "Every code",
   matrixWeak: "Dashed outline: a placeholder, from a party vote or an older platform, to be sharpened.",
   changesHeading: "Changes",
@@ -99,78 +91,22 @@ const en = {
   shareLead: "An image with your closest matches and your spot on the chart. Your answers aren't on it.",
   shareBtn: "Share image",
   downloadBtn: "Download image",
-  cardSub: "2027 presidential election · first round 18 April",
   cardTop: "My closest matches",
   cardRunoff: (a: string, b: string) => `${a} vs ${b} in the runoff:`,
-  cardCaveat: "Beta: a match measures agreement on 53 policy statements only, not character, record or who will win. Candidate positions are a first, provisional pass from programmes published so far, each with its source on the site.",
-  shareText: "My result on France Chooses, a bilingual compass for the 2027 French presidential election:",
   footer: "Made by Adam Dobrer. Independent, not affiliated with any party or campaign.",
-  firewallNav: "The firewall against the RN",
-  historyNav: "Past elections",
-  firewallHeading: "The firewall against the RN",
-  historyHeading: "Past elections and how voters moved",
-  firewallIntro: [
-    "Since 2002, when the far right first reached a presidential runoff, most other parties have urged their voters to block it: the \"front républicain\", or firewall. It has always held in a presidential runoff, but it has been getting thinner, and in 2024 it took about 217 withdrawals to keep the RN from first place in the Assembly.",
-    "With the RN leading every 2027 poll, whether the other candidates call to vote against it in the runoff may decide the election. This tracks what each one has said, with sources.",
-  ],
-  firewallTimeline: "How it has held",
-  legislative: "Legislative election",
-  legislativeShort: "legislative",
-  runoffWord: "Runoff",
-  firewall2027: "Where each candidate stands",
-  firewall2027Lead: "The tag next to 2027 is what they've said about a 2027 runoff. Below it is their most recent record, theirs or their party's, clearly labelled. Party record is context, not a 2027 position.",
-  stances: { block: "Calls to block the RN", noRN: "No vote for the RN", niNi: "Neither RN nor LFI", free: "Freedom of vote", backsRN: "Backs the RN", isRN: "RN candidate", unknown: "Not said yet" },
-  stanceExplain: {
-    block: "urges a vote for whoever faces the RN",
-    noRN: "rules out any vote for the RN, without backing its opponent",
-    niNi: "rules out a vote for either the RN or La France insoumise",
-    free: "gives no instruction",
-    backsRN: "calls to vote for the RN",
-  },
-  noRecord: "Nothing on record yet.",
-  firewallLog: "Campaign log",
-  firewallLogEmpty: "Nothing yet. Statements about the runoff will be logged here with their dates as the campaign goes on.",
-  firewallLink: "Who would call to block the RN?",
-  historyLink: "How voters moved in past runoffs",
-  historyIntro: [
-    "The far right has grown in every presidential election since 2012, and its runoff score has more than doubled since 2002. How the eliminated candidates' voters split in the runoff has decided the result each time.",
-  ],
-  historyChart: "The far right's share, first round and runoff",
-  historyChartAlt: "Bar chart of the far right's share of the vote in presidential elections from 2002 to 2022.",
-  keyR1: "First round (FN/RN, plus Reconquête in 2022)",
-  keyR2: "Runoff (FN/RN)",
-  transfersHeading: "Where eliminated candidates' voters went",
-  transfersLead: "Each bar is one first-round electorate in the runoff, from exit polling.",
-  transfersCols: (w: string, f: string) => `${w} against ${f}`,
-  blankOrHome: "blank, spoiled or stayed home",
-  keyWinner: "Macron",
-  keyFar: "Le Pen",
-  resultsTable: "Results since 2002",
-  round1: "First round, leading candidates",
-  round2: "Runoff",
-  noRunoffRow: "No national runoff",
-  pollNowHeading: "Where 2027 stands",
-  runoffRNNote: "Past runoffs against the RN turned on the firewall.",
-  pollsFrom: (label: string) => `Polls: ${label} (ranges across the scenarios tested), unless marked.`,
 };
 
-export type Strings = typeof en;
+export type CoreStrings = typeof en;
 
-const fr: Strings = {
-  title: "La France choisit",
-  subtitle: "Une boussole pour l'élection présidentielle de 2027",
-  langName: "English",
-  langSwitch: "Read in English",
-  introLead: "Répondez à 53 affirmations sur les sujets qui divisent les candidats, dites quels thèmes comptent le plus pour vous, et découvrez de quels candidats vous êtes le plus proche.",
-  introDates: "Premier tour le dimanche 18 avril 2027, second tour le dimanche 2 mai.",
+const fr: CoreStrings = {
+  langName: "Français",
+  langSwitch: "Lire en français",
   introPrivacy: "Vos réponses restent dans votre navigateur. Rien n'est envoyé nulle part.",
   introTime: "Environ 10 minutes.",
   start: "Commencer",
   resume: (n) => `Reprendre là où vous en étiez (${n} réponses)`,
   startOver: "Recommencer",
-  betaBanner: "Version bêta : les positions des candidats sont provisoires, d'après les programmes publiés à ce jour. Certaines sont des positions d'attente tirées de votes du parti ou d'anciens programmes, signalées comme telles. Beaucoup restent vides, et un collègue en France les vérifie.",
   candidatesHeading: "Les candidats",
-  candidatesNote: "Les candidats probables. La liste officielle sera publiée par le Conseil constitutionnel à la mi-mars 2027, et tous les candidats officiels y figureront.",
   pollLabel: "Sondage",
   method: "Méthode",
   compare: "Comparer deux candidats",
@@ -198,7 +134,6 @@ const fr: Strings = {
   bestWorst: (name, best, bp, worst, wp) => `Vous êtes le plus d'accord avec ${name} sur ${best.toLowerCase()} (${bp} %), le moins sur ${worst.toLowerCase()} (${wp} %).`,
   basedOn: (n) => `sur ${n} affirmations`,
   chartHeading: "Où vous situez-vous ?",
-  chartExplain: "De gauche à droite sur l'économie (affirmations 1 à 12), et d'ouvert à fermé sur l'Europe, l'immigration et l'identité (13 à 18 et 25 à 30, sauf 29).",
   you: "VOUS",
   chartText: "Version texte du graphique",
   chartYou: (x, y) => `Vous êtes à ${x} sur l'axe économique gauche-droite et à ${y} sur l'axe ouvert-fermé, tous deux de −100 à +100.`,
@@ -231,13 +166,6 @@ const fr: Strings = {
   statementNoAxis: "Absente du graphique. Elle compte seulement pour votre proximité avec les candidats.",
 
   methodHeading: "Méthode",
-  methodBody: [
-    "53 affirmations réparties en neuf thèmes. Chacune ne contient qu'une seule idée, en termes simples, et a été choisie parce que les principaux candidats s'y opposent.",
-    "Chaque candidat reçoit un code par affirmation : d'accord, pas d'accord, neutre ou partagé, ou aucune position connue. Chaque code renvoie à une source datée : d'abord le programme 2027 du candidat, puis ses déclarations depuis sa candidature, puis le programme de son parti aux législatives de 2024 et ses votes à l'Assemblée nationale. Une position manquante n'est jamais déduite de la famille politique.",
-    "Votre proximité avec un candidat est la part des affirmations sur lesquelles vous êtes du même côté : 2 points si vous êtes du même côté, 1 si l'un de vous est neutre, 0 si vous êtes opposés. Seul le sens compte, pas l'intensité. Les affirmations que vous passez, ou sur lesquelles un candidat n'a pas de position, sont exclues. Les candidats dont moins d'un quart des positions sont codées ne sont pas classés (pendant la bêta, le temps que les programmes paraissent ; le seuil passera à 70 % au lancement).",
-    "Le graphique utilise vos réponses brutes, sans la pondération des thèmes, sur deux axes : gauche-droite sur l'économie, et ouvert-fermé sur l'Europe, l'immigration et l'identité.",
-    "Chaque équipe de campagne reçoit ses codes et dispose d'une semaine pour répondre. Toute modification ultérieure est consignée ci-dessous avec sa raison. Un collègue en France vérifie chaque code et le texte français.",
-  ],
   matrixHeading: "Tous les codes",
   matrixWeak: "Contour en pointillés : position d’attente, tirée d’un vote du parti ou d’un ancien programme, à affiner.",
   changesHeading: "Modifications",
@@ -248,83 +176,43 @@ const fr: Strings = {
   shareLead: "Une image avec vos candidats les plus proches et votre position sur le graphique. Vos réponses n'y figurent pas.",
   shareBtn: "Partager l'image",
   downloadBtn: "Télécharger l'image",
-  cardSub: "Présidentielle 2027 · premier tour le 18 avril",
   cardTop: "Mes candidats les plus proches",
   cardRunoff: (a, b) => `Au second tour ${a}–${b} :`,
-  cardCaveat: "Bêta : la proximité ne mesure que l'accord sur 53 affirmations, pas la personnalité, le bilan ni les chances de victoire. Les positions des candidats sont un premier codage provisoire d'après les programmes publiés, chacune avec sa source sur le site.",
-  shareText: "Mon résultat sur La France choisit, une boussole bilingue pour la présidentielle 2027 :",
   footer: "Réalisé par Adam Dobrer. Indépendant, sans lien avec aucun parti ni aucune campagne.",
-  firewallNav: "Le front républicain",
-  historyNav: "Les élections passées",
-  firewallHeading: "Le front républicain face au RN",
-  historyHeading: "Les élections passées et les reports de voix",
-  firewallIntro: [
-    "Depuis 2002, quand l'extrême droite s'est qualifiée pour la première fois au second tour d'une présidentielle, la plupart des autres partis appellent leurs électeurs à lui faire barrage : c'est le « front républicain ». Il a toujours tenu au second tour de la présidentielle, mais il s'amincit, et en 2024 il a fallu environ 217 désistements pour empêcher le RN d'arriver en tête à l'Assemblée.",
-    "Avec le RN en tête de tous les sondages pour 2027, la décision des autres candidats d'appeler ou non à voter contre lui au second tour pourrait faire l'élection. Cette page suit ce que chacun a dit, sources à l'appui.",
-  ],
-  firewallTimeline: "Comment il a tenu",
-  legislative: "Élections législatives",
-  legislativeShort: "législatives",
-  runoffWord: "Second tour",
-  firewall2027: "La position de chaque candidat",
-  firewall2027Lead: "L'étiquette à côté de 2027 indique ce qu'ils ont dit d'un second tour en 2027. En dessous figure leur position la plus récente, la leur ou celle de leur parti, clairement indiquée. La position du parti est un contexte, pas une position pour 2027.",
-  stances: { block: "Appelle à faire barrage", noRN: "Aucune voix pour le RN", niNi: "Ni RN ni LFI", free: "Liberté de vote", backsRN: "Soutient le RN", isRN: "Candidature du RN", unknown: "Pas encore dit" },
-  stanceExplain: {
-    block: "appelle à voter pour l'adversaire du RN",
-    noRN: "exclut tout vote pour le RN, sans soutenir son adversaire",
-    niNi: "exclut tout vote pour le RN comme pour La France insoumise",
-    free: "ne donne pas de consigne",
-    backsRN: "appelle à voter pour le RN",
-  },
-  noRecord: "Rien de connu pour l'instant.",
-  firewallLog: "Journal de campagne",
-  firewallLogEmpty: "Rien pour l'instant. Les déclarations sur le second tour seront consignées ici, datées, au fil de la campagne.",
-  firewallLink: "Qui appellerait à faire barrage au RN ?",
-  historyLink: "Les reports de voix lors des seconds tours passés",
-  historyIntro: [
-    "L'extrême droite progresse à chaque présidentielle depuis 2012, et son score au second tour a plus que doublé depuis 2002. La répartition des électeurs des candidats éliminés a chaque fois fait le résultat.",
-  ],
-  historyChart: "Le score de l'extrême droite, au premier et au second tour",
-  historyChartAlt: "Graphique en barres du score de l'extrême droite aux présidentielles de 2002 à 2022.",
-  keyR1: "Premier tour (FN/RN, plus Reconquête en 2022)",
-  keyR2: "Second tour (FN/RN)",
-  transfersHeading: "Où sont allés les électeurs des candidats éliminés",
-  transfersLead: "Chaque barre représente un électorat du premier tour au second tour, d'après les sondages sortie des urnes.",
-  transfersCols: (w, f) => `${w} contre ${f}`,
-  blankOrHome: "blanc, nul ou abstention",
-  keyWinner: "Macron",
-  keyFar: "Le Pen",
-  resultsTable: "Les résultats depuis 2002",
-  round1: "Premier tour, candidats en tête",
-  round2: "Second tour",
-  noRunoffRow: "Pas de second tour national",
-  pollNowHeading: "Où en est 2027",
-  runoffRNNote: "Les seconds tours passés face au RN se sont joués sur le front républicain.",
-  pollsFrom: (label) => `Sondages : ${label} (fourchettes selon les hypothèses testées), sauf mention contraire.`,
 };
 
-export const STRINGS: Record<Lang, Strings> = { en, fr };
+const CORE: Record<string, CoreStrings> = { en, fr };
+
+export type Strings = CoreStrings & CountryStrings;
+
+export const STRINGS = Object.fromEntries(
+  COUNTRY.langs.map((l) => [l, { ...CORE[l], ...COUNTRY_STRINGS[l] }]),
+) as Record<Lang, Strings>;
 
 export const LangContext = createContext<{ lang: Lang; t: Strings; setLang: (l: Lang) => void }>({
-  lang: "en",
-  t: en,
+  lang: COUNTRY.langs[0],
+  t: STRINGS[COUNTRY.langs[0]],
   setLang: () => {},
 });
 
 export const useLang = () => useContext(LangContext);
 
-/** The statement or area text in the current language. */
-export const tx = (lang: Lang, x: { en: string; fr: string }) => x[lang];
+/** Statement, area or note text in the current language. */
+export const tx = (lang: Lang, x: Record<Lang, string>) => x[lang];
 
-/** French puts a space before % and uses a comma; English doesn't. */
-export const pct = (lang: Lang, n: number) => (lang === "fr" ? `${Math.round(n)} %` : `${Math.round(n)}%`);
+/** Languages that put a (narrow) space before % (French, German…). */
+const SPACED_PCT = new Set(["fr", "de", "es", "it", "pl", "cs", "sv", "nb", "da", "fi"]);
+export const pct = (lang: Lang, n: number) => (SPACED_PCT.has(lang) ? `${Math.round(n)}\u202F%` : `${Math.round(n)}%`);
+
+const isLang = (x: string | null | undefined): x is Lang => !!x && (COUNTRY.langs as readonly string[]).includes(x);
 
 export function initialLang(): Lang {
   const q = new URLSearchParams(window.location.search).get("lang");
-  if (q === "fr" || q === "en") return q;
+  if (isLang(q)) return q;
   try {
-    const s = localStorage.getItem("fc-lang");
-    if (s === "fr" || s === "en") return s;
+    const s = localStorage.getItem(`${COUNTRY.storagePrefix}-lang`);
+    if (isLang(s)) return s;
   } catch { /* storage blocked */ }
-  return navigator.language?.toLowerCase().startsWith("fr") ? "fr" : "en";
+  const nav = navigator.language?.toLowerCase().slice(0, 2);
+  return isLang(nav) ? nav : COUNTRY.defaultLang;
 }

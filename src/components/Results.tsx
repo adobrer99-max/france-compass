@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { ACTIVE, BY_CODE, LIKELY_RUNOFF, type CandidateCode } from "../data/candidates";
-import { AREA } from "../data/statements";
+import { ACTIVE, BY_CODE, LIKELY_RUNOFF, type CandidateCode } from "@country/candidates";
+import { AREA } from "@country/statements";
 import { pct, tx, useLang } from "../i18n";
 import { bestWorst, COVERAGE_FLOOR, opposites, type Answers, type Result } from "../lib/scoring";
 import { Avatar, LangSwitch, MatchBar } from "./bits";
 import { Grid, GridText } from "./Grid";
 import { downloadCanvas, drawShareCard, shareCanvas } from "../lib/shareCard";
+import { COUNTRY } from "@country/config";
+import { PANELS } from "@country/panels";
 
-export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart, onFirewall, onHistory }: {
+export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart, onExtra }: {
   result: Result;
   answers: Answers;
   onCandidate: (c: CandidateCode) => void;
@@ -15,8 +17,7 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
   onCompare: (a: CandidateCode, b: CandidateCode) => void;
   onMethod: () => void;
   onRestart: () => void;
-  onFirewall: () => void;
-  onHistory: () => void;
+  onExtra: (id: string) => void;
 }) {
   const { lang, t } = useLang();
   const [open, setOpen] = useState<CandidateCode | null>(null);
@@ -79,7 +80,7 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
       <Grid result={result} />
       <GridText result={result} />
 
-      <Runoff result={result} onCompare={onCompare} onFirewall={onFirewall} onHistory={onHistory} />
+      <Runoff result={result} onCompare={onCompare} onExtra={onExtra} />
 
       <ShareCard result={result} />
 
@@ -91,12 +92,13 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
   );
 }
 
-function Runoff({ result, onCompare, onFirewall, onHistory }: { result: Result; onCompare: (a: CandidateCode, b: CandidateCode) => void; onFirewall: () => void; onHistory: () => void }) {
+function Runoff({ result, onCompare, onExtra }: { result: Result; onCompare: (a: CandidateCode, b: CandidateCode) => void; onExtra: (id: string) => void }) {
   const { lang, t } = useLang();
   const [pair, setPair] = useState<[CandidateCode, CandidateCode]>(LIKELY_RUNOFF);
   const [a, b] = pair.map((c) => result.all[c]);
   const ok = a.coverage >= COVERAGE_FLOOR && b.coverage >= COVERAGE_FLOOR;
   const diff = a.weighted - b.weighted;
+  const note = PANELS.runoffNote?.(pair) ?? null;
   return (
     <section className="card runoff">
       <h2 style={{ fontSize: 19 }}>{t.runoffHeading}</h2>
@@ -117,11 +119,12 @@ function Runoff({ result, onCompare, onFirewall, onHistory }: { result: Result; 
         <strong>{!ok ? t.notCoded : Math.abs(diff) < 3 ? t.tie : t.closerTo(BY_CODE[diff > 0 ? pair[0] : pair[1]].name)}</strong>
       </p>
       <button className="linkish small" onClick={() => onCompare(pair[0], pair[1])}>{t.compare} →</button>
-      {pair.includes("RN") && (
+      {note && (
         <div className="small runoff-ctx">
-          <p className="muted" style={{ margin: "10px 0 4px" }}>{t.runoffRNNote}</p>
-          <button className="linkish" onClick={onFirewall}>{t.firewallLink} →</button><br />
-          <button className="linkish" onClick={onHistory}>{t.historyLink} →</button>
+          <p className="muted" style={{ margin: "10px 0 4px" }}>{note.text(t)}</p>
+          {PANELS.extraPanels.filter((x) => note.panels.includes(x.id)).map((x) => (
+            <div key={x.id}><button className="linkish" onClick={() => onExtra(x.id)}>{x.blurb(t)} →</button></div>
+          ))}
         </div>
       )}
     </section>
@@ -142,14 +145,14 @@ function ShareCard({ result }: { result: Result }) {
     });
     return () => { live = false; };
   }, [result, lang]);
-  const name = lang === "fr" ? "la-france-choisit.png" : "france-chooses.png";
+  const name = COUNTRY.shareFile[lang];
   return (
     <section className="share">
       <h2 className="section">{t.shareHeading}</h2>
       <p className="small muted">{t.shareLead}</p>
       <canvas ref={ref} className="share-card" width={1200} height={630} aria-label={t.shareHeading} />
       <div className="btn-row">
-        <button className="btn" disabled={!ready} onClick={() => ref.current && shareCanvas(ref.current, name, `${t.shareText} https://adamdobrer.ca/projects/france-compass/`)}>{t.shareBtn}</button>
+        <button className="btn" disabled={!ready} onClick={() => ref.current && shareCanvas(ref.current, name, `${t.shareText} ${COUNTRY.siteUrl}`)}>{t.shareBtn}</button>
         <button className="btn btn-ghost" disabled={!ready} onClick={() => ref.current && downloadCanvas(ref.current, name)}>{t.downloadBtn}</button>
       </div>
     </section>

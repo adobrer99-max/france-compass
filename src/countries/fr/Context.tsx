@@ -1,9 +1,9 @@
-import { BY_CODE } from "../data/candidates";
-import { ELECTIONS, FIREWALL, FIREWALL_LOG, POLL_NOW, TRANSFERS, type Src, type Stance } from "../data/context";
-import { tx, useLang, type Lang } from "../i18n";
+import { BY_CODE } from "./candidates";
+import { ELECTIONS, FIREWALL, FIREWALL_LOG, POLL_NOW, TRANSFERS, type Src, type Stance } from "./context";
+import { tx, useLang, type Lang } from "../../i18n";
 
 const pctx = (lang: Lang, v: number) => (lang === "fr" ? `${v.toLocaleString("fr-FR")} %` : `${v}%`);
-import { Avatar } from "./bits";
+import { Avatar } from "../../components/bits";
 
 function SrcLink({ s }: { s: Src }) {
   return <a href={s.url} target="_blank" rel="noopener">{s.label}</a>;

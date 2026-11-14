@@ -16,21 +16,29 @@ npm install
 npm run dev        # http://localhost:5173  (?lang=fr for French)
 npm test           # statement bank + scoring
 npm run build      # static site into dist/
+
+COUNTRY=fr npm run build   # one build per country; fr is the default
 ```
+
+The app is built to run for any country. Everything French lives in `src/countries/fr/`;
+the scoring, chart, panels and share card are shared. See
+[`src/countries/README.md`](src/countries/README.md) for adding one.
 
 ## Where things live
 
 | File | What's in it |
 | --- | --- |
-| `src/data/statements.ts` | The 53 statements, English and French, their topic and axis |
-| `src/data/candidates.ts` | The field, parties, colours, latest poll; the default runoff pair |
-| `src/data/codes.ts` | Every candidate's position on every statement, each with a dated source; the change log |
-| `src/i18n.ts` | Every UI string in both languages, for the French copy check |
+| `src/countries/fr/statements.ts` | The 53 statements, English and French, their topic and axis |
+| `src/countries/fr/candidates.ts` | The field, parties, colours, latest poll; the default runoff pair |
+| `src/countries/fr/codes.ts` | Every candidate's position on every statement, each with a dated source; the change log |
+| `src/countries/fr/strings.ts` | France's own text: title, dates, beta note, method, firewall and history panels |
+| `src/countries/fr/context.ts`, `Context.tsx` | Firewall and past-election data and panels |
+| `src/i18n.ts` | Interface strings shared by every country, per language |
 | `src/lib/scoring.ts` | Matching, axes, splits |
 
 ## Addresses
 
-`?lang=fr`, `?candidate=RN`, `?statement=12`, `?compare=RN,HOR`, `?method`.
+`?lang=fr`, `?candidate=RN`, `?statement=12`, `?compare=RN,HOR`, `?method`, plus France's `?firewall` and `?history`.
 
 ## Coding rules
 
