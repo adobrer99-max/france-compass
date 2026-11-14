@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { CANDIDATES, POLL_SOURCE } from "@country/candidates";
-import { AREA, AREAS, type Statement } from "@country/statements";
+import { AREA, AREAS, STATEMENTS, type Statement } from "@country/statements";
 import { useLang, tx } from "../i18n";
 import { PANELS } from "@country/panels";
 import type { Answer, Weights as W } from "../lib/scoring";
@@ -32,7 +32,7 @@ export function Intro({ onStart, onResume, savedCount, onCandidate, onExtra }: {
         </div>
         <div className="intro-go">
           <button className="btn" onClick={onStart}>{savedCount ? t.startOver : t.start}</button>
-          {onResume && <button className="btn btn-ghost" onClick={onResume}>{t.resume(savedCount)}</button>}
+          {onResume && <button className="btn btn-ghost" onClick={onResume}>{t.resume(savedCount, STATEMENTS.length)}</button>}
         </div>
       </div>
 
