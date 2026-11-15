@@ -14,6 +14,7 @@ import { COUNTRY_STRINGS, type CountryStrings } from "@country/strings";
 export type Lang = (typeof COUNTRY.langs)[number];
 
 const en = {
+  methodFull: "How every compass works, in full",
   acrossHeading: "Across countries",
   acrossLead: "Where you land in each compass you've taken on this browser. The scoring and the chart work the same everywhere.",
   acrossNone: "Take another compass and your results will show up here side by side.",
@@ -107,6 +108,7 @@ const en = {
 export type CoreStrings = typeof en;
 
 const fr: CoreStrings = {
+  methodFull: "La méthode commune à toutes les boussoles",
   acrossHeading: "D'un pays à l'autre",
   acrossLead: "Votre position dans chaque boussole remplie sur ce navigateur. Le calcul et le graphique sont les mêmes partout.",
   acrossNone: "Remplissez une autre boussole et vos résultats apparaîtront ici côte à côte.",
@@ -197,6 +199,7 @@ const fr: CoreStrings = {
 };
 
 const it: CoreStrings = {
+  methodFull: "Il metodo comune a tutte le bussole",
   acrossHeading: "Da un paese all'altro",
   acrossLead: "Dove ti collochi in ogni bussola compilata su questo browser. Il calcolo e il grafico sono gli stessi ovunque.",
   acrossNone: "Compila un'altra bussola e i risultati compariranno qui affiancati.",
@@ -287,6 +290,7 @@ const it: CoreStrings = {
 };
 
 const de: CoreStrings = {
+  methodFull: "Die Methode aller Kompasse im Detail",
   acrossHeading: "Länder im Vergleich",
   acrossLead: "Wo du in jedem Kompass stehst, den du in diesem Browser ausgefüllt hast. Rechnung und Diagramm sind überall gleich.",
   acrossNone: "Mach einen weiteren Kompass, dann erscheinen die Ergebnisse hier nebeneinander.",
