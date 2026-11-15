@@ -8,6 +8,7 @@ import { Grid, GridText } from "./Grid";
 import { downloadCanvas, drawShareCard, shareCanvas } from "../lib/shareCard";
 import { COUNTRY } from "@country/config";
 import { PANELS, partyLabel } from "../country";
+import { Across } from "./Across";
 
 export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart, onExtra }: {
   result: Result;
@@ -105,6 +106,7 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
 
       {COUNTRY.headToHead && <Runoff result={result} onCompare={onCompare} onExtra={onExtra} />}
       {Extra && <Extra result={result} />}
+      <Across result={result} />
 
       <ShareCard result={result} />
 
