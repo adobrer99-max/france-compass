@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { CANDIDATES, type Alliance, type CandidateCode } from "./candidates";
 import { pct, useLang } from "../../i18n";
-import { COVERAGE_FLOOR, type Result } from "../../lib/scoring";
+import type { Result } from "../../lib/scoring";
+import { allianceMatch } from "./allianceMatch";
 
 const LINE = 42;
 const MAX = 60;
@@ -32,10 +33,7 @@ export function AllianceTool({ result }: { result: Result }) {
       {groups.map((g) => {
         const members = CANDIDATES.filter((c) => !c.withdrawn && side[c.code] === g.id);
         const total = members.reduce((s, c) => s + c.pollShare, 0) + SMALL[g.id].reduce((s, x) => s + x.share, 0);
-        // your match with the alliance: members' matches weighted by poll share, ranked parties only
-        const scored = members.filter((c) => result.all[c.code].coverage >= COVERAGE_FLOOR && result.all[c.code].compared > 0);
-        const w = scored.reduce((s, c) => s + c.pollShare, 0);
-        const match = w ? scored.reduce((s, c) => s + c.pollShare * result.all[c.code].weighted, 0) / w : null;
+        const match = allianceMatch(result, members.map((c) => c.code));
         return (
           <div key={g.id} className="al-row">
             <div className="al-head">

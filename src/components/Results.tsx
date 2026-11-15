@@ -166,7 +166,7 @@ function ShareCard({ result }: { result: Result }) {
     // Draw once the web fonts are in, so the image uses them.
     (document.fonts?.ready ?? Promise.resolve()).then(() => {
       if (!live || !ref.current) return;
-      drawShareCard(ref.current, result, lang, COUNTRY.headToHead ? LIKELY_RUNOFF : null);
+      drawShareCard(ref.current, result, lang, COUNTRY.headToHead ? LIKELY_RUNOFF : null, PANELS.shareLine?.(result, lang) ?? null);
       setReady(true);
     });
     return () => { live = false; };
