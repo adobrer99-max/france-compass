@@ -54,6 +54,15 @@ const NUC26W: S = { ...NUC26, weak: true };
 const BRG23: S = { src: "https://pagellapolitica.it/articoli/posizioni-partiti-ponte-sullo-stretto", label: "Pagella Politica, the parties on the Strait bridge", date: "2023-12-22" };
 const SSM22: S = { src: "https://www.editorialedomani.it/politica/italia/cosa-pensano-i-partiti-su-matrimonio-egualitario-e-omogenitorialita-m7gz1hfl", label: "Domani, 2022 programmes on same-sex marriage", date: "2022-09-13", weak: true };
 const EOL26: S = { src: "https://www.open.online/2026/05/12/fine-vita-senato-forza-italia-pd-scontro/", label: "Open, the end-of-life bill in the Senate", date: "2026-05-12" };
+const FLT22: S = { src: "https://ntplusfisco.ilsole24ore.com/art/delega-fiscale-partiti-467-emendamenti-destra-no-catasto-sinistra-frena-flat-tax-AEJAG97", label: "Il Sole 24 Ore, the parties' tax-reform amendments", date: "2022-01-14", weak: true };
+const PEN: S = { src: "https://www.finanza.com/lavoro/pensioni/pensioni-quota-41-uscite-flessibili-proposte-partiti", label: "Finanza.com, the parties' pension proposals (consulted 15 Nov 2026)", date: "2026-11-15", weak: true };
+const REF25: S = { src: "https://www.agi.it/politica/news/2025-06-06/posizioni-partiti-referendum-lavoro-cittadinanza-31745055/", label: "AGI, the parties on the June 2025 referendums", date: "2025-06-06" };
+const RUS22: S = { src: "https://pagellapolitica.it/articoli/posizioni-partiti-sanzioni-russia", label: "Pagella Politica, the parties on Russia sanctions", date: "2022-09-06", weak: true };
+const RUS26: S = { src: "https://www.ilpost.it/2026/09/15/matteo-salvini-incontro-imprenditori-italiani-russia/", label: "Il Post, Salvini meets businesses trading with Russia", date: "2026-09-15" };
+const UKR26C: S = { src: "https://www.ilpost.it/2026/02/24/guerra-ucraina-24-febbraio-quattro-anni-politica-italiana-salvini-conte-meloni-schlein/", label: "Il Post, Italian politics and Ukraine four years on", date: "2026-02-24" };
+const LEV24: S = { src: "https://www.open.online/2024/05/12/leva-militare-obbligatoria-proposta-salvini-reazioni", label: "Open, reactions to Salvini's military-service proposal", date: "2024-05-12" };
+const LEV24W: S = { ...LEV24, weak: true };
+const CAN25: S = { src: "https://www.fanpage.it/politica/la-destra-continua-la-guerra-alla-cannabis-bocciate-tutte-le-mozioni-in-parlamento-cosa-chiedevano/", label: "Fanpage, Chamber votes on cannabis motions", date: "2025-01-23" };
 const FN26: S = { src: "https://pagellapolitica.it/articoli/programma-futuro-nazionale-vannacci-elezioni-2027", label: "Pagella Politica, Futuro Nazionale's 2027 programme (consulted 14 Nov 2026)", date: "2026-11-14" };
 
 type Row = [id: number, p: Exclude<Position, "-">, src: S, note?: string];
@@ -75,6 +84,11 @@ export const CODES: Codes = {
     [15, "A", NUC26W, "The governing majority's law"],
     [16, "A", BRG23],
     [17, "D", SSM22],
+    [19, "A", FLT22, "Backed raising the self-employed flat-tax ceiling"],
+    [20, "N", PEN, "'Gradually move beyond the Fornero law', with an eye on costs"],
+    [23, "A", RUS22, "Meloni: 'we won't pull out of the sanctions'"],
+    [24, "D", LEV24W, "Defence minister Crosetto: the armed forces aren't there to educate the young"],
+    [25, "D", CAN25, "Voted down every cannabis motion"],
   ]),
   PD: rows([
     [1, "A", MW22, "Proposed €9.50 an hour"],
@@ -83,7 +97,7 @@ export const CODES: Codes = {
     [4, "A", CL26],
     [5, "A", CIT24, "Prefers ius soli; open to other routes"],
     [6, "D", ALB25, "Calls the centres a costly failure"],
-    [7, "N", COAL, "Reported as taking no clear line on arms to Kyiv"],
+    [7, "A", UKR26C, "Has voted consistently for aid; Schlein says little about it"],
     [8, "A", EUD24, "Make the recovery facility permanent"],
     [9, "D", CL26, "Asks to reconsider NATO spending commitments"],
     [10, "A", PAL25, "Braga: recognition now; conditions 'make no sense'"],
@@ -94,6 +108,12 @@ export const CODES: Codes = {
     [16, "D", BRG23],
     [17, "A", SSM22],
     [18, "A", EOL26, "Backs the Bazoli bill with the health service involved"],
+    [19, "N", FLT22, "Wants the flat tax rethought, not extended"],
+    [20, "N", PEN, "Flexible retirement from 63 with a recalculated pension"],
+    [21, "A", REF25, "Five Yes votes in the 2025 referendums"],
+    [22, "A", REF25],
+    [23, "A", RUS22],
+    [25, "N", CAN25, "Proposed allowing limited home growing, not full legalisation"],
   ]),
   M5S: rows([
     [1, "A", MW22, "Proposed at least €9 an hour"],
@@ -112,6 +132,12 @@ export const CODES: Codes = {
     [16, "D", BRG23],
     [17, "A", SSM22],
     [18, "A", EOL26],
+    [19, "N", FLT22, "Proposed a two-year path for those above the ceiling"],
+    [20, "N", PEN, "Flexible retirement from 63 or 64 with a recalculated pension"],
+    [21, "A", REF25],
+    [22, "N", REF25, "Free vote; Conte opposed halving the residence period"],
+    [23, "A", RUS22, "Conte: 'the sanctions hurt us, but we must keep them'"],
+    [25, "A", CAN25, "Proposed legalising therapeutic and recreational use"],
   ]),
   FI: rows([
     [1, "D", MW22],
@@ -127,6 +153,8 @@ export const CODES: Codes = {
     [16, "A", BRG23],
     [17, "D", SSM22],
     [18, "N", EOL26, "Backs a narrower text that follows the Constitutional Court"],
+    [19, "A", FLT22],
+    [23, "A", RUS22, "Tajani: 'the sanctions must stay. Full stop.'"],
   ]),
   AVS: rows([
     [1, "A", MW22, "Proposed €10 an hour"],
@@ -146,6 +174,10 @@ export const CODES: Codes = {
     [16, "D", BRG23],
     [17, "A", SSM22, "Sinistra Italiana"],
     [18, "A", EOL26],
+    [21, "A", REF25],
+    [22, "A", REF25],
+    [23, "A", RUS22, "Fratoianni wanted them widened"],
+    [25, "A", CAN25, "Proposed decriminalising and regulating cultivation"],
   ]),
   LEGA: rows([
     [1, "D", MW22],
@@ -159,6 +191,10 @@ export const CODES: Codes = {
     [15, "A", NUC26W, "The governing majority's law"],
     [16, "A", BRG23, "Salvini, as infrastructure minister, leads the project"],
     [17, "D", SSM22],
+    [19, "A", FLT22, "Salvini: raise the ceiling to €100,000"],
+    [20, "A", PEN, "Its 'Quota 41'"],
+    [23, "N", RUS26, "Votes for sanctions but calls them self-harm; wants trade restored after the war"],
+    [24, "A", LEV24, "Salvini's six-month service bill"],
   ]),
   FN: rows([
     [5, "D", FN26, "Citizenship only after 20 years' residence"],
@@ -167,6 +203,7 @@ export const CODES: Codes = {
     [9, "D", CL26, "Wants defence money spent on internal security instead"],
     [11, "A", FN26],
     [15, "A", FN26],
+    [22, "D", FN26, "Citizenship only after 20 years' residence"],
   ]),
   AZ: rows([
     [1, "A", MW22, "Joint Azione–Italia Viva motion for at least €9"],
@@ -179,6 +216,10 @@ export const CODES: Codes = {
     [12, "D", PRM24, "Voted against with the whole opposition"],
     [15, "A", NUC26],
     [16, "N", BRG23, "Voted for the bridge decree; Calenda has wavered"],
+    [21, "D", REF25],
+    [22, "A", REF25, "Its only Yes in the 2025 referendums"],
+    [23, "A", RUS22, "Wanted an oil embargo too"],
+    [25, "N", CAN25, "Proposed decriminalising use, not legal sale"],
   ]),
   IV: rows([
     [1, "A", CL26, "Signed the centre-left's call for a minimum-wage law"],
@@ -191,6 +232,8 @@ export const CODES: Codes = {
     [11, "N", JUS26, "Free vote"],
     [12, "D", PRM24, "Voted against with the whole opposition"],
     [16, "A", BRG23, "Voted for the 2023 bridge decree"],
+    [21, "D", REF25, "Renzi's own reform"],
+    [22, "A", REF25],
   ]),
   PE: rows([
     [5, "A", CIT24, "Magi: the law is outdated"],
@@ -199,6 +242,10 @@ export const CODES: Codes = {
     [11, "A", JUS26, "In favour, with doubts on details"],
     [12, "D", PRM24, "Voted against with the whole opposition"],
     [17, "A", SSM22],
+    [21, "D", REF25],
+    [22, "A", REF25],
+    [23, "A", RUS22],
+    [25, "A", CAN25, "Proposed regulated cultivation, distribution and sale"],
   ]),
   NM: rows([
     [1, "D", MW22],
@@ -208,6 +255,8 @@ export const CODES: Codes = {
     [9, "A", CL26W, "Government request"],
     [11, "A", JUS26],
     [12, "A", PRM24, "The government's reform"],
+    [21, "D", REF25],
+    [24, "D", LEV24, "Lupi: build a common European defence instead"],
   ]),
 };
 

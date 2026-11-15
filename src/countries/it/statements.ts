@@ -1,11 +1,11 @@
 /* ============================================================
-   Italy 2027: 18 statements in six areas, English and Italian.
+   Italy 2027: 25 statements in six areas, English and Italian.
    Each one is an issue the parties have split on in Parliament or
    in their programmes, so every statement has positions to match.
    The Italian is a first draft for a native speaker to check.
 
-   `axis`: econ — left (−) to right (+) on the economy: 1–4
-           open — open (−) to closed (+): 5–8
+   `axis`: econ — left (−) to right (+) on the economy: 1–4, 19–21
+           open — open (−) to closed (+): 5–8, 22–23
    `sign` is +1 when agreeing moves you toward the + pole.
    ============================================================ */
 
@@ -54,6 +54,14 @@ const ROWS: Row[] = [
 
   [15, "nrg", null, 1, "Italy should go back to nuclear power.", "L'Italia dovrebbe tornare all'energia nucleare."],
   [16, "nrg", null, 1, "The bridge over the Strait of Messina should be built.", "Il ponte sullo Stretto di Messina dovrebbe essere costruito."],
+
+  [19, "eco", "econ", 1, "The flat tax for the self-employed should be extended to more people.", "La flat tax per gli autonomi dovrebbe essere estesa a più persone."],
+  [20, "eco", "econ", -1, "People should be able to retire after 41 years of contributions, whatever their age.", "Si dovrebbe poter andare in pensione con 41 anni di contributi, a qualsiasi età."],
+  [21, "eco", "econ", -1, "Workers who are unfairly fired should have the right to get their job back, as before the Jobs Act.", "I lavoratori licenziati ingiustamente dovrebbero avere diritto al reintegro, come prima del Jobs Act."],
+  [22, "imm", "open", -1, "Foreign residents should be able to apply for citizenship after five years instead of ten.", "Gli stranieri residenti dovrebbero poter chiedere la cittadinanza dopo cinque anni invece di dieci."],
+  [23, "eur", "open", -1, "Italy should keep its sanctions on Russia.", "L'Italia dovrebbe mantenere le sanzioni contro la Russia."],
+  [24, "ins", null, 1, "Italy should bring back compulsory military or civil service for young people.", "L'Italia dovrebbe reintrodurre un servizio militare o civile obbligatorio per i giovani."],
+  [25, "soc", null, 1, "Cannabis should be legal for adults.", "La cannabis dovrebbe essere legale per gli adulti."],
 
   [17, "soc", null, 1, "Same-sex couples should be able to marry.", "Le coppie dello stesso sesso dovrebbero potersi sposare."],
   [18, "soc", null, 1, "Assisted suicide should be legal, with the national health service involved.", "Il suicidio assistito dovrebbe essere legale, con il coinvolgimento del Servizio sanitario nazionale."],

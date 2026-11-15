@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { BY_CODE, LIKELY_RUNOFF, type CandidateCode } from "@country/candidates";
 import { STATEMENTS } from "@country/statements";
 import { LangContext, STRINGS, initialLang, type Lang } from "./i18n";
@@ -6,8 +6,12 @@ import { score, type Answer } from "./lib/scoring";
 import { clear, fresh, load, readPanel, save, writeLang, writePanel, type Panel, type Session, type Stage } from "./lib/state";
 import { Sheet } from "./components/bits";
 import { Intro, Question, Weights } from "./components/Steps";
-import { Results } from "./components/Results";
-import { CandidatePanel, ComparePanel, MethodPanel, StatementPanel } from "./components/Panels";
+// Loaded on demand, so the first screen only waits for what it shows.
+const Results = lazy(() => import("./components/Results").then((m) => ({ default: m.Results })));
+const CandidatePanel = lazy(() => import("./components/Panels").then((m) => ({ default: m.CandidatePanel })));
+const ComparePanel = lazy(() => import("./components/Panels").then((m) => ({ default: m.ComparePanel })));
+const MethodPanel = lazy(() => import("./components/Panels").then((m) => ({ default: m.MethodPanel })));
+const StatementPanel = lazy(() => import("./components/Panels").then((m) => ({ default: m.StatementPanel })));
 import { PANELS } from "./country";
 
 export default function App() {
@@ -71,8 +75,10 @@ export default function App() {
           <Weights weights={session.weights} setWeights={(w) => patch({ weights: w })} onDone={() => setStage("results")} />
         )}
         {stage === "results" && (
-          <Results result={result} answers={session.answers} onCandidate={openCandidate} onStatement={openStatement}
-            onCompare={openCompare} onMethod={openMethod} onRestart={start} onExtra={openExtra} />
+          <Suspense fallback={<p className="small muted">…</p>}>
+            <Results result={result} answers={session.answers} onCandidate={openCandidate} onStatement={openStatement}
+              onCompare={openCompare} onMethod={openMethod} onRestart={start} onExtra={openExtra} />
+          </Suspense>
         )}
         <nav className="nav" aria-label={t.method}>
           <button onClick={openMethod}>{t.method}</button>
@@ -84,6 +90,7 @@ export default function App() {
 
       {panel && (
         <Sheet key={JSON.stringify(panel)} title={title} onClose={() => setPanel(null)}>
+          <Suspense fallback={<p className="small muted">…</p>}>
           {panel.kind === "candidate" && <CandidatePanel code={panel.code} onStatement={openStatement} />}
           {panel.kind === "statement" && <StatementPanel id={panel.id} onCandidate={openCandidate} />}
           {panel.kind === "compare" && (
@@ -91,6 +98,7 @@ export default function App() {
           )}
           {panel.kind === "method" && <MethodPanel onStatement={openStatement} onCandidate={openCandidate} />}
           {extra?.render({ onCandidate: openCandidate })}
+          </Suspense>
         </Sheet>
       )}
     </LangContext.Provider>

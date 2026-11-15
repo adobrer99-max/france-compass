@@ -14,6 +14,12 @@ import { COUNTRY_STRINGS, type CountryStrings } from "@country/strings";
 export type Lang = (typeof COUNTRY.langs)[number];
 
 const en = {
+  acrossHeading: "Across countries",
+  acrossLead: "Where you land in each compass you've taken on this browser. The scoring and the chart work the same everywhere.",
+  acrossNone: "Take another compass and your results will show up here side by side.",
+  acrossHub: "All the compasses",
+  acrossClosest: (name: string, pct: string) => `Closest: ${name}, ${pct}`,
+  acrossNote: "Kept in this browser only; clearing your browser data removes it.",
   /** this language's own name, and the switch label shown to readers of other languages */
   langName: "English",
   langSwitch: "Read in English",
@@ -101,6 +107,12 @@ const en = {
 export type CoreStrings = typeof en;
 
 const fr: CoreStrings = {
+  acrossHeading: "D'un pays à l'autre",
+  acrossLead: "Votre position dans chaque boussole remplie sur ce navigateur. Le calcul et le graphique sont les mêmes partout.",
+  acrossNone: "Remplissez une autre boussole et vos résultats apparaîtront ici côte à côte.",
+  acrossHub: "Toutes les boussoles",
+  acrossClosest: (name, pct) => `Le plus proche : ${name}, ${pct}`,
+  acrossNote: "Conservé dans ce navigateur uniquement ; effacer vos données de navigation le supprime.",
   langName: "Français",
   langSwitch: "Lire en français",
   introPrivacy: "Vos réponses restent dans votre navigateur. Rien n'est envoyé nulle part.",
@@ -185,6 +197,12 @@ const fr: CoreStrings = {
 };
 
 const it: CoreStrings = {
+  acrossHeading: "Da un paese all'altro",
+  acrossLead: "Dove ti collochi in ogni bussola compilata su questo browser. Il calcolo e il grafico sono gli stessi ovunque.",
+  acrossNone: "Compila un'altra bussola e i risultati compariranno qui affiancati.",
+  acrossHub: "Tutte le bussole",
+  acrossClosest: (name, pct) => `Il più vicino: ${name}, ${pct}`,
+  acrossNote: "Salvato solo in questo browser; cancellando i dati di navigazione viene eliminato.",
   langName: "Italiano",
   langSwitch: "Leggi in italiano",
   introPrivacy: "Le tue risposte restano nel tuo browser. Non viene inviato nulla.",
@@ -269,6 +287,12 @@ const it: CoreStrings = {
 };
 
 const de: CoreStrings = {
+  acrossHeading: "Länder im Vergleich",
+  acrossLead: "Wo du in jedem Kompass stehst, den du in diesem Browser ausgefüllt hast. Rechnung und Diagramm sind überall gleich.",
+  acrossNone: "Mach einen weiteren Kompass, dann erscheinen die Ergebnisse hier nebeneinander.",
+  acrossHub: "Alle Kompasse",
+  acrossClosest: (name, pct) => `Am nächsten: ${name}, ${pct}`,
+  acrossNote: "Nur in diesem Browser gespeichert; beim Löschen der Browserdaten verschwindet es.",
   langName: "Deutsch",
   langSwitch: "Auf Deutsch lesen",
   introPrivacy: "Deine Antworten bleiben in deinem Browser. Nichts wird verschickt.",

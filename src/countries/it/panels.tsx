@@ -1,6 +1,9 @@
 import type { CountryPanels } from "../types";
 import type { CandidateCode } from "./candidates";
-import { AllianceTool, LawPanel } from "./Alliances";
+import { lazy } from "react";
+
+const AllianceTool = lazy(() => import("./Alliances").then((m) => ({ default: m.AllianceTool })));
+const LawPanel = lazy(() => import("./Alliances").then((m) => ({ default: m.LawPanel })));
 
 export const PANELS = {
   extraPanels: [

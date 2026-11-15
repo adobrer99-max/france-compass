@@ -1,6 +1,10 @@
 import type { CountryPanels } from "../types";
 import type { CandidateCode } from "./candidates";
-import { FirewallPanel, HistoryPanel } from "./Context";
+import { lazy } from "react";
+
+// The firewall and history data only load when a panel opens.
+const FirewallPanel = lazy(() => import("./Context").then((m) => ({ default: m.FirewallPanel })));
+const HistoryPanel = lazy(() => import("./Context").then((m) => ({ default: m.HistoryPanel })));
 
 export const PANELS = {
   extraPanels: [

@@ -744,3 +744,16 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .al-line { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--ink); }
 .al-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .al-chips .chip { border-width: 2px; color: var(--ink); font-weight: 600; }
+
+/* results across countries */
+.across { margin-top: 28px; }
+.across-grid { display: grid; grid-template-columns: 220px 1fr; gap: 18px; align-items: start; margin: 10px 0; }
+@media (max-width: 520px) { .across-grid { grid-template-columns: 1fr; } .across-chart { max-width: 260px; } }
+.across-chart { width: 100%; height: auto; background: var(--ballot); }
+.ac-frame { fill: none; stroke: var(--rule); }
+.ac-axis { stroke: var(--rule); }
+.ac-lab { font: 600 9px var(--sans); fill: var(--muted); }
+.ac-me { fill: var(--ink); }
+.ac-other { fill: var(--zinc-dark); }
+.ac-name { font: 700 10px var(--sans); fill: var(--ink); }
+.across-list li { margin-bottom: 8px; }
