@@ -130,6 +130,7 @@ export function MethodPanel({ onStatement, onCandidate }: { onStatement: (id: nu
   return (
     <div>
       {t.methodBody.map((p, i) => <p key={i} className="small">{p}</p>)}
+      <p className="small"><a href="https://adamdobrer.ca/compasses/method/">{t.methodFull}</a></p>
       <h3 className="section-sm">{t.matrixHeading}</h3>
       <p className="tiny muted"><CodeChip p="A" weak /> {t.matrixWeak}</p>
       <p className="tiny muted">{t.sourcesNote}</p>
