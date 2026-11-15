@@ -5,3 +5,8 @@ import type { CandidateCode } from "@country/candidates";
 import type { CountryPanels } from "./countries/types";
 
 export const PANELS = RAW as CountryPanels<CandidateCode>;
+
+/** A candidate's party line in the reader's language, where the data gives one. */
+export function partyLabel(c: { party: string; partyByLang?: Partial<Record<string, string>> }, lang: string): string {
+  return c.partyByLang?.[lang] ?? c.party;
+}

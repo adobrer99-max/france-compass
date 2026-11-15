@@ -1,4 +1,5 @@
 import { ACTIVE, BY_CODE, CANDIDATES, type CandidateCode } from "@country/candidates";
+import { partyLabel } from "../country";
 import { CHANGES, CODES, positionOf } from "@country/codes";
 import { AREA, AREAS, AXES, BY_ID, STATEMENTS } from "@country/statements";
 import { pct, tx, useLang, type Lang } from "../i18n";
@@ -29,7 +30,7 @@ export function CandidatePanel({ code, onStatement }: { code: CandidateCode; onS
         <Avatar code={code} size={52} />
         <div>
           <div className="cand-name">{c.name}</div>
-          <div className="small muted">{c.party} · {tx(lang, c.bloc)}</div>
+          <div className="small muted">{partyLabel(c, lang)} · {tx(lang, c.bloc)}</div>
           <div className="tiny muted">{t.coverage(Math.round((coded / STATEMENTS.length) * 100))}</div>
         </div>
       </div>

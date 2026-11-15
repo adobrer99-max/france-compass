@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { CANDIDATES, POLL_SOURCE } from "@country/candidates";
 import { AREA, AREAS, STATEMENTS, type Statement } from "@country/statements";
 import { useLang, tx } from "../i18n";
-import { PANELS } from "../country";
+import { PANELS, partyLabel } from "../country";
 import type { Answer, Weights as W } from "../lib/scoring";
 import { LangSwitch } from "./bits";
 
@@ -54,7 +54,7 @@ export function Intro({ onStart, onResume, savedCount, onCandidate, onExtra }: {
                   <span className="poster-first">{c.name.replace(c.short, "").trim()}</span>
                   <span className="poster-last">{c.short}</span>
                 </span>
-                <span className="poster-party">{c.party}</span>
+                <span className="poster-party">{partyLabel(c, lang)}</span>
                 {c.poll && <span className="poster-poll" title={c.pollFrom}>{pollText(lang, c.poll)}{c.pollFrom && "*"}</span>}
               </button>
             </li>

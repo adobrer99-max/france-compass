@@ -20,6 +20,8 @@ export interface Candidate {
   /** surname as used on the chart and matrix */
   short: string;
   party: string;
+  /** the party line per language, where it needs translating */
+  partyByLang?: { en: string; fr: string };
   /** political family, in both languages */
   bloc: { en: string; fr: string };
   color: string;
@@ -53,7 +55,7 @@ export const CANDIDATES: Candidate[] = [
   { code: "PCF", name: "Fabien Roussel", short: "Roussel", party: "Parti communiste français", bloc: { en: "Left", fr: "Gauche" }, color: "#9b1b1b", poll: "1.5–2%" },
   { code: "DLF", name: "Nicolas Dupont-Aignan", short: "Dupont-Aignan", party: "Debout la France", bloc: { en: "Sovereigntist right", fr: "Droite souverainiste" }, color: "#2b7a99", poll: "~2%", pollFrom: "Ifop, 22–24.06.2026" },
   { code: "DEB", name: "François Ruffin", short: "Ruffin", party: "Debout !", bloc: { en: "Left", fr: "Gauche" }, color: "#b4501f" },
-  { code: "XB", name: "Xavier Bertrand", short: "Bertrand", party: "Independent (ex-LR)", bloc: { en: "Right", fr: "Droite" }, color: "#2f6fa3" },
+  { code: "XB", name: "Xavier Bertrand", short: "Bertrand", party: "Independent (ex-LR)", partyByLang: { en: "Independent (ex-LR)", fr: "Sans étiquette (ex-LR)" }, bloc: { en: "Right", fr: "Droite" }, color: "#2f6fa3" },
 ];
 
 export const BY_CODE = Object.fromEntries(CANDIDATES.map((c) => [c.code, c])) as Record<CandidateCode, Candidate>;

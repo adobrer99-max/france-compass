@@ -7,7 +7,7 @@ import { Avatar, LangSwitch, MatchBar } from "./bits";
 import { Grid, GridText } from "./Grid";
 import { downloadCanvas, drawShareCard, shareCanvas } from "../lib/shareCard";
 import { COUNTRY } from "@country/config";
-import { PANELS } from "../country";
+import { PANELS, partyLabel } from "../country";
 
 export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart, onExtra }: {
   result: Result;
@@ -40,7 +40,7 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
                   <span className="poster-first">{c.name.replace(c.short, "").trim()}</span>
                   <span className="poster-last">{c.short}</span>
                 </span>
-                <span className="poster-party">{c.party}</span>
+                <span className="poster-party">{partyLabel(c, lang)}</span>
               </button>
             </div>
             <div>
@@ -66,7 +66,7 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
                 <Avatar code={m.code} size={32} />
                 <span className="match-name">
                   <span>{c.name}</span>
-                  <span className="tiny muted">{c.party} · {t.basedOn(m.compared)}</span>
+                  <span className="tiny muted">{partyLabel(c, lang)} · {t.basedOn(m.compared)}</span>
                 </span>
                 <span className="match-pct mono">{pct(lang, m.weighted)}</span>
               </button>
