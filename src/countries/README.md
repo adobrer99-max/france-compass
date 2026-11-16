@@ -1,6 +1,7 @@
 # Countries
 
 Live: `fr` (France Chooses, 2027 presidential), `it` (Italy Chooses, 2027 general election).
+In progress, not yet on the site: `nw` (NRW wählt, North Rhine-Westphalia state election, 25 April 2027).
 
 One compass engine, one folder per country. A build serves one country:
 
