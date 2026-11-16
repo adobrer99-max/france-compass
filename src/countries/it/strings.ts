@@ -21,6 +21,7 @@ const en = {
 
   allianceHeading: "Alliances and the 42% line",
   allianceLead: "Under the new electoral law, an alliance with 42% of the vote gets a bonus of 70 seats in the Chamber and 35 in the Senate, enough for a majority. Move a party between alliances to see what the polls would add up to.",
+  allianceCard: (name: string, pct: string) => `Closest alliance (as reported now): ${name}, ${pct}`,
   allianceCdx: "Centre-right",
   allianceCsx: "Centre-left",
   allianceNone: "Running alone",
@@ -69,6 +70,7 @@ const it: CountryStrings = {
 
   allianceHeading: "Le coalizioni e la soglia del 42%",
   allianceLead: "Con la nuova legge elettorale, la coalizione che arriva al 42% dei voti ottiene un premio di 70 seggi alla Camera e 35 al Senato, abbastanza per la maggioranza. Sposta un partito da una coalizione all'altra per vedere quanto farebbero i sondaggi.",
+  allianceCard: (name, pct) => `Coalizione più vicina (com'è oggi): ${name}, ${pct}`,
   allianceCdx: "Centrodestra",
   allianceCsx: "Centrosinistra",
   allianceNone: "Da soli",

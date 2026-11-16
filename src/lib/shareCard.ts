@@ -34,7 +34,7 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, max: number): string[
 }
 
 
-export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: Lang, runoff: [CandidateCode, CandidateCode] | null): void {
+export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: Lang, runoff: [CandidateCode, CandidateCode] | null, extraLine: string | null = null): void {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
   const t = STRINGS[lang];
@@ -160,6 +160,12 @@ export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: L
     ctx.font = `600 18px ${SANS}`;
     wrap(ctx, `${t.cardRunoff(BY_CODE[runoff![0]].short, BY_CODE[runoff![1]].short)} ${line}`, 640).slice(0, 2)
       .forEach((l, i) => ctx.fillText(l, 56, 456 + i * 24));
+  }
+
+  if (!ok && extraLine) {
+    ctx.fillStyle = INK;
+    ctx.font = `600 18px ${SANS}`;
+    wrap(ctx, extraLine, 640).slice(0, 2).forEach((l, i) => ctx.fillText(l, 56, 456 + i * 24));
   }
 
   // --- the caveat, on the image ---

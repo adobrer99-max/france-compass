@@ -52,6 +52,8 @@ export interface CountryPanels<Code extends string = string> {
   extraPanels: ExtraPanel<Code>[];
   /** an extra card on the results page, after the chart (Italy: the alliance tool) */
   ResultsExtra?: (p: { result: import("../lib/scoring").Result }) => ReactNode;
+  /** one line for the share card when there's no head-to-head (Italy: the closest alliance) */
+  shareLine?: (result: import("../lib/scoring").Result, lang: string) => string | null;
   /** an extra line under the runoff card for some pairs, with links to extra panels */
   runoffNote?: (pair: [Code, Code]) => { text: (t: Strings) => string; panels: string[] } | null;
 }
