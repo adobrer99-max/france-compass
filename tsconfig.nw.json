@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "paths": { "@country/*": ["src/countries/nw/*"] } },
+  "include": ["src/*.ts", "src/*.tsx", "src/components", "src/lib", "src/countries/*.ts", "src/countries/nw", "vite.config.ts"]
+}
