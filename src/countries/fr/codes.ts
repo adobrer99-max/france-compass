@@ -66,6 +66,11 @@ const PCF22: S = { src: "https://www.publicsenat.fr/actualites/politique/preside
 const RUF25: S = { src: "https://datan.fr/votes/legislature-17/vote_2107", label: "Assembly vote on the right to assisted dying, first reading (Ruffin's own vote)", date: "2025-05-27" };
 const RUF23: S = { src: "https://en.wikipedia.org/wiki/Fran%C3%A7ois_Ruffin", label: "Wikipedia: backed the 2023 petition for a citizens' initiative referendum", date: "2023-05-01", weak: true };
 const XB21: S = { src: "https://en.wikipedia.org/wiki/Xavier_Bertrand", label: "Wikipedia summary of Bertrand's 2021–22 platform", date: "2021-12-01", weak: true };
+/* ---- Weekly check, 16 November 2026: LFI's 2027 programme (L'Avenir en commun, 2027 edition) ---- */
+const LFI_E2C1: S = { src: "https://melenchon2027.fr/programme/livre/une-economie-au-service-des-besoins/chapitre1/", label: "L'Avenir en commun 2027, part 2 ch. 1", date: "2026-11-07" };
+const LFI_F6C2: S = { src: "https://melenchon2027.fr/programme/livre/fonder-la-6e-republique/chapitre2/", label: "L'Avenir en commun 2027, part 5 ch. 2", date: "2026-11-07" };
+const LFI_M6C1: S = { src: "https://melenchon2027.fr/programme/livre/un-monde-ordonne/chapitre1/", label: "L'Avenir en commun 2027, part 6 ch. 1", date: "2026-11-07" };
+const LFI_M6C2: S = { src: "https://melenchon2027.fr/programme/livre/un-monde-ordonne/chapitre2/", label: "L'Avenir en commun 2027, part 6 ch. 2", date: "2026-11-07" };
 
 /** [statement, position, source, note?] */
 type Row = [number, "A" | "N" | "D", S, string?];
@@ -137,7 +142,12 @@ export const CODES: Codes = {
     [48, "D", IF, "Elect the heads of public broadcasters"],
     // second pass
     [26, "N", UKRV, "Voted against the 2024 security accord with Ukraine"],
-    [30, "A", MERV, "Voted against the government's motion because it opposes the deal outright, not just 'as it stands'"],
+    // weekly check, 16 Nov 2026: 2027 programme
+    [6, "A", LFI_E2C1, "Public poles in strategic sectors: medicines, transport, banking, energy, arms"],
+    [19, "D", LFI_F6C2, "\"Sortir de la logique du tout carcéral\""],
+    [25, "N", LFI_M6C1, "EU rules set aside only where less ambitious than French social or green ones; stays in the EU and the euro"],
+    [30, "A", LFI_M6C1, "Calls the Mercosur deal destructive; veto on free-trade deals"],
+    [53, "A", LFI_M6C2, "Strengthen the UN presence in Lebanon"],
   ]),
   HOR: rows([
     [3, "A", IF, "Cut production taxes by €50bn a year"],
