@@ -5,8 +5,9 @@
      record (the default: anything not listed). Unlisted cells are
      left out of that party's match.
 
-   Every code carries a dated source. No party has published its
-   2027 programme yet, so this is a first pass: most codes come from
+   Every code carries a dated source. The Grüne adopted their 2027
+   programme on 15 November 2026 but its text isn't online yet; no
+   other party has one out. So this is still a first pass: most codes come from
    the 2022 Landtag programmes, the 2022 CDU–Grüne exploratory paper
    or the government's record, and are marked `weak`. A party's own
    2027 programme or statement replaces them. Never fill a gap from
@@ -42,6 +43,9 @@ const BDST22: S = { src: "https://steuerzahler.de/fileadmin/user_upload/LV_Nordr
 // Since then.
 const DAR26: S = { src: "https://netzpolitik.org/2026/automatisierte-datenanalyse-in-nrw-palantir-gesetz-nicht-verfassungskonform/", label: "netzpolitik.org, NRW's data-analysis law and the Palantir contract", date: "2026-04-20", weak: true };
 const GRDAR26: S = { src: "https://netzpolitik.org/2026/gruene-palantir-nein-datenanalyse-ja/", label: "netzpolitik.org, 'Grüne: Palantir nein, Datenanalyse ja'", date: "2026-06-22" };
+const CDUPT26: S = { src: "https://www.cdu-nrw.de/cdu-landesparteitag-stellt-weichen-fuer-die-landtagswahl-2027", label: "CDU NRW, 48th state party conference opens work on the 2027 programme", date: "2026-07-04" };
+const FDPVK26: S = { src: "https://www.fdp.de/aus-weniger-wird-mehr-fdp-startet-vorkampagne", label: "FDP, 'Aus weniger wird mehr': FDP NRW starts its pre-campaign", date: "2026-10-07" };
+const GRLDK26: S = { src: "https://www.ad-hoc-news.de/politik/mona-neubaur-fuehrt-nrw-gruene-2027-erneut-in-die-landtagswahl/70506308", label: "dpa via ad-hoc-news, Grüne NRW conference on the 2027 programme draft", date: "2026-11-13" };
 const AFDV26: S = { src: "https://www.juedische-allgemeine.de/politik/wuest-bringt-pruefung-eines-afd-verbots-ins-spiel/", label: "Jüdische Allgemeine, Wüst on examining an AfD ban", date: "2026-09-08" };
 
 type Row = [id: number, p: Exclude<Position, "-">, src: S, note?: string];
@@ -51,6 +55,7 @@ const rows = (list: Row[]) =>
 export const CODES: Codes = {
   CDU: rows([
     [1, "N", SOND22, "Promised relief on Kita fees, not full fee-free Kita"],
+    [2, "A", CDUPT26, "'Kinder mit unzureichenden Deutschkenntnissen erhalten verpflichtende Sprachförderung bereits vor der Einschulung'"],
     [6, "A", DAR26, "Interior minister Reul: keep automated data analysis, look for a European replacement for Palantir"],
     [9, "A", SOND22, "'Wir halten am Kohleausstieg 2030 fest'"],
     [10, "A", SOND22, "Scrap the blanket distance rule (the 1,000-metre rule)"],
@@ -64,7 +69,7 @@ export const CODES: Codes = {
     [3, "A", GR22, "Integrated schools offer 'the greatest chances'"],
     [5, "A", GR22],
     [6, "A", GRDAR26, "Keep automated analysis, but no new contract with Palantir"],
-    [9, "A", GR22],
+    [9, "A", GRLDK26, "2027 programme draft: 'ein um acht Jahre vorgezogener Kohleausstieg 2030'"],
     [10, "A", GR22, "Scrap blanket minimum distances for new wind turbines"],
     [11, "A", GR22, "Solar panels 'should become the standard' on buildings"],
     [13, "A", GR22, "Extend the rent cap and the Kappungsgrenze"],
@@ -82,6 +87,7 @@ export const CODES: Codes = {
   FDP: rows([
     [1, "A", FDP22, "Make the further Kita years fee-free step by step"],
     [3, "D", FDP22, "Keep the multi-track school system"],
+    [9, "D", FDPVK26, "Höne: 'den vorgezogenen Ausstieg zurückzunehmen'"],
     [13, "N", FDP22, "Keep tenant protection, but evaluate it and cut unnecessary rules"],
     [14, "A", FDP22, "A tax-free allowance for young families' first home"],
     [15, "D", FDP22, "Strengthen all modes: 'Auto, Bahn, Bus und Rad'"],
