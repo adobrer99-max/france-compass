@@ -4,7 +4,7 @@ import { CHANGES, CODES, positionOf } from "@country/codes";
 import { AREA, AREAS, AXES, BY_ID, STATEMENTS } from "@country/statements";
 import { pct, tx, useLang, type Lang } from "../i18n";
 import { COUNTRY } from "@country/config";
-import { splits, type Result } from "../lib/scoring";
+import { agreementPoints, splits, type Answers, type Result } from "../lib/scoring";
 import { Avatar, CodeChip } from "./bits";
 
 function SourceLine({ code, id }: { code: CandidateCode; id: number }) {
@@ -20,10 +20,29 @@ function SourceLine({ code, id }: { code: CandidateCode; id: number }) {
   );
 }
 
-export function CandidatePanel({ code, onStatement }: { code: CandidateCode; onStatement: (id: number) => void }) {
+/** Your answer beside the candidate's code, and whether you agree. */
+function YouLine({ u, p }: { u: Answers[number]; p: ReturnType<typeof positionOf> }) {
+  const { t } = useLang();
+  if (u === undefined) return null;
+  const you = u === null ? t.skip : t.scale[u + 2];
+  if (u === null || p === "-") return <span className="tiny muted you-line">{t.youSaid(you)}</span>;
+  const pts = agreementPoints(u, p);
+  const k = pts === 2 ? "agree" : pts === 1 ? "partly" : "differ";
+  return <span className={`tiny you-line you-${k}`}>{t.youSaid(you)} · {t.youMatch[k]}</span>;
+}
+
+export function CandidatePanel({ code, onStatement, answers }: { code: CandidateCode; onStatement: (id: number) => void; answers?: Answers }) {
   const { lang, t } = useLang();
   const c = BY_CODE[code];
   const coded = STATEMENTS.filter((s) => positionOf(code, s.id) !== "-").length;
+  const tally = { agree: 0, partly: 0, differ: 0 };
+  if (answers) for (const s of STATEMENTS) {
+    const u = answers[s.id], p = positionOf(code, s.id);
+    if (u === undefined || u === null || p === "-") continue;
+    const pts = agreementPoints(u, p);
+    tally[pts === 2 ? "agree" : pts === 1 ? "partly" : "differ"]++;
+  }
+  const compared = tally.agree + tally.partly + tally.differ;
   return (
     <div>
       <div className="profile-head">
@@ -35,6 +54,9 @@ export function CandidatePanel({ code, onStatement }: { code: CandidateCode; onS
         </div>
       </div>
       {c.note && <p className="small" style={{ marginTop: 12 }}>{tx(lang, c.note)}</p>}
+      {answers && compared > 0 && (
+        <p className="small you-tally">{t.youTally(tally.agree, tally.partly, tally.differ)}</p>
+      )}
       <h3 className="section-sm">{t.candidateCodes}</h3>
       {AREAS.map((a) => (
         <div key={a.id} className="profile-block">
@@ -45,6 +67,7 @@ export function CandidatePanel({ code, onStatement }: { code: CandidateCode; onS
               <div>
                 <button className="linkish" onClick={() => onStatement(s.id)}>{s.id}. {s[lang]}</button>
                 <div><SourceLine code={code} id={s.id} /></div>
+                {answers && <div><YouLine u={answers[s.id]} p={positionOf(code, s.id)} /></div>}
               </div>
             </div>
           ))}

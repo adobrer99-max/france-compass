@@ -10,7 +10,7 @@ import { COUNTRY } from "@country/config";
 import { PANELS, partyLabel } from "../country";
 import { Across } from "./Across";
 
-export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart, onExtra }: {
+export function Results({ result, answers, onCandidate, onStatement, onCompare, onMethod, onRestart, onExtra, quick, rest, onSharpen }: {
   result: Result;
   answers: Answers;
   onCandidate: (c: CandidateCode) => void;
@@ -19,6 +19,10 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
   onMethod: () => void;
   onRestart: () => void;
   onExtra: (id: string) => void;
+  /** results from the quick version, with `rest` statements still to answer */
+  quick?: boolean;
+  rest?: number;
+  onSharpen?: () => void;
 }) {
   const { lang, t } = useLang();
   const [open, setOpen] = useState<CandidateCode | null>(null);
@@ -29,7 +33,13 @@ export function Results({ result, answers, onCandidate, onStatement, onCompare, 
     <div>
       <div className="topbar"><span className="kicker">{t.title}</span><LangSwitch /></div>
       <h1>{t.resultsHeading}</h1>
-      <p className="small muted" style={{ marginTop: 6 }}>{t.resultsAnswered(result.answered, result.skipped)}</p>
+      <p className="small muted" style={{ marginTop: 6 }}>{t.resultsAnswered(result.answered, result.skipped)}{quick && <> {t.quickDone}</>}</p>
+      {quick && !!rest && onSharpen && (
+        <div className="callout sharpen">
+          <span>{t.sharpenNote}</span>
+          <button className="btn btn-ghost" onClick={onSharpen}>{t.sharpen(rest)}</button>
+        </div>
+      )}
       {result.ranked[0] && (() => {
         const m = result.ranked[0], c = BY_CODE[m.code];
         return (

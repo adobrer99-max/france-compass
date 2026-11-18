@@ -36,7 +36,7 @@ export function Grid({ result }: { result: Result }) {
       </g>
       {markers.map((m) => (
         <g key={m.code}>
-          <circle cx={m.x} cy={m.y} r="5" fill={m.low ? "var(--slip)" : BY_CODE[m.code].color}
+          <circle className="dot" cx={m.x} cy={m.y} r="5" fill={m.low ? "var(--slip)" : BY_CODE[m.code].color}
             stroke={BY_CODE[m.code].color} strokeWidth={m.low ? 1.5 : 0} strokeDasharray={m.low ? "2 2" : undefined} />
           <text x={m.x} y={m.y + m.dy} textAnchor="middle" fontSize="8.5" fontWeight="600" fill="var(--ink)"
             fontFamily="var(--mono)" stroke="var(--slip)" strokeWidth="2.5" paintOrder="stroke">

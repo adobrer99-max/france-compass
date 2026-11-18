@@ -7,6 +7,7 @@ import { BY_ID } from "@country/statements";
 import { COUNTRY } from "@country/config";
 import { PANELS } from "../country";
 import { DEFAULT_WEIGHTS, type Answers, type Weights } from "./scoring";
+import type { Mode } from "./quick";
 
 export type Stage = "intro" | "quiz" | "weights" | "results";
 
@@ -15,11 +16,13 @@ export interface Session {
   answers: Answers;
   weights: Weights;
   stage: Stage;
+  /** full set, the quick version, or the rest of the full set after the quick version */
+  mode?: Mode;
 }
 
 const KEY = `${COUNTRY.storagePrefix}-session-v1`;
 
-export const fresh = (): Session => ({ index: 0, answers: {}, weights: { ...DEFAULT_WEIGHTS }, stage: "intro" });
+export const fresh = (mode: Mode = "full"): Session => ({ index: 0, answers: {}, weights: { ...DEFAULT_WEIGHTS }, stage: "intro", mode });
 
 export function load(): Session | null {
   try {

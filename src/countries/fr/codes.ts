@@ -72,6 +72,21 @@ const LFI_F6C2: S = { src: "https://melenchon2027.fr/programme/livre/fonder-la-6
 const LFI_M6C1: S = { src: "https://melenchon2027.fr/programme/livre/un-monde-ordonne/chapitre1/", label: "L'Avenir en commun 2027, part 6 ch. 1", date: "2026-11-07" };
 const LFI_M6C2: S = { src: "https://melenchon2027.fr/programme/livre/un-monde-ordonne/chapitre2/", label: "L'Avenir en commun 2027, part 6 ch. 2", date: "2026-11-07" };
 
+/* ---- Statements 54–61, added 18 November 2026 ----
+   Party votes stand in only where the candidate leads that party or its group, flagged `weak`. */
+const LOY26: S = { src: "https://www.investissement-locatif.com/le-volet-logement-de-lfi-jean-luc-melenchon.html", label: "Investissement-Locatif.com, LFI's housing programme", date: "2026-09-21" };
+const RNP24: S = { src: "https://rassemblementnational.fr/documents/202406-programme.pdf", label: "RN 2024 legislative programme: VAT at 5.5% on fuel, gas and electricity", date: "2024-06-24" };
+const LRT26: S = { src: "https://www.publicsenat.fr/actualites/politique/essence-energie-logement-travail-bruno-retailleau-promet-daugmenter-le-pouvoir-dachat-des-francais-sans-un-euro-de-dette-en-plus", label: "Public Sénat, Retailleau's purchasing-power plan", date: "2026-09-15" };
+const AID26: S = { src: "https://www.connaissancedesenergies.org/afp/la-campagne-dattal-et-de-philippe-percutee-par-la-crise-des-carburants-260922", label: "AFP, Attal and Philippe on fuel prices", date: "2026-09-22" };
+const PCFT25: S = { src: "https://www.publicsenat.fr/actualites/politique/le-groupe-communiste-depose-une-proposition-de-loi-pour-reduire-a-55-la-tva-sur-lenergie-pour-eviter-un-massacre-social", label: "Public Sénat, communist senators' bill for 5.5% VAT on energy", date: "2025-07-16", weak: true };
+const ZUC25: S = { src: "https://lcp.fr/actualites/budget-2026-la-taxe-zucman-rejetee-par-l-assemblee-nationale-413632", label: "LCP, Assembly vote on the Zucman tax, 2026 budget (party's deputies)", date: "2025-10-31", weak: true };
+const DUP25: S = { src: "https://datan.fr/votes/legislature-17/vote_2957", label: "Assembly final vote on the Duplomb law reauthorising neonicotinoids (party's deputies)", date: "2025-07-08", weak: true };
+const DEF26: S = { src: "https://lhemicycle.com/theme/defense/", label: "L'Hémicycle, candidates on defence (consulted 18 Nov 2026)", date: "2026-11-18" };
+const LFIS26: S = { src: "https://poligraph.fr/elections/presidentielle-2027/mesures/jean-luc-melenchon-ouvrir-la-possibilite-d-un-service-militaire-comme-composante-optionnelle-du-service-citoyen-obligatoire", label: "Poligraph, L'Avenir en commun 2027: compulsory citizen service", date: "2026-11-08" };
+const RNS24: S = { src: "https://www.politis.fr/articles/2024/07/elections-legislatives-service-national-universel-les-ambitions-demesurees-du-rn/", label: "Politis, the RN on national service", date: "2024-07-02", weak: true };
+const RS26: S = { src: "https://nosparlementaires.fr/actualites/reseaux-sociaux-interdits-15-ans-adoption-definitive", label: "NosParlementaires, final Assembly vote on the under-15 social media ban (party's deputies)", date: "2026-07-21", weak: true };
+const V16: S = { src: "https://www.elyseescope.com/le-radar/jean-luc-melenchon-vote-16-ans", label: "ÉlyséeScope, candidates on voting at 16", date: "2026-10-16", weak: true };
+
 /** [statement, position, source, note?] */
 type Row = [number, "A" | "N" | "D", S, string?];
 
@@ -111,6 +126,13 @@ export const CODES: Codes = {
     // second pass
     [22, "A", VSAV, "Voted for algorithmic video surveillance; not facial recognition as such"],
     [33, "A", CAR24, "Bardella wants the 2035 ban reversed"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "A", RNP24, "Le Pen restated the fuel cut in September 2026 (Sud Radio)"],
+    [56, "D", ZUC25, "Party record: RN deputies"],
+    [57, "D", DUP25, "Party record: RN deputies voted for the Duplomb law"],
+    [59, "A", RNS24, "Prefers 'a real return of military service' to the SNU; Le Pen's 2017 programme had a three-month service"],
+    [60, "N", RS26, "Party record: RN deputies mostly abstained (14 abstentions, 2 against)"],
+    [61, "D", V16],
   ]),
   LFI: rows([
     [1, "A", IF, "Restore the ISF with a climate component"],
@@ -148,6 +170,13 @@ export const CODES: Codes = {
     [25, "N", LFI_M6C1, "EU rules set aside only where less ambitious than French social or green ones; stays in the EU and the euro"],
     [30, "A", LFI_M6C1, "Calls the Mercosur deal destructive; veto on free-trade deals"],
     [53, "A", LFI_M6C2, "Strengthen the UN presence in Lebanon"],
+    // statements 54–61 (18 Nov 2026)
+    [54, "A", LOY26, "Extend rent control to the whole country"],
+    [56, "A", ZUC25, "Party record: LFI deputies"],
+    [57, "A", DUP25, "Party record: LFI deputies voted against the Duplomb law"],
+    [59, "A", LFIS26, "Compulsory citizen service, with military service as an option within it"],
+    [60, "D", RS26, "Party record: LFI deputies voted against as a bloc"],
+    [61, "A", V16],
   ]),
   HOR: rows([
     [3, "A", IF, "Cut production taxes by €50bn a year"],
@@ -174,6 +203,12 @@ export const CODES: Codes = {
     [30, "A", MERV],
     [38, "D", PROP25, "Defends the current system unless local and national mandates can be combined again"],
     [45, "N", PHV26, "School heads could impose uniforms; not a national rule"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "D", AID26, "Targeted, temporary aid rather than tax cuts"],
+    [56, "D", ZUC25, "Party record: Horizons deputies"],
+    [57, "D", DUP25, "Party record: Horizons deputies voted for the Duplomb law"],
+    [58, "A", DEF26, "3% of GDP"],
+    [60, "A", RS26, "Party record: Horizons deputies"],
   ]),
   PP: rows([
     [1, "A", IF, "Zucman tax: 2% minimum on fortunes over €100m"],
@@ -196,6 +231,10 @@ export const CODES: Codes = {
     [22, "D", VSAV, "Party record: PS deputies voted against"],
     [29, "A", ISR24, "Party record: PS senator Hélène Conway-Mouret"],
     [30, "A", MERV, "Party record: PS deputies"],
+    // statements 54–61 (18 Nov 2026)
+    [56, "A", ZUC25, "Party record: Socialist group deputies, where Place publique sits"],
+    [57, "A", DUP25, "Party record: Socialist group deputies voted against the Duplomb law"],
+    [60, "N", RS26, "Party record: Socialist group split, 30 for and 28 abstentions"],
   ]),
   LR: rows([
     [3, "A", IF, "Cut production taxes by €15bn"],
@@ -222,6 +261,12 @@ export const CODES: Codes = {
     [29, "D", ISR24, "Party record: LR senators Karoutchi and Perrin"],
     [30, "A", MERV],
     [38, "D", PROP25, "Retailleau opposed"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "D", LRT26, "Cut fuel costs by scrapping energy-saving certificates instead; criticised the 5.5% VAT proposal"],
+    [56, "D", ZUC25, "Party record: LR deputies"],
+    [57, "D", DUP25, "Party record: LR deputies voted for the Duplomb law"],
+    [58, "A", DEF26, "€100 billion a year by the end of the term, about 3% of GDP"],
+    [60, "A", RS26, "Party record: LR deputies"],
   ]),
   NE: rows([
     [1, "D", IF, "Abolish the IFI"],
@@ -241,6 +286,9 @@ export const CODES: Codes = {
     [35, "A", IF],
     [46, "A", IF],
     [47, "D", IF, "A school allowance usable at private schools"],
+    // statements 54–61 (18 Nov 2026)
+    [58, "A", DEF26, "3% to 3.5% of GDP"],
+    [59, "A", DEF26, "A short compulsory national service, in barracks and uniform"],
   ]),
   REN: rows([
     [2, "A", IF, "A constitutional golden rule on balanced budgets"],
@@ -262,6 +310,11 @@ export const CODES: Codes = {
     [29, "N", ISR24, "Macron called for a halt to arms used in Gaza; Yaël Braun-Pivet opposed 'disarming Israel'"],
     [38, "N", PROP25, "Party record: Renaissance sceptical, 'not a priority'"],
     [45, "N", ATU23, "As education minister: 'not yet convinced', backed a large trial"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "D", AID26, "Targeted, temporary aid rather than tax cuts"],
+    [56, "D", ZUC25, "Party record: EPR deputies"],
+    [57, "D", DUP25, "Party record: EPR deputies voted for the Duplomb law (64 for, 14 against)"],
+    [60, "A", RS26, "Party record: EPR deputies"],
   ]),
   ECO: rows([
     [1, "A", IF],
@@ -286,6 +339,10 @@ export const CODES: Codes = {
     // second pass
     [29, "A", ISR24, "Party record: ecologist senator Akli Mellouli"],
     [38, "A", PROP25, "Regional proportional representation"],
+    // statements 54–61 (18 Nov 2026)
+    [56, "A", ZUC25, "Party record: Écologiste deputies"],
+    [57, "A", DUP25, "Party record: Écologiste deputies voted against the Duplomb law"],
+    [60, "A", RS26, "Party record: Écologiste deputies, 19 for, 7 against, 7 abstentions"],
   ]),
   REC: rows([
     [1, "D", IF],
@@ -304,6 +361,8 @@ export const CODES: Codes = {
     [32, "A", IF, "End public support for renewables"],
     [47, "D", IF],
     [48, "A", IF],
+    // statements 54–61 (18 Nov 2026)
+    [58, "D", DEF26, "2022 programme: €70 billion a year by 2030, about 2% of GDP"],
   ]),
   PCF: rows([
     [1, "A", IF],
@@ -323,6 +382,12 @@ export const CODES: Codes = {
     [26, "D", UKRV, "Party record: GDR deputies voted against the 2024 security accord"],
     [30, "A", MERV, "Party record: GDR deputies"],
     [39, "A", PCF22, "2022: referendums triggered by a million citizens"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "A", PCFT25, "Party record: communist senators' bill"],
+    [56, "A", ZUC25, "Party record: GDR deputies"],
+    [57, "A", DUP25, "Party record: GDR deputies voted against the Duplomb law"],
+    [58, "D", DEF26, "Cancel the planned €36 billion rise in defence spending"],
+    [60, "N", RS26, "Party record: GDR deputies split, 6 for, 3 against, 5 abstentions"],
   ]),
   DLF: rows([
     [1, "A", IF, "On very large fortunes, excluding the main home"],
@@ -341,6 +406,9 @@ export const CODES: Codes = {
     [32, "A", IF, "End state aid for wind"],
     [33, "A", IF],
     [45, "A", IF],
+    // statements 54–61 (18 Nov 2026)
+    [58, "D", DEF26, "2.5% of GDP"],
+    [59, "A", DEF26, "Three months' compulsory civic service, with a one-year military option"],
   ]),
   DEB: rows([
     [8, "A", IF, "Extra quarters for exposed jobs"],

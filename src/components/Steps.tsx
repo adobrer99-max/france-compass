@@ -5,6 +5,7 @@ import { useLang, tx } from "../i18n";
 import { PANELS, partyLabel } from "../country";
 import type { Answer, Weights as W } from "../lib/scoring";
 import { LangSwitch } from "./bits";
+import { minutesFor, QUICK } from "../lib/quick";
 
 /** Poll strings are written in English; localise words, decimal commas and the space before %. */
 const pollText = (lang: string, p: string) => {
@@ -15,10 +16,12 @@ const pollText = (lang: string, p: string) => {
   return s;
 };
 
-export function Intro({ onStart, onResume, savedCount, onCandidate, onExtra }: {
+export function Intro({ onStart, onQuick, onResume, savedCount, savedTotal, onCandidate, onExtra }: {
   onStart: () => void;
+  onQuick?: () => void;
   onResume?: () => void;
   savedCount: number;
+  savedTotal: number;
   onCandidate: (code: (typeof CANDIDATES)[number]["code"]) => void;
   onExtra: (id: string) => void;
 }) {
@@ -38,7 +41,9 @@ export function Intro({ onStart, onResume, savedCount, onCandidate, onExtra }: {
         </div>
         <div className="intro-go">
           <button className="btn" onClick={onStart}>{savedCount ? t.startOver : t.start}</button>
-          {onResume && <button className="btn btn-ghost" onClick={onResume}>{t.resume(savedCount, STATEMENTS.length)}</button>}
+          {onQuick && <button className="btn btn-ghost" onClick={onQuick}>{t.quickStart(QUICK.length)}</button>}
+          {onResume && <button className="btn btn-ghost" onClick={onResume}>{t.resume(savedCount, savedTotal)}</button>}
+          {onQuick && <p className="tiny muted">{t.quickNote(STATEMENTS.length, minutesFor(STATEMENTS.length), QUICK.length, minutesFor(QUICK.length))}</p>}
         </div>
       </div>
 

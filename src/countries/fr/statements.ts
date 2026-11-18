@@ -1,11 +1,13 @@
 /* ============================================================
-   The 53 statements, in nine areas, in English and French.
+   The 61 statements, in nine areas, in English and French.
+   1–53 are the first set; 54–61 were added in November 2026 to
+   cover housing, energy prices, defence, digital and voting age.
    One claim each, neutral wording, chosen because the main
    candidates split on them. The French is a first draft for the
    colleague in France to copy-check.
 
    `axis` places a statement on the results chart:
-     econ — left (−) to right (+) on the economy: statements 1–12
+     econ — left (−) to right (+) on the economy: statements 1–12, 54 and 56
      open — open (−) to closed (+): 13–18 and 25–30, except 29
    `sign` is +1 when agreeing moves you toward the + pole.
    Statements with no axis still count toward the match.
@@ -40,7 +42,7 @@ export const AXES: Record<Axis, { en: [string, string]; fr: [string, string]; na
 };
 
 export interface Statement {
-  /** 1–53, stable: links and codes use it */
+  /** 1–61, stable: links and codes use it */
   id: number;
   area: AreaId;
   axis: Axis | null;
@@ -117,7 +119,30 @@ const ROWS: Row[] = [
   [51, "afr", null, 1, "France should pay reparations to its former colonies.", "La France devrait verser des réparations à ses anciennes colonies."],
   [52, "afr", null, 1, "The French state should formally apologise to Algeria for colonisation.", "L'État français devrait présenter des excuses officielles à l'Algérie pour la colonisation."],
   [53, "afr", null, 1, "France should push to keep UNIFIL, the UN peacekeeping force in southern Lebanon, beyond its planned withdrawal.", "La France devrait œuvrer au maintien de la FINUL, la force de maintien de la paix de l'ONU au Sud-Liban, au-delà de son retrait prévu."],
+  // Added November 2026
+  [54, "eco", "econ", -1, "Rents should be capped across France, not only in some cities.", "Les loyers devraient être encadrés partout en France, et pas seulement dans certaines villes."],
+  [55, "eco", null, 1, "VAT on electricity, gas and fuel should be cut to 5.5%.", "La TVA sur l'électricité, le gaz et les carburants devrait être ramenée à 5,5 %."],
+  [56, "eco", "econ", -1, "A minimum tax of 2% should apply to fortunes above €100 million.", "Un impôt minimum de 2 % devrait s'appliquer aux patrimoines de plus de 100 millions d'euros."],
+  [57, "nrg", null, 1, "The pesticide acetamiprid should stay banned.", "Le pesticide acétamipride devrait rester interdit."],
+  [58, "eur", null, 1, "France should raise defence spending to at least 3% of GDP.", "La France devrait porter ses dépenses de défense à au moins 3 % du PIB."],
+  [59, "sec", null, 1, "Compulsory national or military service should be brought back.", "Un service national ou militaire obligatoire devrait être rétabli."],
+  [60, "soc", null, 1, "Social media should be off-limits to children under 15.", "Les réseaux sociaux devraient être interdits aux moins de 15 ans."],
+  [61, "ins", null, 1, "The voting age should be lowered to 16.", "Le droit de vote devrait être abaissé à 16 ans."],
 ];
 
 export const STATEMENTS: Statement[] = ROWS.map(([id, area, axis, sign, en, fr]) => ({ id, area, axis, sign, en, fr }));
 export const BY_ID = Object.fromEntries(STATEMENTS.map((s) => [s.id, s])) as Record<number, Statement>;
+
+/** The quick version: three per topic, picked for how sharply they split the field
+ *  and to avoid near-duplicates (one wealth tax, not three). */
+export const QUICK_IDS: number[] = [
+  1, 2, 55,    // economy
+  7, 9, 10,    // pensions and work
+  13, 14, 15,  // immigration
+  20, 22, 59,  // security
+  25, 26, 29,  // Europe and the world
+  31, 33, 57,  // energy
+  37, 38, 39,  // institutions
+  43, 47, 60,  // society
+  49, 50, 52,  // Africa and the Middle East
+];
