@@ -5,7 +5,7 @@ import { pct, tx, useLang } from "../i18n";
 import { bestWorst, COVERAGE_FLOOR, opposites, type Answers, type Result } from "../lib/scoring";
 import { Avatar, LangSwitch, MatchBar } from "./bits";
 import { Grid, GridText } from "./Grid";
-import { downloadCanvas, drawShareCard, shareCanvas } from "../lib/shareCard";
+import { canvasBlob, downloadBlob, drawShareCard, shareBlob } from "../lib/shareCard";
 import { COUNTRY } from "@country/config";
 import { PANELS, partyLabel } from "../country";
 import { Across } from "./Across";
@@ -170,15 +170,18 @@ function Runoff({ result, onCompare, onExtra }: { result: Result; onCompare: (a:
 function ShareCard({ result }: { result: Result }) {
   const { lang, t } = useLang();
   const ref = useRef<HTMLCanvasElement>(null);
-  const [ready, setReady] = useState(false);
+  const [blob, setBlob] = useState<Blob | null>(null);
   useEffect(() => {
     let live = true;
-    // Draw once the web fonts are in, so the image uses them.
-    (document.fonts?.ready ?? Promise.resolve()).then(() => {
+    setBlob(null);
+    const draw = async () => {
       if (!live || !ref.current) return;
       drawShareCard(ref.current, result, lang, COUNTRY.headToHead ? LIKELY_RUNOFF : null, PANELS.shareLine?.(result, lang) ?? null);
-      setReady(true);
-    });
+      const b = await canvasBlob(ref.current);
+      if (live) setBlob(b);
+    };
+    // Draw once the web fonts are in, so the image uses them; don't wait forever.
+    Promise.race([document.fonts?.ready ?? Promise.resolve(), new Promise((r) => setTimeout(r, 2500))]).then(draw);
     return () => { live = false; };
   }, [result, lang]);
   const name = COUNTRY.shareFile[lang];
@@ -188,8 +191,8 @@ function ShareCard({ result }: { result: Result }) {
       <p className="small muted">{t.shareLead}</p>
       <canvas ref={ref} className="share-card" width={1200} height={630} aria-label={t.shareHeading} />
       <div className="btn-row">
-        <button className="btn" disabled={!ready} onClick={() => ref.current && shareCanvas(ref.current, name, `${t.shareText} ${COUNTRY.siteUrl}`)}>{t.shareBtn}</button>
-        <button className="btn btn-ghost" disabled={!ready} onClick={() => ref.current && downloadCanvas(ref.current, name)}>{t.downloadBtn}</button>
+        <button className="btn" disabled={!blob} onClick={() => blob && shareBlob(blob, name, t.shareText, COUNTRY.siteUrl)}>{t.shareBtn}</button>
+        <button className="btn btn-ghost" disabled={!blob} onClick={() => blob && downloadBlob(blob, name)}>{t.downloadBtn}</button>
       </div>
     </section>
   );

@@ -184,26 +184,43 @@ export function drawShareCard(canvas: HTMLCanvasElement, result: Result, lang: L
   ctx.textAlign = "left";
 }
 
-export function downloadCanvas(canvas: HTMLCanvasElement, filename: string): void {
-  canvas.toBlob((blob) => {
-    if (!blob) return;
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }, "image/png");
+/** Encode the drawn card once, ahead of any tap, so share/download can run
+ *  inside the tap itself. Mobile browsers refuse navigator.share (and some
+ *  downloads) once an await has used up the tap's user activation. */
+export function canvasBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
+  return new Promise((r) => canvas.toBlob(r, "image/png"));
 }
 
-/** Share the image itself where the device can (phones), otherwise download it. */
-export async function shareCanvas(canvas: HTMLCanvasElement, filename: string, text: string): Promise<void> {
-  const blob: Blob | null = await new Promise((r) => canvas.toBlob(r, "image/png"));
-  if (!blob) return;
+export function downloadBlob(blob: Blob, filename: string): void {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.rel = "noopener";
+  a.style.display = "none";
+  document.body.appendChild(a);
+  // iOS Safari before 13 and some in-app browsers ignore `download`;
+  // there, opening the image lets the reader long-press to save it.
+  if (!("download" in HTMLAnchorElement.prototype)) a.target = "_blank";
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
+}
+
+/** Call synchronously from the click handler. */
+export function shareBlob(blob: Blob, filename: string, text: string, url: string): void {
   const file = new File([blob], filename, { type: "image/png" });
   const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean };
   if (nav.share && nav.canShare?.({ files: [file] })) {
-    try { await nav.share({ files: [file], text }); return; } catch { /* cancelled */ }
+    nav.share({ files: [file], text: `${text} ${url}` }).catch((e: unknown) => {
+      if ((e as DOMException)?.name !== "AbortError") downloadBlob(blob, filename);
+    });
+    return;
   }
-  downloadCanvas(canvas, filename);
+  if (nav.share) {
+    // No file sharing (e.g. desktop Firefox, some Android webviews): share the link.
+    nav.share({ text, url }).catch(() => {});
+    return;
+  }
+  downloadBlob(blob, filename);
 }
