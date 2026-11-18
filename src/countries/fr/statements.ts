@@ -1,10 +1,11 @@
 /* ============================================================
-   The 64 statements, in nine areas, in English and French.
+   The 66 statements, in nine areas, in English and French.
    1–53 are the first set; 54–61 were added in November 2026 to
    cover housing, energy prices, defence, digital and voting age;
    62–64 (leaving the EU, leaving the euro, the EU carbon price) the same day.
    62 and 63 have no backer in the field: they show readers who hold
-   that view where they sit beyond every candidate.
+   that view where they sit beyond every candidate. 65 and 66
+   (recognising Palestine, the Yadan bill) were added the same day.
    One claim each, neutral wording, chosen because the main
    candidates split on them. The French is a first draft for the
    colleague in France to copy-check.
@@ -45,7 +46,7 @@ export const AXES: Record<Axis, { en: [string, string]; fr: [string, string]; na
 };
 
 export interface Statement {
-  /** 1–64, stable: links and codes use it */
+  /** 1–66, stable: links and codes use it */
   id: number;
   area: AreaId;
   axis: Axis | null;
@@ -134,6 +135,8 @@ const ROWS: Row[] = [
   [62, "eur", "open", 1, "France should leave the European Union.", "La France devrait quitter l'Union européenne."],
   [63, "eur", "open", 1, "France should leave the euro.", "La France devrait sortir de l'euro."],
   [64, "nrg", null, 1, "The EU's carbon price on fuel and heating (ETS2) should start in 2028 as planned.", "Le prix du carbone européen sur les carburants et le chauffage (ETS2) devrait s'appliquer dès 2028, comme prévu."],
+  [65, "afr", null, 1, "France was right to recognise the State of Palestine in 2025.", "La France a eu raison de reconnaître l'État de Palestine en 2025."],
+  [66, "sec", null, 1, "Publicly calling for the destruction of a state recognised by France should be a crime.", "Appeler publiquement à la destruction d'un État reconnu par la France devrait être un délit."],
 ];
 
 export const STATEMENTS: Statement[] = ROWS.map(([id, area, axis, sign, en, fr]) => ({ id, area, axis, sign, en, fr }));

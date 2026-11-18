@@ -91,6 +91,11 @@ const FV26: S = { src: "https://www.france-vote.fr/theme/europe", label: "France
 const DP26: S = { src: "https://directpolitique.substack.com/p/sujet-star-en-2017-quasi-oublie-en", label: "Direct Politique, sovereigntism in the 2027 campaign", date: "2026-11-01", weak: true };
 const NDA26: S = { src: "https://www.timefrance.fr/politique/les-visages-des-presidentielles-2027-nicolas-dupont-aignan-lirreductible-souverainiste-du-frexit/", label: "Time France, Dupont-Aignan profile", date: "2026-11-01", weak: true };
 const ETS26: S = { src: "https://lautomobiliste.fr/19/09/2026/le-rn-annonce-15-centimes-de-plus-sur-le-carburant-en-2028-a-cause-de-lue-ce-quils-oublient-de-preciser-change-tout/", label: "L'Automobiliste, how French MEPs voted on ETS2 (2023, 2026)", date: "2026-09-19", weak: true };
+const PAL25: S = { src: "https://lcp.fr/index%2Ephp/actualites/la-france-va-reconnaitre-l-etat-de-palestine-ce-lundi-une-decision-contestee-par", label: "LCP, reactions as France recognised Palestine", date: "2025-09-22" };
+const PALJ25: S = { src: "https://lcp.fr/actualites/etat-de-palestine-les-principales-reactions-a-l-annonce-de-macron-391199", label: "LCP, reactions to Macron's announcement", date: "2025-07-25" };
+const PALJ25W: S = { ...PALJ25, weak: true };
+const YAD26: S = { src: "https://lcp.fr/actualites/lutte-contre-l-antisemitisme-une-proposition-de-loi-controversee-a-l-ordre-du-jour-de-l", label: "LCP, the Yadan bill on new forms of antisemitism (party's deputies)", date: "2026-04-09", weak: true };
+const YADW26: S = { src: "https://lcp.fr/actualites/antisemitisme-les-deputes-macronistes-retirent-la-proposition-de-loi-yadan-un-projet-de", label: "LCP, the Yadan bill withdrawn for a government bill", date: "2026-04-16" };
 
 /** [statement, position, source, note?] */
 type Row = [number, "A" | "N" | "D", S, string?];
@@ -142,6 +147,9 @@ export const CODES: Codes = {
     [62, "D", DP26, "Leaving the EU is no longer the aim; treaty revision is"],
     [63, "D", EU26, "Stay in the euro; position changed since 2017"],
     [64, "D", ETS26, "Bardella voted against ETS2 in 2023 and against the 2026 text"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "D", PAL25, "Le Pen: \"le Hamastan et non la Palestine\"; Bardella: no two states while Hamas stands"],
+    [66, "A", YAD26, "Party record: RN deputies backed the text in committee"],
   ]),
   LFI: rows([
     [1, "A", IF, "Restore the ISF with a climate component"],
@@ -189,6 +197,9 @@ export const CODES: Codes = {
     // statements 62–64 (18 Nov 2026)
     [62, "D", FV26, "Stay in the EU and disobey the treaties"],
     [64, "D", ETS26, "Party record: LFI MEPs voted against ETS2 in 2023"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "A", PALJ25, "Mélenchon: a \"victoire morale\", but why wait"],
+    [66, "D", YADW26, "Mélenchon welcomed the bill's withdrawal; LFI obstructed it"],
   ]),
   HOR: rows([
     [3, "A", IF, "Cut production taxes by €50bn a year"],
@@ -224,6 +235,8 @@ export const CODES: Codes = {
     // statements 62–64 (18 Nov 2026)
     [62, "D", EU26, "A strong Europe with national sovereignty kept"],
     [63, "D", EU26],
+    // statements 65–66 (18 Nov 2026)
+    [66, "A", YAD26, "Party record: Horizons deputies backed the text"],
   ]),
   PP: rows([
     [1, "A", IF, "Zucman tax: 2% minimum on fortunes over €100m"],
@@ -289,6 +302,9 @@ export const CODES: Codes = {
     // statements 62–64 (18 Nov 2026)
     [62, "D", EU26, "Pro-European, with more national sovereignty"],
     [63, "D", EU26],
+    // statements 65–66 (18 Nov 2026)
+    [65, "D", PALJ25W, "Party record: LR leaders called it useless and counterproductive"],
+    [66, "A", YAD26, "Party record: Droite républicaine deputies backed and co-signed the text"],
   ]),
   NE: rows([
     [1, "D", IF, "Abolish the IFI"],
@@ -341,6 +357,9 @@ export const CODES: Codes = {
     [62, "D", EU26, "Deeper integration"],
     [63, "D", EU26],
     [64, "A", ETS26, "Party record: Renew MEPs voted for ETS2 in 2023"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "A", PALJ25W, "Party record: EPR deputies called it historic; Caroline Yadan dissented"],
+    [66, "A", YAD26, "Party record: EPR deputies, Attal's group, co-signed and championed the text"],
   ]),
   ECO: rows([
     [1, "A", IF],
@@ -372,6 +391,8 @@ export const CODES: Codes = {
     // statements 62–64 (18 Nov 2026)
     [62, "D", EU26, "Stronger European integration"],
     [64, "D", ETS26, "Party record: most Green MEPs voted against the 2023 deal"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "A", PALJ25W, "Party record: Écologiste group leader called it a duty"],
   ]),
   REC: rows([
     [1, "D", IF],
@@ -421,6 +442,9 @@ export const CODES: Codes = {
     [60, "N", RS26, "Party record: GDR deputies split, 6 for, 3 against, 5 abstentions"],
     // statements 62–64 (18 Nov 2026)
     [62, "D", EU26, "European cooperation kept, competition policy criticised"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "A", PAL25, "Roussel: recognition comes \"bien tardivement\""],
+    [66, "D", YAD26, "Party record: communist deputies called it a censorship law"],
   ]),
   DLF: rows([
     [1, "A", IF, "On very large fortunes, excluding the main home"],
