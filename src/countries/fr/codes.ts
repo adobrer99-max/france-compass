@@ -86,6 +86,11 @@ const LFIS26: S = { src: "https://poligraph.fr/elections/presidentielle-2027/mes
 const RNS24: S = { src: "https://www.politis.fr/articles/2024/07/elections-legislatives-service-national-universel-les-ambitions-demesurees-du-rn/", label: "Politis, the RN on national service", date: "2024-07-02", weak: true };
 const RS26: S = { src: "https://nosparlementaires.fr/actualites/reseaux-sociaux-interdits-15-ans-adoption-definitive", label: "NosParlementaires, final Assembly vote on the under-15 social media ban (party's deputies)", date: "2026-07-21", weak: true };
 const V16: S = { src: "https://www.elyseescope.com/le-radar/jean-luc-melenchon-vote-16-ans", label: "ÉlyséeScope, candidates on voting at 16", date: "2026-10-16", weak: true };
+const EU26: S = { src: "https://www.sondages-presidentielle2027.fr/themes/europe-presidentielle-2027.html", label: "Sondages Présidentielle 2027, candidates on Europe and the euro (consulted 18 Nov 2026)", date: "2026-11-18", weak: true };
+const FV26: S = { src: "https://www.france-vote.fr/theme/europe", label: "France-Vote, candidates on leaving the EU or the euro (consulted 18 Nov 2026)", date: "2026-11-18", weak: true };
+const DP26: S = { src: "https://directpolitique.substack.com/p/sujet-star-en-2017-quasi-oublie-en", label: "Direct Politique, sovereigntism in the 2027 campaign", date: "2026-11-01", weak: true };
+const NDA26: S = { src: "https://www.timefrance.fr/politique/les-visages-des-presidentielles-2027-nicolas-dupont-aignan-lirreductible-souverainiste-du-frexit/", label: "Time France, Dupont-Aignan profile", date: "2026-11-01", weak: true };
+const ETS26: S = { src: "https://lautomobiliste.fr/19/09/2026/le-rn-annonce-15-centimes-de-plus-sur-le-carburant-en-2028-a-cause-de-lue-ce-quils-oublient-de-preciser-change-tout/", label: "L'Automobiliste, how French MEPs voted on ETS2 (2023, 2026)", date: "2026-09-19", weak: true };
 
 /** [statement, position, source, note?] */
 type Row = [number, "A" | "N" | "D", S, string?];
@@ -133,6 +138,10 @@ export const CODES: Codes = {
     [59, "A", RNS24, "Prefers 'a real return of military service' to the SNU; Le Pen's 2017 programme had a three-month service"],
     [60, "N", RS26, "Party record: RN deputies mostly abstained (14 abstentions, 2 against)"],
     [61, "D", V16],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", DP26, "Leaving the EU is no longer the aim; treaty revision is"],
+    [63, "D", EU26, "Stay in the euro; position changed since 2017"],
+    [64, "D", ETS26, "Bardella voted against ETS2 in 2023 and against the 2026 text"],
   ]),
   LFI: rows([
     [1, "A", IF, "Restore the ISF with a climate component"],
@@ -177,6 +186,9 @@ export const CODES: Codes = {
     [59, "A", LFIS26, "Compulsory citizen service, with military service as an option within it"],
     [60, "D", RS26, "Party record: LFI deputies voted against as a bloc"],
     [61, "A", V16],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", FV26, "Stay in the EU and disobey the treaties"],
+    [64, "D", ETS26, "Party record: LFI MEPs voted against ETS2 in 2023"],
   ]),
   HOR: rows([
     [3, "A", IF, "Cut production taxes by €50bn a year"],
@@ -209,6 +221,9 @@ export const CODES: Codes = {
     [57, "D", DUP25, "Party record: Horizons deputies voted for the Duplomb law"],
     [58, "A", DEF26, "3% of GDP"],
     [60, "A", RS26, "Party record: Horizons deputies"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "A strong Europe with national sovereignty kept"],
+    [63, "D", EU26],
   ]),
   PP: rows([
     [1, "A", IF, "Zucman tax: 2% minimum on fortunes over €100m"],
@@ -235,6 +250,10 @@ export const CODES: Codes = {
     [56, "A", ZUC25, "Party record: Socialist group deputies, where Place publique sits"],
     [57, "A", DUP25, "Party record: Socialist group deputies voted against the Duplomb law"],
     [60, "N", RS26, "Party record: Socialist group split, 30 for and 28 abstentions"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "The most pro-European candidate on the page"],
+    [63, "D", EU26, "Keep and reform"],
+    [64, "N", ETS26, "Party record: Place publique and Socialist MEPs abstained in 2023"],
   ]),
   LR: rows([
     [3, "A", IF, "Cut production taxes by €15bn"],
@@ -267,6 +286,9 @@ export const CODES: Codes = {
     [57, "D", DUP25, "Party record: LR deputies voted for the Duplomb law"],
     [58, "A", DEF26, "€100 billion a year by the end of the term, about 3% of GDP"],
     [60, "A", RS26, "Party record: LR deputies"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "Pro-European, with more national sovereignty"],
+    [63, "D", EU26],
   ]),
   NE: rows([
     [1, "D", IF, "Abolish the IFI"],
@@ -315,6 +337,10 @@ export const CODES: Codes = {
     [56, "D", ZUC25, "Party record: EPR deputies"],
     [57, "D", DUP25, "Party record: EPR deputies voted for the Duplomb law (64 for, 14 against)"],
     [60, "A", RS26, "Party record: EPR deputies"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "Deeper integration"],
+    [63, "D", EU26],
+    [64, "A", ETS26, "Party record: Renew MEPs voted for ETS2 in 2023"],
   ]),
   ECO: rows([
     [1, "A", IF],
@@ -343,6 +369,9 @@ export const CODES: Codes = {
     [56, "A", ZUC25, "Party record: Écologiste deputies"],
     [57, "A", DUP25, "Party record: Écologiste deputies voted against the Duplomb law"],
     [60, "A", RS26, "Party record: Écologiste deputies, 19 for, 7 against, 7 abstentions"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "Stronger European integration"],
+    [64, "D", ETS26, "Party record: most Green MEPs voted against the 2023 deal"],
   ]),
   REC: rows([
     [1, "D", IF],
@@ -363,6 +392,8 @@ export const CODES: Codes = {
     [48, "A", IF],
     // statements 54–61 (18 Nov 2026)
     [58, "D", DEF26, "2022 programme: €70 billion a year by 2030, about 2% of GDP"],
+    // statements 62–64 (18 Nov 2026)
+    [63, "D", EU26, "Stay in the euro, with fewer powers for the ECB"],
   ]),
   PCF: rows([
     [1, "A", IF],
@@ -388,6 +419,8 @@ export const CODES: Codes = {
     [57, "A", DUP25, "Party record: GDR deputies voted against the Duplomb law"],
     [58, "D", DEF26, "Cancel the planned €36 billion rise in defence spending"],
     [60, "N", RS26, "Party record: GDR deputies split, 6 for, 3 against, 5 abstentions"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "European cooperation kept, competition policy criticised"],
   ]),
   DLF: rows([
     [1, "A", IF, "On very large fortunes, excluding the main home"],
@@ -409,12 +442,18 @@ export const CODES: Codes = {
     // statements 54–61 (18 Nov 2026)
     [58, "D", DEF26, "2.5% of GDP"],
     [59, "A", DEF26, "Three months' compulsory civic service, with a one-year military option"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "A", NDA26, "A negotiated exit towards a 'Europe of nations'"],
+    [63, "N", FV26, "Leaving the euro 'envisaged'; another comparator lists him as staying"],
   ]),
   DEB: rows([
     [8, "A", IF, "Extra quarters for exposed jobs"],
     // second pass
     [39, "A", RUF23],
     [43, "A", RUF25, "Voted for at first reading"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", FV26, "No exit from the EU or the euro"],
+    [63, "D", FV26],
   ]),
   XB: rows([
     // second pass: no 2027 programme yet; his 2021–22 platform as placeholder

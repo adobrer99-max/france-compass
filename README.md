@@ -3,7 +3,7 @@
 A bilingual (English and French) compass for the 2027 French presidential election.
 First round 18 April 2027, runoff 2 May.
 
-61 statements in nine topics (or a 27-statement quick version, with the rest to answer after), a topic-weighting step, a ranked match with every candidate,
+64 statements in nine topics (or a 27-statement quick version, with the rest to answer after), a topic-weighting step, a ranked match with every candidate,
 a two-axis chart (economic left–right, open–closed), a runoff matchup, Compare two candidates,
 and a method page with every code and its dated source.
 
@@ -28,7 +28,7 @@ the scoring, chart, panels and share card are shared. See
 
 | File | What's in it |
 | --- | --- |
-| `src/countries/fr/statements.ts` | The 61 statements, English and French, their topic and axis; the quick-version picks |
+| `src/countries/fr/statements.ts` | The 64 statements, English and French, their topic and axis; the quick-version picks |
 | `src/countries/fr/candidates.ts` | The field, parties, colours, latest poll; the default runoff pair |
 | `src/countries/fr/codes.ts` | Every candidate's position on every statement, each with a dated source; the change log |
 | `src/countries/fr/strings.ts` | France's own text: title, dates, beta note, method, firewall and history panels |

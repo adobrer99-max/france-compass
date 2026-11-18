@@ -6,8 +6,8 @@ import { STRINGS } from "../../i18n";
 import { agreementPoints, candidateAxes, DEFAULT_WEIGHTS, matchFor, score, splits, userAxes, type Answers } from "../../lib/scoring";
 
 describe("statement bank", () => {
-  it("has 61 statements numbered 1–61 in order", () => {
-    expect(STATEMENTS.map((s) => s.id)).toEqual(Array.from({ length: 61 }, (_, i) => i + 1));
+  it("has 64 statements numbered 1–64 in order", () => {
+    expect(STATEMENTS.map((s) => s.id)).toEqual(Array.from({ length: 64 }, (_, i) => i + 1));
   });
   it("has English and French for every statement, and they differ", () => {
     for (const s of STATEMENTS) {
@@ -16,13 +16,13 @@ describe("statement bank", () => {
       expect(s.fr).not.toEqual(s.en);
     }
   });
-  it("puts 1–12, 54 and 56 on the economic axis and 13–18, 25–28, 30 on open–closed", () => {
+  it("puts 1–12, 54 and 56 on the economic axis and 13–18, 25–28, 30 on open–nationalist", () => {
     const on = (ax: string) => STATEMENTS.filter((s) => s.axis === ax).map((s) => s.id);
     expect(on("econ")).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 54, 56]);
-    expect(on("open")).toEqual([13, 14, 15, 16, 17, 18, 25, 26, 27, 28, 30]);
+    expect(on("open")).toEqual([13, 14, 15, 16, 17, 18, 25, 26, 27, 28, 30, 62, 63]);
   });
   it("has the expected number of statements in each area", () => {
-    const n = { eco: 9, work: 6, imm: 6, sec: 7, eur: 7, nrg: 7, ins: 7, soc: 7, afr: 5 } as Record<string, number>;
+    const n = { eco: 9, work: 6, imm: 6, sec: 7, eur: 9, nrg: 8, ins: 7, soc: 7, afr: 5 } as Record<string, number>;
     for (const a of AREAS) expect(STATEMENTS.filter((s) => s.area === a.id).length).toBe(n[a.id]);
   });
   it("only codes candidates and statements that exist, each with a dated source", () => {
@@ -89,7 +89,7 @@ describe("scoring", () => {
     expect(candidateAxes("RN", FAKE).open.value).toBeCloseTo(u.open.value);
   });
   it("lists the statements two candidates split on", () => {
-    expect(splits("RN", "LFI", FAKE).length).toBe(61);
+    expect(splits("RN", "LFI", FAKE).length).toBe(64);
     expect(splits("RN", "PP", FAKE).length).toBe(0);
   });
   it("runs on the real (still empty) codes without ranking anyone", () => {

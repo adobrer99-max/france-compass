@@ -1,14 +1,17 @@
 /* ============================================================
-   The 61 statements, in nine areas, in English and French.
+   The 64 statements, in nine areas, in English and French.
    1–53 are the first set; 54–61 were added in November 2026 to
-   cover housing, energy prices, defence, digital and voting age.
+   cover housing, energy prices, defence, digital and voting age;
+   62–64 (leaving the EU, leaving the euro, the EU carbon price) the same day.
+   62 and 63 have no backer in the field: they show readers who hold
+   that view where they sit beyond every candidate.
    One claim each, neutral wording, chosen because the main
    candidates split on them. The French is a first draft for the
    colleague in France to copy-check.
 
    `axis` places a statement on the results chart:
      econ — left (−) to right (+) on the economy: statements 1–12, 54 and 56
-     open — open (−) to closed (+): 13–18 and 25–30, except 29
+     open — open (−) to nationalist (+): 13–18, 25–30 except 29, and 62–63
    `sign` is +1 when agreeing moves you toward the + pole.
    Statements with no axis still count toward the match.
    ============================================================ */
@@ -38,11 +41,11 @@ export const AREA = Object.fromEntries(AREAS.map((a) => [a.id, a])) as Record<Ar
 
 export const AXES: Record<Axis, { en: [string, string]; fr: [string, string]; name: { en: string; fr: string } }> = {
   econ: { en: ["Left", "Right"], fr: ["Gauche", "Droite"], name: { en: "Economy: left to right", fr: "Économie : gauche-droite" } },
-  open: { en: ["Open", "Closed"], fr: ["Ouvert", "Fermé"], name: { en: "Europe, immigration and identity: open to closed", fr: "Europe, immigration et identité : ouvert-fermé" } },
+  open: { en: ["Open", "Nationalist"], fr: ["Ouvert", "Nationaliste"], name: { en: "Europe, immigration and identity: open to nationalist", fr: "Europe, immigration et identité : ouvert-nationaliste" } },
 };
 
 export interface Statement {
-  /** 1–61, stable: links and codes use it */
+  /** 1–64, stable: links and codes use it */
   id: number;
   area: AreaId;
   axis: Axis | null;
@@ -128,6 +131,9 @@ const ROWS: Row[] = [
   [59, "sec", null, 1, "Compulsory national or military service should be brought back.", "Un service national ou militaire obligatoire devrait être rétabli."],
   [60, "soc", null, 1, "Social media should be off-limits to children under 15.", "Les réseaux sociaux devraient être interdits aux moins de 15 ans."],
   [61, "ins", null, 1, "The voting age should be lowered to 16.", "Le droit de vote devrait être abaissé à 16 ans."],
+  [62, "eur", "open", 1, "France should leave the European Union.", "La France devrait quitter l'Union européenne."],
+  [63, "eur", "open", 1, "France should leave the euro.", "La France devrait sortir de l'euro."],
+  [64, "nrg", null, 1, "The EU's carbon price on fuel and heating (ETS2) should start in 2028 as planned.", "Le prix du carbone européen sur les carburants et le chauffage (ETS2) devrait s'appliquer dès 2028, comme prévu."],
 ];
 
 export const STATEMENTS: Statement[] = ROWS.map(([id, area, axis, sign, en, fr]) => ({ id, area, axis, sign, en, fr }));
