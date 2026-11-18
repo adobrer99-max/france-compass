@@ -14,6 +14,14 @@ import { COUNTRY_STRINGS, type CountryStrings } from "@country/strings";
 export type Lang = (typeof COUNTRY.langs)[number];
 
 const en = {
+  quickStart: (n: number) => `Quick version: ${n} statements`,
+  quickNote: (n: number, m: number, q: number, qm: number) => `The full compass is ${n} statements, about ${m} minutes. The quick version asks the ${q} that split the candidates most, about ${qm} minutes; you can answer the rest afterwards.`,
+  quickDone: "This is the quick version.",
+  sharpenNote: "Answer the remaining statements to make your result more precise. Your answers so far are kept.",
+  sharpen: (n: number) => `Answer the other ${n}`,
+  youSaid: (a: string) => `You: ${a}`,
+  youMatch: { agree: "you agree", partly: "partly", differ: "you differ" },
+  youTally: (a: number, p: number, d: number) => `You agree on ${a}, partly on ${p}, and differ on ${d} of the statements you both have a position on.`,
   methodFull: "How every compass works, in full",
   acrossHeading: "Across countries",
   acrossLead: "Where you land in each compass you've taken on this browser. The scoring and the chart work the same everywhere.",
@@ -108,6 +116,14 @@ const en = {
 export type CoreStrings = typeof en;
 
 const fr: CoreStrings = {
+  quickStart: (n) => `Version rapide : ${n} affirmations`,
+  quickNote: (n, m, q, qm) => `La boussole complète compte ${n} affirmations, environ ${m} minutes. La version rapide pose les ${q} qui départagent le plus les candidats, environ ${qm} minutes ; vous pourrez répondre aux autres ensuite.`,
+  quickDone: "Résultat de la version rapide.",
+  sharpenNote: "Répondez aux affirmations restantes pour affiner votre résultat. Vos réponses sont conservées.",
+  sharpen: (n) => `Répondre aux ${n} autres`,
+  youSaid: (a) => `Vous : ${a}`,
+  youMatch: { agree: "d'accord", partly: "en partie", differ: "désaccord" },
+  youTally: (a, p, d) => `Vous êtes d'accord sur ${a}, en partie sur ${p}, et en désaccord sur ${d} des affirmations où vous avez tous deux une position.`,
   methodFull: "La méthode commune à toutes les boussoles",
   acrossHeading: "D'un pays à l'autre",
   acrossLead: "Votre position dans chaque boussole remplie sur ce navigateur. Le calcul et le graphique sont les mêmes partout.",
@@ -199,6 +215,14 @@ const fr: CoreStrings = {
 };
 
 const it: CoreStrings = {
+  quickStart: (n) => `Versione rapida: ${n} affermazioni`,
+  quickNote: (n, m, q, qm) => `La bussola completa ha ${n} affermazioni, circa ${m} minuti. La versione rapida pone le ${q} che dividono di più, circa ${qm} minuti; puoi rispondere alle altre dopo.`,
+  quickDone: "Risultato della versione rapida.",
+  sharpenNote: "Rispondi alle affermazioni rimanenti per un risultato più preciso. Le risposte date restano salvate.",
+  sharpen: (n) => `Rispondi alle altre ${n}`,
+  youSaid: (a) => `Tu: ${a}`,
+  youMatch: { agree: "d'accordo", partly: "in parte", differ: "in disaccordo" },
+  youTally: (a, p, d) => `Sei d'accordo su ${a}, in parte su ${p} e in disaccordo su ${d} delle affermazioni su cui avete entrambi una posizione.`,
   methodFull: "Il metodo comune a tutte le bussole",
   acrossHeading: "Da un paese all'altro",
   acrossLead: "Dove ti collochi in ogni bussola compilata su questo browser. Il calcolo e il grafico sono gli stessi ovunque.",
@@ -290,6 +314,14 @@ const it: CoreStrings = {
 };
 
 const de: CoreStrings = {
+  quickStart: (n) => `Kurzversion: ${n} Thesen`,
+  quickNote: (n, m, q, qm) => `Der vollständige Kompass hat ${n} Thesen, etwa ${m} Minuten. Die Kurzversion stellt die ${q}, die die Parteien am stärksten trennen, etwa ${qm} Minuten; den Rest kannst du danach beantworten.`,
+  quickDone: "Ergebnis der Kurzversion.",
+  sharpenNote: "Beantworte die übrigen Thesen für ein genaueres Ergebnis. Deine bisherigen Antworten bleiben gespeichert.",
+  sharpen: (n) => `Die anderen ${n} beantworten`,
+  youSaid: (a) => `Du: ${a}`,
+  youMatch: { agree: "einig", partly: "teilweise", differ: "uneinig" },
+  youTally: (a, p, d) => `Du bist dir bei ${a} einig, bei ${p} teilweise und bei ${d} uneinig, unter den Thesen, zu denen ihr beide eine Position habt.`,
   methodFull: "Die Methode aller Kompasse im Detail",
   acrossHeading: "Länder im Vergleich",
   acrossLead: "Wo du in jedem Kompass stehst, den du in diesem Browser ausgefüllt hast. Rechnung und Diagramm sind überall gleich.",

@@ -29,14 +29,14 @@ export function Grid({ result }: { result: Result }) {
       <line x1={PAD} y1={H / 2} x2={W - PAD} y2={H / 2} stroke="var(--rule)" />
       <line x1={W / 2} y1={PAD} x2={W / 2} y2={H - PAD} stroke="var(--rule)" />
       <g fontSize="8" fill="var(--muted)" fontFamily="var(--mono)" letterSpacing="0.04em">
-        <text x={3} y={H / 2 + 3}>{left.toUpperCase()}</text>
-        <text x={W - 3} y={H / 2 + 3} textAnchor="end">{right.toUpperCase()}</text>
+        <text x={3} y={H / 2 + 12}>{left.toUpperCase()}</text>
+        <text x={W - 3} y={H / 2 + 12} textAnchor="end">{right.toUpperCase()}</text>
         <text x={W / 2} y={12} textAnchor="middle">{closed.toUpperCase()}</text>
         <text x={W / 2} y={H - 4} textAnchor="middle">{open.toUpperCase()}</text>
       </g>
       {markers.map((m) => (
         <g key={m.code}>
-          <circle cx={m.x} cy={m.y} r="5" fill={m.low ? "var(--slip)" : BY_CODE[m.code].color}
+          <circle className="dot" cx={m.x} cy={m.y} r="5" fill={m.low ? "var(--slip)" : BY_CODE[m.code].color}
             stroke={BY_CODE[m.code].color} strokeWidth={m.low ? 1.5 : 0} strokeDasharray={m.low ? "2 2" : undefined} />
           <text x={m.x} y={m.y + m.dy} textAnchor="middle" fontSize="8.5" fontWeight="600" fill="var(--ink)"
             fontFamily="var(--mono)" stroke="var(--slip)" strokeWidth="2.5" paintOrder="stroke">

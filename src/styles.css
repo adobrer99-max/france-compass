@@ -14,11 +14,43 @@
   --good: #1f7a4c;
   --warn: #8a6d14;
   --bad: #a8322a;
+  --on-accent: #ffffff;      /* text on envelope blue and on green/red chips */
+  --disabled: #b9bec6;
+  --faint: #c2c5bd;
+  --shade: rgba(0, 0, 0, .05);
 
   --cond: "Archivo", "Arial Narrow", system-ui, sans-serif; /* used at font-stretch 70% */
   --sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --mono: "Archivo", system-ui, sans-serif; /* figures and chart labels: Archivo with tabular numerals */
+}
+
+/* Dark theme: night-time polling station. Declared so phones use it instead of
+   darkening the page themselves, which inverted the chart's label halos. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --ink: #e7e9ee;
+    --paper: #14171d;
+    --slip: #1c2027;
+    --ballot: #232831;
+    --zinc: #4b5357;
+    --zinc-dark: #353b3f;
+    --zinc-light: #5d666a;
+    --envelope: #8fb2ea;
+    --rule: #3a404a;
+    --muted: #a3aab6;
+    --well: #2c323b;
+    --good: #5cbf89;
+    --warn: #d6b24c;
+    --bad: #ef7b70;
+    --on-accent: #10141b;
+    --disabled: #3d434c;
+    --faint: #555c66;
+    --shade: rgba(255, 255, 255, .06);
+  }
+  /* Party colours are picked for a light page; lift the darkest ones on the chart. */
+  .grid .dot { filter: brightness(1.8); }
 }
 
 * { box-sizing: border-box; }
@@ -92,10 +124,10 @@ button { font-family: inherit; font-size: inherit; color: inherit; }
   letter-spacing: 0.01em;
   border: none;
   background: var(--envelope);
-  color: #fff;
+  color: var(--on-accent);
   cursor: pointer;
 }
-.btn:disabled { background: #b9bec6; cursor: not-allowed; }
+.btn:disabled { background: var(--disabled); cursor: not-allowed; }
 
 .btn-ghost {
   display: block;
@@ -115,7 +147,7 @@ button { font-family: inherit; font-size: inherit; color: inherit; }
   font-size: 12px;
   padding: 6px 10px;
   border: 1px solid var(--rule);
-  background: #fff;
+  background: var(--ballot);
   color: var(--muted);
   cursor: pointer;
 }
@@ -131,10 +163,10 @@ button { font-family: inherit; font-size: inherit; color: inherit; }
   text-align: left;
   cursor: pointer;
   border: 1px solid var(--rule);
-  background: #fff;
+  background: var(--ballot);
   color: var(--ink);
 }
-.answer[aria-pressed="true"] { background: var(--envelope); border-color: var(--envelope); color: #fff; }
+.answer[aria-pressed="true"] { background: var(--envelope); border-color: var(--envelope); color: var(--on-accent); }
 .answer .key { font-family: var(--mono); font-size: 11px; opacity: 0.6; width: 12px; flex: none; }
 
 .answer-skip {
@@ -151,7 +183,7 @@ select, input[type="text"], textarea {
   font-family: inherit;
   font-size: 15px;
   border: 1px solid var(--rule);
-  background: #fff;
+  background: var(--ballot);
   color: var(--ink);
 }
 
@@ -194,7 +226,7 @@ label { display: block; }
   font-family: var(--mono);
   font-size: 22px;
   font-weight: 700;
-  color: #dddfd8;
+  color: var(--zinc-light);
 }
 .statement p {
   font-family: var(--serif);
@@ -285,7 +317,7 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .cell-A { color: var(--good); font-weight: 700; }
 .cell-D { color: var(--bad); font-weight: 700; }
 .cell-N { color: var(--muted); }
-.cell-none { color: #c2c5bd; }
+.cell-none { color: var(--faint); }
 
 /* ---------- sheet ---------- */
 
@@ -334,10 +366,10 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
   padding: 8px 12px;
   font-size: 13px;
   border: 1px solid var(--rule);
-  background: #fff;
+  background: var(--ballot);
   cursor: pointer;
 }
-.opt[aria-pressed="true"] { background: var(--envelope); border-color: var(--envelope); color: #fff; }
+.opt[aria-pressed="true"] { background: var(--envelope); border-color: var(--envelope); color: var(--on-accent); }
 
 /* Consent (§6.5). Generous hit area and no pre-ticked state anywhere. */
 .consent {
@@ -347,7 +379,7 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
   padding: 12px;
   margin-top: 12px;
   border: 1px solid var(--rule);
-  background: #fff;
+  background: var(--ballot);
   cursor: pointer;
 }
 .consent input[type="checkbox"] {
@@ -365,7 +397,7 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 
 @media print {
   .no-print { display: none !important; }
-  body { background: #fff; }
+  body { background: var(--ballot); }
 }
 
 /* The 26th Knesset results card */
@@ -384,12 +416,12 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .coalition-party { display: flex; align-items: center; gap: 8px; text-align: left; padding: 9px 11px; border: 1px solid var(--rule); border-radius: 6px; background: transparent; color: inherit; font: inherit; font-size: 15px; cursor: pointer; }
 .coalition-party .swatch { width: 12px; height: 12px; border-radius: 2px; flex: none; }
 .coalition-party-name { flex: 1; }
-.coalition-party[aria-pressed="true"] { border-color: var(--ink); background: rgba(0,0,0,.05); box-shadow: inset 3px 0 0 var(--ink); font-weight: 600; }
+.coalition-party[aria-pressed="true"] { border-color: var(--ink); background: var(--shade); box-shadow: inset 3px 0 0 var(--ink); font-weight: 600; }
 .coalition-summary .knesset-bar { margin-top: 0; }
-.coalition-ok { color: #1e6b3a; font-size: 15px; }
-.coalition-short { color: #8a3b12; font-size: 15px; }
+.coalition-ok { color: var(--good); font-size: 15px; }
+.coalition-short { color: var(--bad); font-size: 15px; }
 .coalition-share { margin: 0 0 14px; }
-.coalition-warn { border-left: 3px solid #b5651d; }
+.coalition-warn { border-left: 3px solid var(--warn); }
 .coalition-blocks { display: grid; gap: 2px; }
 .coalition-block { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--rule); padding: 6px 0; font-size: 15px; }
 .coalition-list { padding-left: 1.2em; margin: 6px 0; }
@@ -472,15 +504,15 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .runoff { margin-top: 28px; }
 .duel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
 .duel-side { display: grid; justify-items: center; gap: 6px; text-align: center; }
-.duel select, .weights select { font: inherit; font-size: 14px; padding: 6px; border: 1px solid var(--rule); background: #fff; max-width: 100%; }
+.duel select, .weights select { font: inherit; font-size: 14px; padding: 6px; border: 1px solid var(--rule); background: var(--ballot); max-width: 100%; }
 
 .weights { display: grid; gap: 8px; margin-top: 16px; }
 .weight-row { border: 1px solid var(--rule); background: var(--slip); padding: 10px 12px; margin: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .weight-row legend { float: left; padding: 0; font-weight: 600; font-size: 14px; }
 .seg { display: inline-flex; border: 1px solid var(--rule); }
-.seg label { padding: 6px 12px; font-size: 13px; cursor: pointer; color: var(--muted); background: #fff; }
+.seg label { padding: 6px 12px; font-size: 13px; cursor: pointer; color: var(--muted); background: var(--ballot); }
 .seg label + label { border-left: 1px solid var(--rule); }
-.seg label.on { background: var(--envelope); color: #fff; }
+.seg label.on { background: var(--envelope); color: var(--on-accent); }
 .seg label:focus-within { outline: 2px solid var(--envelope); outline-offset: 1px; }
 .seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 
@@ -490,11 +522,11 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .profile-line { display: grid; grid-template-columns: 26px 1fr; gap: 8px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
 .statement-big { font-family: var(--serif); font-size: 19px; line-height: 1.45; margin: 6px 0 4px; }
 
-.code { display: inline-grid; place-items: center; width: 20px; height: 20px; font-family: var(--mono); font-weight: 700; font-size: 13px; border: 1px solid var(--rule); background: #fff; }
-.code-A { color: #fff; background: var(--good); border-color: var(--good); }
-.code-D { color: #fff; background: var(--bad); border-color: var(--bad); }
+.code { display: inline-grid; place-items: center; width: 20px; height: 20px; font-family: var(--mono); font-weight: 700; font-size: 13px; border: 1px solid var(--rule); background: var(--ballot); }
+.code-A { color: var(--on-accent); background: var(--good); border-color: var(--good); }
+.code-D { color: var(--on-accent); background: var(--bad); border-color: var(--bad); }
 .code-N { color: var(--ink); background: var(--well); }
-.code-none { color: #b5b8b0; }
+.code-none { color: var(--faint); }
 
 .matrix th, .matrix td { padding: 3px 4px; text-align: center; border-bottom: 1px solid var(--rule); }
 .matrix thead th { font-size: 10px; font-weight: 600; white-space: nowrap; writing-mode: vertical-rl; transform: rotate(180deg); padding: 6px 2px; }
@@ -510,10 +542,10 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 
 .stance { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 6px; border: 1px solid; white-space: nowrap; }
 .st-block { color: var(--good); border-color: var(--good); }
-.st-norn { color: #2e6b5e; border-color: #2e6b5e; border-style: dashed; }
+.st-norn { color: var(--good); border-color: var(--good); border-style: dashed; }
 .st-nini { color: var(--warn); border-color: var(--warn); }
 .st-free { color: var(--muted); border-color: var(--rule); }
-.st-backs, .st-isrn { color: #fff; background: var(--ink); border-color: var(--ink); }
+.st-backs, .st-isrn { color: var(--paper); background: var(--ink); border-color: var(--ink); }
 .st-unknown { color: var(--muted); border-color: var(--rule); border-style: dotted; font-weight: 400; }
 
 .fw-timeline { list-style: none; padding: 0; margin: 8px 0; }
@@ -536,7 +568,7 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .tr-from { text-align: right; }
 .tr-bar { display: flex; height: 20px; font-family: var(--mono); font-size: 10px; color: #fff; }
 .tr-bar span { display: grid; place-items: center; overflow: hidden; }
-.tr-w { background: #e2b33c; color: var(--ink) !important; }
+.tr-w { background: #e2b33c; color: #1a2236 !important; }
 .tr-r { background: var(--well); color: var(--muted) !important; }
 .tr-f { background: var(--ink); }
 .hist th, .hist td { text-align: left; vertical-align: top; padding: 8px; border-bottom: 1px solid var(--rule); }
@@ -584,7 +616,7 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .hoardings {
   margin: 44px -20px 0;
   padding: 26px 20px 30px;
-  background: #d6d8d3;
+  background: var(--well);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
 }
@@ -691,14 +723,14 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 /* the ballot slip */
 .ballot {
   background: var(--ballot);
-  border: 1px solid #b9bbb5;
+  border: 1px solid var(--rule);
   padding: 34px 28px;
   margin-bottom: 20px;
   min-height: 170px;
   display: grid;
   place-items: center;
   text-align: center;
-  box-shadow: 3px 3px 0 #cfd1cb;
+  box-shadow: 3px 3px 0 var(--well);
 }
 .ballot p {
   font-family: var(--serif);
@@ -757,3 +789,23 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .ac-other { fill: var(--zinc-dark); }
 .ac-name { font: 700 10px var(--sans); fill: var(--ink); }
 .across-list li { margin-bottom: 8px; }
+
+/* Quick version and the you-versus-candidate lines */
+.callout.sharpen { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; justify-content: space-between; margin-top: 16px; }
+.callout.sharpen span { flex: 1 1 260px; font-size: 14px; }
+.you-line { display: inline-block; margin-top: 2px; }
+.you-agree { color: var(--good); }
+.you-partly { color: var(--warn); }
+.you-differ { color: var(--bad); }
+.you-tally { margin-top: 12px; padding: 10px 12px; background: var(--slip); border-left: 3px solid var(--rule); }
+
+/* UI pass, 18 Nov 2026 */
+.btn-ghost { color: var(--envelope); border-color: var(--envelope); font-weight: 600; }
+.btn-ghost:hover { background: var(--shade); }
+.compare td, .compare th { white-space: normal; vertical-align: top; }
+.compare td:first-child, .compare td:last-child { width: 1%; white-space: nowrap; }
+.compare .linkish { white-space: normal; text-align: left; }
+@media (max-width: 560px) {
+  .weight-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .weight-row legend { float: left; width: 100%; }
+}

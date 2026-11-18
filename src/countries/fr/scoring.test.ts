@@ -6,8 +6,8 @@ import { STRINGS } from "../../i18n";
 import { agreementPoints, candidateAxes, DEFAULT_WEIGHTS, matchFor, score, splits, userAxes, type Answers } from "../../lib/scoring";
 
 describe("statement bank", () => {
-  it("has 53 statements numbered 1–53 in order", () => {
-    expect(STATEMENTS.map((s) => s.id)).toEqual(Array.from({ length: 53 }, (_, i) => i + 1));
+  it("has 66 statements numbered 1–66 in order", () => {
+    expect(STATEMENTS.map((s) => s.id)).toEqual(Array.from({ length: 66 }, (_, i) => i + 1));
   });
   it("has English and French for every statement, and they differ", () => {
     for (const s of STATEMENTS) {
@@ -16,13 +16,14 @@ describe("statement bank", () => {
       expect(s.fr).not.toEqual(s.en);
     }
   });
-  it("puts 1–12 on the economic axis and 13–18, 25–28, 30 on open–closed", () => {
+  it("puts 1–12, 54 and 56 on the economic axis and 13–18, 25–28, 30 on open–nationalist", () => {
     const on = (ax: string) => STATEMENTS.filter((s) => s.axis === ax).map((s) => s.id);
-    expect(on("econ")).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
-    expect(on("open")).toEqual([13, 14, 15, 16, 17, 18, 25, 26, 27, 28, 30]);
+    expect(on("econ")).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 54, 56]);
+    expect(on("open")).toEqual([13, 14, 15, 16, 17, 18, 25, 26, 27, 28, 30, 62, 63]);
   });
-  it("has six statements in each area except the last, which has five", () => {
-    for (const a of AREAS) expect(STATEMENTS.filter((s) => s.area === a.id).length).toBe(a.id === "afr" ? 5 : 6);
+  it("has the expected number of statements in each area", () => {
+    const n = { eco: 9, work: 6, imm: 6, sec: 8, eur: 9, nrg: 8, ins: 7, soc: 7, afr: 6 } as Record<string, number>;
+    for (const a of AREAS) expect(STATEMENTS.filter((s) => s.area === a.id).length).toBe(n[a.id]);
   });
   it("only codes candidates and statements that exist, each with a dated source", () => {
     for (const [code, rows] of Object.entries(CODES)) {
@@ -80,20 +81,30 @@ describe("scoring", () => {
     expect(r.lowCoverage.map((m) => m.code)).toContain("PP");
   });
   it("places the axes with the right signs", () => {
-    // Agreeing with everything: on econ, 5 statements push right and 7 push left.
+    // Agreeing with everything: on econ, 5 statements push right and 9 push left.
     const yes: Answers = Object.fromEntries(STATEMENTS.map((s) => [s.id, 2]));
     const u = userAxes(yes);
-    expect(Math.round(u.econ.value)).toBe(Math.round((100 * (5 - 7)) / 12));
+    expect(Math.round(u.econ.value)).toBe(Math.round((100 * (5 - 9)) / 14));
     expect(u.econ.confidence).toBe(1);
     expect(candidateAxes("RN", FAKE).open.value).toBeCloseTo(u.open.value);
   });
   it("lists the statements two candidates split on", () => {
-    expect(splits("RN", "LFI", FAKE).length).toBe(53);
+    expect(splits("RN", "LFI", FAKE).length).toBe(66);
     expect(splits("RN", "PP", FAKE).length).toBe(0);
   });
   it("runs on the real (still empty) codes without ranking anyone", () => {
     const r = score({ 1: 1 });
     expect(r.answered).toBe(1);
     if (Object.keys(CODES).length === 0) expect(r.ranked.length).toBe(0);
+  });
+});
+
+import { listFor, QUICK } from "../../lib/quick";
+describe("quick version", () => {
+  it("asks three statements per topic, and the rest covers everything else", () => {
+    expect(QUICK.length).toBe(AREAS.length * 3);
+    for (const a of AREAS) expect(QUICK.filter((s) => s.area === a.id).length).toBe(3);
+    const all = [...listFor("quick"), ...listFor("rest")].map((s) => s.id).sort((x, y) => x - y);
+    expect(all).toEqual(STATEMENTS.map((s) => s.id));
   });
 });

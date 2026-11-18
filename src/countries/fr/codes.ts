@@ -72,6 +72,31 @@ const LFI_F6C2: S = { src: "https://melenchon2027.fr/programme/livre/fonder-la-6
 const LFI_M6C1: S = { src: "https://melenchon2027.fr/programme/livre/un-monde-ordonne/chapitre1/", label: "L'Avenir en commun 2027, part 6 ch. 1", date: "2026-11-07" };
 const LFI_M6C2: S = { src: "https://melenchon2027.fr/programme/livre/un-monde-ordonne/chapitre2/", label: "L'Avenir en commun 2027, part 6 ch. 2", date: "2026-11-07" };
 
+/* ---- Statements 54–61, added 18 November 2026 ----
+   Party votes stand in only where the candidate leads that party or its group, flagged `weak`. */
+const LOY26: S = { src: "https://www.investissement-locatif.com/le-volet-logement-de-lfi-jean-luc-melenchon.html", label: "Investissement-Locatif.com, LFI's housing programme", date: "2026-09-21" };
+const RNP24: S = { src: "https://rassemblementnational.fr/documents/202406-programme.pdf", label: "RN 2024 legislative programme: VAT at 5.5% on fuel, gas and electricity", date: "2024-06-24" };
+const LRT26: S = { src: "https://www.publicsenat.fr/actualites/politique/essence-energie-logement-travail-bruno-retailleau-promet-daugmenter-le-pouvoir-dachat-des-francais-sans-un-euro-de-dette-en-plus", label: "Public Sénat, Retailleau's purchasing-power plan", date: "2026-09-15" };
+const AID26: S = { src: "https://www.connaissancedesenergies.org/afp/la-campagne-dattal-et-de-philippe-percutee-par-la-crise-des-carburants-260922", label: "AFP, Attal and Philippe on fuel prices", date: "2026-09-22" };
+const PCFT25: S = { src: "https://www.publicsenat.fr/actualites/politique/le-groupe-communiste-depose-une-proposition-de-loi-pour-reduire-a-55-la-tva-sur-lenergie-pour-eviter-un-massacre-social", label: "Public Sénat, communist senators' bill for 5.5% VAT on energy", date: "2025-07-16", weak: true };
+const ZUC25: S = { src: "https://lcp.fr/actualites/budget-2026-la-taxe-zucman-rejetee-par-l-assemblee-nationale-413632", label: "LCP, Assembly vote on the Zucman tax, 2026 budget (party's deputies)", date: "2025-10-31", weak: true };
+const DUP25: S = { src: "https://datan.fr/votes/legislature-17/vote_2957", label: "Assembly final vote on the Duplomb law reauthorising neonicotinoids (party's deputies)", date: "2025-07-08", weak: true };
+const DEF26: S = { src: "https://lhemicycle.com/theme/defense/", label: "L'Hémicycle, candidates on defence (consulted 18 Nov 2026)", date: "2026-11-18" };
+const LFIS26: S = { src: "https://poligraph.fr/elections/presidentielle-2027/mesures/jean-luc-melenchon-ouvrir-la-possibilite-d-un-service-militaire-comme-composante-optionnelle-du-service-citoyen-obligatoire", label: "Poligraph, L'Avenir en commun 2027: compulsory citizen service", date: "2026-11-08" };
+const RNS24: S = { src: "https://www.politis.fr/articles/2024/07/elections-legislatives-service-national-universel-les-ambitions-demesurees-du-rn/", label: "Politis, the RN on national service", date: "2024-07-02", weak: true };
+const RS26: S = { src: "https://nosparlementaires.fr/actualites/reseaux-sociaux-interdits-15-ans-adoption-definitive", label: "NosParlementaires, final Assembly vote on the under-15 social media ban (party's deputies)", date: "2026-07-21", weak: true };
+const V16: S = { src: "https://www.elyseescope.com/le-radar/jean-luc-melenchon-vote-16-ans", label: "ÉlyséeScope, candidates on voting at 16", date: "2026-10-16", weak: true };
+const EU26: S = { src: "https://www.sondages-presidentielle2027.fr/themes/europe-presidentielle-2027.html", label: "Sondages Présidentielle 2027, candidates on Europe and the euro (consulted 18 Nov 2026)", date: "2026-11-18", weak: true };
+const FV26: S = { src: "https://www.france-vote.fr/theme/europe", label: "France-Vote, candidates on leaving the EU or the euro (consulted 18 Nov 2026)", date: "2026-11-18", weak: true };
+const DP26: S = { src: "https://directpolitique.substack.com/p/sujet-star-en-2017-quasi-oublie-en", label: "Direct Politique, sovereigntism in the 2027 campaign", date: "2026-11-01", weak: true };
+const NDA26: S = { src: "https://www.timefrance.fr/politique/les-visages-des-presidentielles-2027-nicolas-dupont-aignan-lirreductible-souverainiste-du-frexit/", label: "Time France, Dupont-Aignan profile", date: "2026-11-01", weak: true };
+const ETS26: S = { src: "https://lautomobiliste.fr/19/09/2026/le-rn-annonce-15-centimes-de-plus-sur-le-carburant-en-2028-a-cause-de-lue-ce-quils-oublient-de-preciser-change-tout/", label: "L'Automobiliste, how French MEPs voted on ETS2 (2023, 2026)", date: "2026-09-19", weak: true };
+const PAL25: S = { src: "https://lcp.fr/index%2Ephp/actualites/la-france-va-reconnaitre-l-etat-de-palestine-ce-lundi-une-decision-contestee-par", label: "LCP, reactions as France recognised Palestine", date: "2025-09-22" };
+const PALJ25: S = { src: "https://lcp.fr/actualites/etat-de-palestine-les-principales-reactions-a-l-annonce-de-macron-391199", label: "LCP, reactions to Macron's announcement", date: "2025-07-25" };
+const PALJ25W: S = { ...PALJ25, weak: true };
+const YAD26: S = { src: "https://lcp.fr/actualites/lutte-contre-l-antisemitisme-une-proposition-de-loi-controversee-a-l-ordre-du-jour-de-l", label: "LCP, the Yadan bill on new forms of antisemitism (party's deputies)", date: "2026-04-09", weak: true };
+const YADW26: S = { src: "https://lcp.fr/actualites/antisemitisme-les-deputes-macronistes-retirent-la-proposition-de-loi-yadan-un-projet-de", label: "LCP, the Yadan bill withdrawn for a government bill", date: "2026-04-16" };
+
 /** [statement, position, source, note?] */
 type Row = [number, "A" | "N" | "D", S, string?];
 
@@ -111,6 +136,20 @@ export const CODES: Codes = {
     // second pass
     [22, "A", VSAV, "Voted for algorithmic video surveillance; not facial recognition as such"],
     [33, "A", CAR24, "Bardella wants the 2035 ban reversed"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "A", RNP24, "Le Pen restated the fuel cut in September 2026 (Sud Radio)"],
+    [56, "D", ZUC25, "Party record: RN deputies"],
+    [57, "D", DUP25, "Party record: RN deputies voted for the Duplomb law"],
+    [59, "A", RNS24, "Prefers 'a real return of military service' to the SNU; Le Pen's 2017 programme had a three-month service"],
+    [60, "N", RS26, "Party record: RN deputies mostly abstained (14 abstentions, 2 against)"],
+    [61, "D", V16],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", DP26, "Leaving the EU is no longer the aim; treaty revision is"],
+    [63, "D", EU26, "Stay in the euro; position changed since 2017"],
+    [64, "D", ETS26, "Bardella voted against ETS2 in 2023 and against the 2026 text"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "D", PAL25, "Le Pen: \"le Hamastan et non la Palestine\"; Bardella: no two states while Hamas stands"],
+    [66, "A", YAD26, "Party record: RN deputies backed the text in committee"],
   ]),
   LFI: rows([
     [1, "A", IF, "Restore the ISF with a climate component"],
@@ -148,6 +187,19 @@ export const CODES: Codes = {
     [25, "N", LFI_M6C1, "EU rules set aside only where less ambitious than French social or green ones; stays in the EU and the euro"],
     [30, "A", LFI_M6C1, "Calls the Mercosur deal destructive; veto on free-trade deals"],
     [53, "A", LFI_M6C2, "Strengthen the UN presence in Lebanon"],
+    // statements 54–61 (18 Nov 2026)
+    [54, "A", LOY26, "Extend rent control to the whole country"],
+    [56, "A", ZUC25, "Party record: LFI deputies"],
+    [57, "A", DUP25, "Party record: LFI deputies voted against the Duplomb law"],
+    [59, "A", LFIS26, "Compulsory citizen service, with military service as an option within it"],
+    [60, "D", RS26, "Party record: LFI deputies voted against as a bloc"],
+    [61, "A", V16],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", FV26, "Stay in the EU and disobey the treaties"],
+    [64, "D", ETS26, "Party record: LFI MEPs voted against ETS2 in 2023"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "A", PALJ25, "Mélenchon: a \"victoire morale\", but why wait"],
+    [66, "D", YADW26, "Mélenchon welcomed the bill's withdrawal; LFI obstructed it"],
   ]),
   HOR: rows([
     [3, "A", IF, "Cut production taxes by €50bn a year"],
@@ -174,6 +226,17 @@ export const CODES: Codes = {
     [30, "A", MERV],
     [38, "D", PROP25, "Defends the current system unless local and national mandates can be combined again"],
     [45, "N", PHV26, "School heads could impose uniforms; not a national rule"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "D", AID26, "Targeted, temporary aid rather than tax cuts"],
+    [56, "D", ZUC25, "Party record: Horizons deputies"],
+    [57, "D", DUP25, "Party record: Horizons deputies voted for the Duplomb law"],
+    [58, "A", DEF26, "3% of GDP"],
+    [60, "A", RS26, "Party record: Horizons deputies"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "A strong Europe with national sovereignty kept"],
+    [63, "D", EU26],
+    // statements 65–66 (18 Nov 2026)
+    [66, "A", YAD26, "Party record: Horizons deputies backed the text"],
   ]),
   PP: rows([
     [1, "A", IF, "Zucman tax: 2% minimum on fortunes over €100m"],
@@ -196,6 +259,14 @@ export const CODES: Codes = {
     [22, "D", VSAV, "Party record: PS deputies voted against"],
     [29, "A", ISR24, "Party record: PS senator Hélène Conway-Mouret"],
     [30, "A", MERV, "Party record: PS deputies"],
+    // statements 54–61 (18 Nov 2026)
+    [56, "A", ZUC25, "Party record: Socialist group deputies, where Place publique sits"],
+    [57, "A", DUP25, "Party record: Socialist group deputies voted against the Duplomb law"],
+    [60, "N", RS26, "Party record: Socialist group split, 30 for and 28 abstentions"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "The most pro-European candidate on the page"],
+    [63, "D", EU26, "Keep and reform"],
+    [64, "N", ETS26, "Party record: Place publique and Socialist MEPs abstained in 2023"],
   ]),
   LR: rows([
     [3, "A", IF, "Cut production taxes by €15bn"],
@@ -222,6 +293,18 @@ export const CODES: Codes = {
     [29, "D", ISR24, "Party record: LR senators Karoutchi and Perrin"],
     [30, "A", MERV],
     [38, "D", PROP25, "Retailleau opposed"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "D", LRT26, "Cut fuel costs by scrapping energy-saving certificates instead; criticised the 5.5% VAT proposal"],
+    [56, "D", ZUC25, "Party record: LR deputies"],
+    [57, "D", DUP25, "Party record: LR deputies voted for the Duplomb law"],
+    [58, "A", DEF26, "€100 billion a year by the end of the term, about 3% of GDP"],
+    [60, "A", RS26, "Party record: LR deputies"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "Pro-European, with more national sovereignty"],
+    [63, "D", EU26],
+    // statements 65–66 (18 Nov 2026)
+    [65, "D", PALJ25W, "Party record: LR leaders called it useless and counterproductive"],
+    [66, "A", YAD26, "Party record: Droite républicaine deputies backed and co-signed the text"],
   ]),
   NE: rows([
     [1, "D", IF, "Abolish the IFI"],
@@ -241,6 +324,9 @@ export const CODES: Codes = {
     [35, "A", IF],
     [46, "A", IF],
     [47, "D", IF, "A school allowance usable at private schools"],
+    // statements 54–61 (18 Nov 2026)
+    [58, "A", DEF26, "3% to 3.5% of GDP"],
+    [59, "A", DEF26, "A short compulsory national service, in barracks and uniform"],
   ]),
   REN: rows([
     [2, "A", IF, "A constitutional golden rule on balanced budgets"],
@@ -262,6 +348,18 @@ export const CODES: Codes = {
     [29, "N", ISR24, "Macron called for a halt to arms used in Gaza; Yaël Braun-Pivet opposed 'disarming Israel'"],
     [38, "N", PROP25, "Party record: Renaissance sceptical, 'not a priority'"],
     [45, "N", ATU23, "As education minister: 'not yet convinced', backed a large trial"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "D", AID26, "Targeted, temporary aid rather than tax cuts"],
+    [56, "D", ZUC25, "Party record: EPR deputies"],
+    [57, "D", DUP25, "Party record: EPR deputies voted for the Duplomb law (64 for, 14 against)"],
+    [60, "A", RS26, "Party record: EPR deputies"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "Deeper integration"],
+    [63, "D", EU26],
+    [64, "A", ETS26, "Party record: Renew MEPs voted for ETS2 in 2023"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "A", PALJ25W, "Party record: EPR deputies called it historic; Caroline Yadan dissented"],
+    [66, "A", YAD26, "Party record: EPR deputies, Attal's group, co-signed and championed the text"],
   ]),
   ECO: rows([
     [1, "A", IF],
@@ -286,6 +384,15 @@ export const CODES: Codes = {
     // second pass
     [29, "A", ISR24, "Party record: ecologist senator Akli Mellouli"],
     [38, "A", PROP25, "Regional proportional representation"],
+    // statements 54–61 (18 Nov 2026)
+    [56, "A", ZUC25, "Party record: Écologiste deputies"],
+    [57, "A", DUP25, "Party record: Écologiste deputies voted against the Duplomb law"],
+    [60, "A", RS26, "Party record: Écologiste deputies, 19 for, 7 against, 7 abstentions"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "Stronger European integration"],
+    [64, "D", ETS26, "Party record: most Green MEPs voted against the 2023 deal"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "A", PALJ25W, "Party record: Écologiste group leader called it a duty"],
   ]),
   REC: rows([
     [1, "D", IF],
@@ -304,6 +411,10 @@ export const CODES: Codes = {
     [32, "A", IF, "End public support for renewables"],
     [47, "D", IF],
     [48, "A", IF],
+    // statements 54–61 (18 Nov 2026)
+    [58, "D", DEF26, "2022 programme: €70 billion a year by 2030, about 2% of GDP"],
+    // statements 62–64 (18 Nov 2026)
+    [63, "D", EU26, "Stay in the euro, with fewer powers for the ECB"],
   ]),
   PCF: rows([
     [1, "A", IF],
@@ -323,6 +434,17 @@ export const CODES: Codes = {
     [26, "D", UKRV, "Party record: GDR deputies voted against the 2024 security accord"],
     [30, "A", MERV, "Party record: GDR deputies"],
     [39, "A", PCF22, "2022: referendums triggered by a million citizens"],
+    // statements 54–61 (18 Nov 2026)
+    [55, "A", PCFT25, "Party record: communist senators' bill"],
+    [56, "A", ZUC25, "Party record: GDR deputies"],
+    [57, "A", DUP25, "Party record: GDR deputies voted against the Duplomb law"],
+    [58, "D", DEF26, "Cancel the planned €36 billion rise in defence spending"],
+    [60, "N", RS26, "Party record: GDR deputies split, 6 for, 3 against, 5 abstentions"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", EU26, "European cooperation kept, competition policy criticised"],
+    // statements 65–66 (18 Nov 2026)
+    [65, "A", PAL25, "Roussel: recognition comes \"bien tardivement\""],
+    [66, "D", YAD26, "Party record: communist deputies called it a censorship law"],
   ]),
   DLF: rows([
     [1, "A", IF, "On very large fortunes, excluding the main home"],
@@ -341,12 +463,21 @@ export const CODES: Codes = {
     [32, "A", IF, "End state aid for wind"],
     [33, "A", IF],
     [45, "A", IF],
+    // statements 54–61 (18 Nov 2026)
+    [58, "D", DEF26, "2.5% of GDP"],
+    [59, "A", DEF26, "Three months' compulsory civic service, with a one-year military option"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "A", NDA26, "A negotiated exit towards a 'Europe of nations'"],
+    [63, "N", FV26, "Leaving the euro 'envisaged'; another comparator lists him as staying"],
   ]),
   DEB: rows([
     [8, "A", IF, "Extra quarters for exposed jobs"],
     // second pass
     [39, "A", RUF23],
     [43, "A", RUF25, "Voted for at first reading"],
+    // statements 62–64 (18 Nov 2026)
+    [62, "D", FV26, "No exit from the EU or the euro"],
+    [63, "D", FV26],
   ]),
   XB: rows([
     // second pass: no 2027 programme yet; his 2021–22 platform as placeholder
