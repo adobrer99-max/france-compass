@@ -798,3 +798,14 @@ th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-tra
 .you-partly { color: var(--warn); }
 .you-differ { color: var(--bad); }
 .you-tally { margin-top: 12px; padding: 10px 12px; background: var(--slip); border-left: 3px solid var(--rule); }
+
+/* UI pass, 18 Nov 2026 */
+.btn-ghost { color: var(--envelope); border-color: var(--envelope); font-weight: 600; }
+.btn-ghost:hover { background: var(--shade); }
+.compare td, .compare th { white-space: normal; vertical-align: top; }
+.compare td:first-child, .compare td:last-child { width: 1%; white-space: nowrap; }
+.compare .linkish { white-space: normal; text-align: left; }
+@media (max-width: 560px) {
+  .weight-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .weight-row legend { float: left; width: 100%; }
+}
