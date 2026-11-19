@@ -9,7 +9,7 @@ const MAX = 60;
 const DEFAULT = Object.fromEntries(CANDIDATES.map((c) => [c.code, c.alliance])) as Record<CandidateCode, Alliance>;
 const NEXT: Record<string, Alliance> = { cdx: "csx", csx: null, null: "cdx" };
 /** Smaller lists in the polls that aren't on the compass but count toward an alliance's total. */
-const SMALL: Record<"cdx" | "csx", { name: string; share: number }[]> = { cdx: [{ name: "Sud chiama Nord", share: 1.1 }], csx: [] };
+const SMALL: Record<"cdx" | "csx", { name: string; share: number }[]> = { cdx: [{ name: "Sud chiama Nord", share: 1.0 }], csx: [] };
 const fmt = (lang: string, n: number) => (lang === "it" ? n.toFixed(1).replace(".", ",") : n.toFixed(1));
 
 /** The 42% rule, live: poll shares added up by alliance, plus your match with each alliance. */

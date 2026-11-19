@@ -33,6 +33,8 @@ type S = Pick<Code, "src" | "label" | "date" | "weak">;
 const MW22: S = { src: "https://pagellapolitica.it/articoli/salario-minimo-mozioni-camera-opposizione", label: "Pagella Politica, Chamber votes on minimum-wage motions", date: "2022-12-01" };
 const WT25: S = { src: "https://pagellapolitica.it/articoli/dibattito-patrimoniale-divisioni-partiti", label: "Pagella Politica, the parties on a wealth tax", date: "2025-11-10" };
 const WT25W: S = { ...WT25, weak: true };
+const WT26: S = { src: "https://pagellapolitica.it/articoli/campo-largo-accordo-patrimoniale", label: "Pagella Politica, the centre-left split on a wealth tax", date: "2026-11-16" };
+const WT26W: S = { ...WT26, weak: true };
 const RDC26: S = { src: "https://quifinanza.it/politica/reddito-cittadinanza-2-0-m5s-proposta-costi/1022498/", label: "QuiFinanza, M5S 'Reddito 2.0' and the allies' replies", date: "2026-11-03" };
 const CL26: S = { src: "https://www.open.online/2026/10/13/campo-largo-trova-intesa-sui-conti-no-scostamento-per-spese-militari/", label: "Open, the centre-left's joint budget resolutions", date: "2026-10-13" };
 const CL26W: S = { ...CL26, weak: true };
@@ -92,7 +94,7 @@ export const CODES: Codes = {
   ]),
   PD: rows([
     [1, "A", MW22, "Proposed €9.50 an hour"],
-    [2, "N", WT25, "Backs an EU-wide tax on billionaires, not a national wealth tax"],
+    [2, "A", WT26, "Schlein: in favour of a tax on the super-rich, which 'can also be done at national level'; no formal proposal yet"],
     [3, "A", RDC26, "'The principle is shared'; proposes a universal social protection scheme"],
     [4, "A", CL26],
     [5, "A", CIT24, "Prefers ius soli; open to other routes"],
@@ -117,7 +119,7 @@ export const CODES: Codes = {
   ]),
   M5S: rows([
     [1, "A", MW22, "Proposed at least €9 an hour"],
-    [2, "D", WT25, "Conte: 'not on the agenda'"],
+    [2, "D", WT26, "Conte: no to a wealth tax; tax financial speculation instead"],
     [3, "A", RDC26, "Its 'Reddito 2.0'"],
     [4, "A", CL26],
     [5, "A", CIT24, "Ius scholae after a full school cycle; against ius soli"],
@@ -158,7 +160,7 @@ export const CODES: Codes = {
   ]),
   AVS: rows([
     [1, "A", MW22, "Proposed €10 an hour"],
-    [2, "A", WT25],
+    [2, "A", WT26, "Fratoianni: a tax on the largest fortunes in the programme 'is a necessity'; proposes it above €5.4 million"],
     [3, "A", RDC26, "Bonelli: 'certainly a priority'"],
     [4, "A", CL26],
     [5, "A", CIT24, "Ius soli, from its 2022 platform"],
@@ -223,6 +225,7 @@ export const CODES: Codes = {
   ]),
   IV: rows([
     [1, "A", CL26, "Signed the centre-left's call for a minimum-wage law"],
+    [2, "D", WT26W, "Renzi calls a wealth tax a hard-to-apply slogan that would drive capital away (reported, not quoted)"],
     [3, "N", RDC26, "Open to talks, after earlier trying to abolish it"],
     [4, "A", CL26],
     [5, "A", CIT24],
@@ -236,6 +239,7 @@ export const CODES: Codes = {
     [22, "A", REF25],
   ]),
   PE: rows([
+    [2, "N", WT26, "Magi: 'no prejudicial closure' but doubts it works; prefers taxing idle capital and large inheritances"],
     [5, "A", CIT24, "Magi: the law is outdated"],
     [8, "A", EUD24, "Joint list with Italia Viva"],
     [10, "A", PAL25W, "Magi called the conditional motion a 'sleight of hand'"],
@@ -264,4 +268,6 @@ export function positionOf(code: CandidateCode, id: number, codes: Codes = CODES
   return codes[code]?.[id]?.p ?? "-";
 }
 
-export const CHANGES: { date: string; candidate: CandidateCode; statement: number; from: Position; to: Position; why: string }[] = [];
+export const CHANGES: { date: string; candidate: CandidateCode; statement: number; from: Position; to: Position; why: string }[] = [
+  { date: "2026-11-15", candidate: "PD", statement: 2, from: "N", to: "A", why: "Schlein said a tax on the super-rich can also be done at national level, not only in the EU (Pagella Politica, 16 Nov 2026)." },
+];
