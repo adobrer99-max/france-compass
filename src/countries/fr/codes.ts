@@ -96,6 +96,8 @@ const PALJ25: S = { src: "https://lcp.fr/actualites/etat-de-palestine-les-princi
 const PALJ25W: S = { ...PALJ25, weak: true };
 const YAD26: S = { src: "https://lcp.fr/actualites/lutte-contre-l-antisemitisme-une-proposition-de-loi-controversee-a-l-ordre-du-jour-de-l", label: "LCP, the Yadan bill on new forms of antisemitism (party's deputies)", date: "2026-04-09", weak: true };
 const YADW26: S = { src: "https://lcp.fr/actualites/antisemitisme-les-deputes-macronistes-retirent-la-proposition-de-loi-yadan-un-projet-de", label: "LCP, the Yadan bill withdrawn for a government bill", date: "2026-04-16" };
+/* ---- Weekly check, 23 November 2026 ---- */
+const GLU26: S = { src: "https://lcp.fr/actualites/presidentielle-raphael-glucksmann-devoile-les-premieres-lignes-de-son-possible-programme", label: "LCP, Glucksmann's book Nous avons encore envie: first lines of his programme", date: "2026-05-26" };
 
 /** [statement, position, source, note?] */
 type Row = [number, "A" | "N" | "D", S, string?];
@@ -267,6 +269,8 @@ export const CODES: Codes = {
     [62, "D", EU26, "The most pro-European candidate on the page"],
     [63, "D", EU26, "Keep and reform"],
     [64, "N", ETS26, "Party record: Place publique and Socialist MEPs abstained in 2023"],
+    // weekly check, 23 Nov 2026
+    [59, "A", GLU26, "A ten-month compulsory civic service for all young people; its military part stays voluntary"],
   ]),
   LR: rows([
     [3, "A", IF, "Cut production taxes by €15bn"],

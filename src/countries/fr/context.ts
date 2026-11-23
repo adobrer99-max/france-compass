@@ -231,7 +231,6 @@ export const FIREWALL: FirewallRow[] = [
       { stance: "backsRN", who: "Nicolas Dupont-Aignan, 2022 runoff", quote: { en: "Urged voters to block Macron and said he would vote Le Pen.", fr: "Appelle à « tout faire pour faire barrage » à Macron et votera Le Pen." }, src: S.lnc2022 },
     ],
   },
-  { code: "DEB", for2027: "unknown", record: [] },
   { code: "XB", for2027: "unknown", record: [] },
 ];
 
@@ -239,11 +238,11 @@ export const FIREWALL: FirewallRow[] = [
 export const FIREWALL_LOG: { date: string; text: T; src: Src }[] = [];
 
 export const POLL_NOW = {
-  label: "Ifop for LCI, 27–29 October 2026",
-  url: "https://www.publicsenat.fr/actualites/politique/sondage-presidentielle-2027-un-second-tour-le-pen-melenchon-assure-la-droite-et-le-bloc-central-peine-a-remonter-lisnard-confirme-sa-percee",
+  label: "Ifop for TF1-LCI, Le Figaro and Fiducial, 13–16 November 2026",
+  url: "https://www.ifopgroup.com/article/les-intentions-de-vote-a-lelection-presidentielle-2027/",
   text: {
-    en: "The latest poll puts Le Pen at 35–37% in the first round and Mélenchon at 17.5–18%, making a Le Pen–Mélenchon runoff the likeliest. In May, Odoxa had Bardella beating Philippe 52–48 in a runoff, the reverse of two months earlier.",
-    fr: "Le dernier sondage place Le Pen à 35-37 % au premier tour et Mélenchon à 17,5-18 %, faisant d'un duel Le Pen–Mélenchon le scénario le plus probable. En mai, Odoxa donnait Bardella vainqueur de Philippe au second tour, 52-48, l'inverse de deux mois plus tôt.",
+    en: "The latest poll puts Le Pen at 32–36% in the first round and Mélenchon at 17–19.5%, both qualifying in every scenario tested, making a Le Pen–Mélenchon runoff the likeliest. In May, Odoxa had Bardella beating Philippe 52–48 in a runoff, the reverse of two months earlier.",
+    fr: "Le dernier sondage place Le Pen à 32-36 % au premier tour et Mélenchon à 17-19,5 %, tous deux qualifiés dans chaque hypothèse testée, faisant d'un duel Le Pen–Mélenchon le scénario le plus probable. En mai, Odoxa donnait Bardella vainqueur de Philippe au second tour, 52-48, l'inverse de deux mois plus tôt.",
   },
   odoxa: { label: "Odoxa-Mascaret, 20–21 May 2026", url: "https://www.publicsenat.fr/actualites/politique/presidentielle-2027-melenchon-et-philippe-au-coude-a-coude-pour-la-qualification-au-second-tour-bardella-toujours-largement-en-tete-selon-le-sondage-odoxa" },
 };
