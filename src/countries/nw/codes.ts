@@ -6,8 +6,9 @@
      left out of that party's match.
 
    Every code carries a dated source. The Grüne adopted their 2027
-   programme on 15 November 2026 but its text isn't online yet; no
-   other party has one out. So this is still a first pass: most codes come from
+   programme on 15 November 2026 and the AfD on 22 November 2026, but
+   neither text is online yet (AfD codes come from its programme
+   motion as dpa quoted it); no other party has one out. So this is still a first pass: most codes come from
    the 2022 Landtag programmes, the 2022 CDU–Grüne exploratory paper
    or the government's record, and are marked `weak`. A party's own
    2027 programme or statement replaces them. Never fill a gap from
@@ -46,6 +47,7 @@ const GRDAR26: S = { src: "https://netzpolitik.org/2026/gruene-palantir-nein-dat
 const CDUPT26: S = { src: "https://www.cdu-nrw.de/cdu-landesparteitag-stellt-weichen-fuer-die-landtagswahl-2027", label: "CDU NRW, 48th state party conference opens work on the 2027 programme", date: "2026-07-04" };
 const FDPVK26: S = { src: "https://www.fdp.de/aus-weniger-wird-mehr-fdp-startet-vorkampagne", label: "FDP, 'Aus weniger wird mehr': FDP NRW starts its pre-campaign", date: "2026-10-07" };
 const GRLDK26: S = { src: "https://www.ad-hoc-news.de/politik/mona-neubaur-fuehrt-nrw-gruene-2027-erneut-in-die-landtagswahl/70506308", label: "dpa via ad-hoc-news, Grüne NRW conference on the 2027 programme draft", date: "2026-11-13" };
+const AFDLA26: S = { src: "https://www.onvista.de/news/2026/11-19-nrw-afd-ringt-um-kurs-bei-abschiebungen-und-integration-0-10-26578071", label: "dpa-AFX via onvista, the AfD NRW executive's motion for the 2027 programme (adopted 22 November 2026)", date: "2026-11-19" };
 const AFDV26: S = { src: "https://www.juedische-allgemeine.de/politik/wuest-bringt-pruefung-eines-afd-verbots-ins-spiel/", label: "Jüdische Allgemeine, Wüst on examining an AfD ban", date: "2026-09-08" };
 
 type Row = [id: number, p: Exclude<Position, "-">, src: S, note?: string];
@@ -95,7 +97,11 @@ export const CODES: Codes = {
     [20, "A", FDP22],
   ]),
   AFD: rows([
+    [7, "A", AFDLA26, "Programme motion: more police presence and video surveillance at crime hotspots"],
+    [9, "D", AFDLA26, "Programme motion: stop the Energiewende and use domestic lignite for power in the long term"],
+    [10, "D", AFDLA26, "Programme motion: building new wind turbines should be made harder"],
     [14, "A", BDST22, "Cut the rate to 3.5%"],
+    [20, "A", AFDLA26, "Programme motion: 'forcieren' deportations of people obliged to leave, a 'Task Force Rückführung NRW'; individual cases, no collective deportations"],
   ]),
 };
 
